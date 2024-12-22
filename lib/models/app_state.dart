@@ -51,7 +51,7 @@ class AppState extends ChangeNotifier {
     for (Character character in characterList) {
       int health = character.currentHealth;
       sum += health;
-      baseSum += character.baseHitPoints;
+      baseSum += character.maxHealth;
       healthValues.add(health);
     }
 

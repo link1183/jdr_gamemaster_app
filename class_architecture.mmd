@@ -1,0 +1,234 @@
+classDiagram
+    class Character {
+        +String name
+        +List~AbilityScore~ stats
+        +List~InventoryItem~ inventory
+        +List~Class~ classes
+        +Modifier modifiers
+        +List~JsonObject~ customDefenseAdjustments
+        +fromJson(Map~String,dynamic~ json) Character
+        +calculateArmorClass() int
+    }
+
+    class AbilityScore {
+        +Ability name
+        +int value
+        +fromJson(Map~String,dynamic~ json) AbilityScore
+    }
+
+    class InventoryItem {
+        +ItemDefinition definition
+        +int quantity
+        +bool isEquipped
+        +fromJson(Map~String,dynamic~ json) InventoryItem
+    }
+
+    class ItemDefinition {
+        +String name
+        +String type
+        +String description
+        +List~GrantedModifier~ grantedModifiers
+        +List~WeaponBehavior~ weaponBehaviors
+        +String filterType
+        +int armorClass
+        +bool isMonkWeapon
+        +fromJson(Map~String,dynamic~ json) ItemDefinition
+    }
+
+    class WeaponBehavior {
+        +String type
+        +WeaponDamage damage
+        +String damageType
+        +bool isMonkWeapon
+        +fromJson(Map~String,dynamic~ json) WeaponBehavior
+    }
+
+    class WeaponDamage {
+        +int diceCount
+        +int diceValue
+        +int diceMultiplier
+        +int fixedValue
+        +fromJson(Map~String,dynamic~ json) WeaponDamage
+    }
+
+    class Class {
+        +int level
+        +ClassDefinition? definition
+        +ClassDefinition? subClassDefinition
+        +fromJson(Map~String,dynamic~ json) Class
+    }
+
+    class ClassDefinition {
+        +String name
+        +String description
+        +fromJson(Map~String,dynamic~ json) ClassDefinition
+    }
+
+    class Modifier {
+        +List~ClassModifier~ race
+        +List~ClassModifier~ classModifier
+        +List~ClassModifier~ background
+        +List~ClassModifier~ item
+        +List~ClassModifier~ feat
+        +List~ClassModifier~ condition
+        +fromJson(Map~String,dynamic~ json) Modifier
+    }
+
+    class ClassModifier {
+        +int fixedValue
+        +ModifierType type
+        +ModifierSubType subType
+        +Ability stat
+        +fromJson(Map~String,dynamic~ json) ClassModifier
+    }
+
+    class GrantedModifier {
+        +int fixedValue
+        +ModifierType type
+        +ModifierSubType subType
+        +Ability stat
+        +fromJson(Map~String,dynamic~ json) GrantedModifier
+    }
+
+    class Ability {
+        <<enumeration>>
+        strength
+        dexterity
+        constitution
+        intelligence
+        wisdom
+        charisma
+        notFound
+        +getStat(int? stat) Ability
+    }
+
+    class ModifierType {
+        <<enumeration>>
+        bonus
+        proficiency
+        advantage
+        resistance
+        damage
+        weaponMastery
+        setBase
+        monkWeapon
+        sense
+        size
+        language
+        expertise
+        set
+        notFound
+        +getModifier(String? type) ModifierType
+    }
+
+    class ModifierSubType {
+        <<enumeration>>
+        armorClass
+        unarmoredArmorClass
+        savingThrows
+        strengthSavingThrows
+        dexteritySavingThrows
+        constitutionSavingThrows
+        intelligenceSavingThrows
+        wisdomSavingThrows
+        charismaSavingThrows
+        lightArmor
+        mediumArmor
+        heavyArmor
+        shields
+        simpleWeapons
+        martialWeapons
+        crossbowHand
+        scimitar
+        shortsword
+        unarmoredMovement
+        extraAttacks
+        hitPoints
+        strengthAttacks
+        unarmedAttacks
+        strengthScore
+        dexterityScore
+        constitutionScore
+        intelligenceScore
+        wisdomScore
+        charismaScore
+        chooseAnAbilityScore
+        acrobatics
+        athletics
+        history
+        arcana
+        insight
+        investigation
+        medicine
+        perception
+        stealth
+        survival
+        sleightOfHand
+        deception
+        nature
+        intimidation
+        persuasion
+        alchemistsSupplies
+        herbalismKit
+        calligraphersSupplies
+        poisonersKit
+        thievesTools
+        dragonchessSet
+        flute
+        magic
+        spellAttacks
+        druidCantripDamage
+        self
+        darkvision
+        innateSpeedFlying
+        speed
+        initiative
+        common
+        elvish
+        commonSignLanguage
+        orc
+        infernal
+        goblin
+        draconic
+        druidic
+        dwarvish
+        abyssal
+        undercommon
+        deepSpeech
+        force
+        fire
+        acid
+        necrotic
+        medium
+        subclass
+        chooseABloodHunterSkill
+        chooseABarbarianSkill
+        chooseAFighterSkillProficiency
+        notFound
+        +getModifier(String? type) ModifierSubType
+    }
+
+    %% Relationships
+    Character *-- AbilityScore : contains many
+    Character *-- InventoryItem : contains many
+    Character *-- Class : contains many
+    Character *-- Modifier : contains
+
+    InventoryItem *-- ItemDefinition : contains
+    ItemDefinition *-- GrantedModifier : contains many
+    ItemDefinition *-- WeaponBehavior : contains many
+    WeaponBehavior *-- WeaponDamage : contains
+
+    Class *-- ClassDefinition : contains
+
+    Modifier *-- ClassModifier : contains many
+
+    ClassModifier .. Ability : uses
+    ClassModifier .. ModifierType : uses
+    ClassModifier .. ModifierSubType : uses
+
+    GrantedModifier .. Ability : uses
+    GrantedModifier .. ModifierType : uses
+    GrantedModifier .. ModifierSubType : uses
+
+    AbilityScore .. Ability : uses

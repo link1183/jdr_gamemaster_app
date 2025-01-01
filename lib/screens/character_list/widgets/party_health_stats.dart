@@ -60,9 +60,10 @@ class PartyHealthStats extends StatelessWidget {
               Text(
                 '± ${healthStats['variance']}',
                 style: TextStyle(
-                  color: Theme.of(context).colorScheme.onPrimaryContainer,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 20,
+                  color: Theme.of(context).colorScheme.primary,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 24,
+                  letterSpacing: 1,
                 ),
               ),
               Text(

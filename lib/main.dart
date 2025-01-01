@@ -5,7 +5,6 @@ import 'models/app_state.dart';
 import 'screens/character_list/character_list_screen.dart';
 
 void main(List<String> args) {
-  // Initialize logging
   Logger.root.level = Level.ALL;
   Logger.root.onRecord.listen((record) {
     debugPrint(
@@ -27,12 +26,16 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => AppState(),
+      create: (context) {
+        final appState = AppState();
+        appState.loadCharacterIds();
+        return appState;
+      },
       child: MaterialApp(
         title: 'JDR Gamemaster App',
         theme: ThemeData(
           useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueGrey),
         ),
         home: const CharacterListScreen(),
       ),

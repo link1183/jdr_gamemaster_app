@@ -6,6 +6,7 @@ import 'package:jdr_gamemaster_app/models/ability.dart';
 typedef JsonObject = Map<String, dynamic>;
 
 class Character {
+  final int id;
   final String name;
   final int baseHitPoints;
   final int removedHitPoints;
@@ -17,8 +18,10 @@ class Character {
   final List<JsonObject> customDefenseAdjustments;
   late final AbilityScores stats;
   int? initiative;
+  int tiebreaker = 0;
 
   Character({
+    required this.id,
     required this.name,
     required this.baseHitPoints,
     required this.removedHitPoints,
@@ -27,8 +30,9 @@ class Character {
     required this.inventory,
     required this.classes,
     required this.modifiers,
-    this.initiative,
     required this.customDefenseAdjustments,
+    this.initiative,
+    this.tiebreaker = 0,
   }) : _stats = stats {
     this.stats = AbilityScores(_stats, this);
   }
@@ -44,6 +48,7 @@ class Character {
   factory Character.fromJson(Map<String, dynamic> json) {
     json = json['data'];
     return Character(
+      id: json['id'],
       name: json['name'] as String,
       baseHitPoints: json['baseHitPoints'] as int,
       removedHitPoints: json['removedHitPoints'] as int,
@@ -58,11 +63,12 @@ class Character {
           .map((x) => Class.fromJson(x))
           .toList(),
       modifiers: Modifier.fromJson(json['modifiers']),
-      initiative: null,
       customDefenseAdjustments:
           (json['customDefenseAdjustments'] as List<dynamic>)
               .map((x) => x as Map<String, dynamic>)
               .toList(),
+      initiative: null,
+      tiebreaker: 0,
     );
   }
 }

@@ -6,7 +6,7 @@ final _logger = Logger('CharacterService');
 
 class CharacterService {
   static Future<Map<String, dynamic>> fetchCharacterData(
-      String characterId) async {
+      int characterId) async {
     final url =
         'https://character-service.dndbeyond.com/character/v5/character/$characterId';
     try {

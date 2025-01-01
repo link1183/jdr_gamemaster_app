@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter/foundation.dart';
+import 'package:jdr_gamemaster_app/services/storage_service.dart';
 import '../services/character_service.dart';
 import 'character.dart';
 import 'package:logging/logging.dart';
@@ -7,36 +8,85 @@ import 'package:logging/logging.dart';
 final _logger = Logger('AppState');
 
 class AppState extends ChangeNotifier {
-  Map<String, int> characterIds = {
-    '133116028': 16, // Selenna
-    '132627929': 21, // Lorakk
-    '133113999': 21, // Facilier
-    '132588957': 18, // Merlin
-    '138231200': 15 // Hikari
-  };
+  final StorageService _storageService = StorageService();
+  List<int> characterIds = [];
   List<Character> characterList = [];
+  bool isLoading = false;
+
+  Future<void> loadCharacterIds() async {
+    try {
+      characterIds = await _storageService.loadCharacterIds();
+      notifyListeners();
+    } catch (e) {
+      _logger.severe('Error loading character IDs', e);
+    }
+  }
+
+  Future<bool> addCharacter(int id) async {
+    try {
+      // Check if the ID is valid (try to fetch the character)
+      await CharacterService.fetchCharacterData(id);
+
+      // If the fetch was successful and the ID isn't already in the list
+      if (!characterIds.contains(id)) {
+        characterIds.add(id);
+        await _storageService.saveCharacterIds(characterIds);
+        await initializeCharacters(); // Refresh the full list
+        return true;
+      }
+      return false; // ID already exists
+    } catch (e) {
+      _logger.severe('Error adding character', e);
+      return false; // Invalid ID or network error
+    }
+  }
+
+  Future<bool> removeCharacter(int id) async {
+    try {
+      if (characterIds.contains(id)) {
+        characterIds.remove(id);
+        await _storageService.saveCharacterIds(characterIds);
+        characterList.removeWhere((character) => character.id == id);
+        notifyListeners();
+        return true;
+      }
+      return false; // ID not found
+    } catch (e) {
+      _logger.severe('Error removing character', e);
+      return false;
+    }
+  }
 
   Future<void> initializeCharacters() async {
-    Map<String, Character> tempCharacters = {};
-    List<Future<void>> futures = characterIds.entries.map((character) async {
+    if (characterIds.isEmpty) {
+      await loadCharacterIds();
+    }
+
+    isLoading = true;
+    notifyListeners();
+
+    Map<int, Character> tempCharacters = {};
+    List<Future<void>> futures = characterIds.map((id) async {
       try {
         Map<String, dynamic> characterJson =
-            await CharacterService.fetchCharacterData(character.key);
+            await CharacterService.fetchCharacterData(id);
         Character c = Character.fromJson(characterJson);
-        tempCharacters[character.key] = c;
-        _logger.info('Successfully loaded character ${character.key}');
+        tempCharacters[id] = c;
+        _logger.info('Successfully loaded character $id');
       } catch (e) {
-        _logger.severe('Error processing character ${character.key}: $e', e,
-            StackTrace.current);
+        _logger.severe(
+            'Error processing character $id: $e', e, StackTrace.current);
       }
     }).toList();
+
     await Future.wait(futures);
 
-    characterList = characterIds.keys
-        .where((key) => tempCharacters.containsKey(key))
-        .map((key) => tempCharacters[key]!)
+    characterList = characterIds
+        .where((id) => tempCharacters.containsKey(id))
+        .map((id) => tempCharacters[id]!)
         .toList();
 
+    isLoading = false;
     _logger.info('Finished loading all characters');
     notifyListeners();
   }
@@ -76,7 +126,12 @@ class AppState extends ChangeNotifier {
       if (a.initiative == null && b.initiative == null) return 0;
       if (a.initiative == null) return 1;
       if (b.initiative == null) return -1;
-      return b.initiative!.compareTo(a.initiative!);
+
+      if (a.initiative != b.initiative) {
+        return b.initiative!.compareTo(a.initiative!);
+      }
+
+      return b.tiebreaker.compareTo(a.tiebreaker);
     });
     notifyListeners();
   }
@@ -86,5 +141,33 @@ class AppState extends ChangeNotifier {
       character.initiative = null;
     }
     notifyListeners();
+  }
+
+  void moveCharacterUp(Character character) {
+    final index = characterList.indexOf(character);
+    if (index <= 0) return;
+
+    final previousCharacter = characterList[index - 1];
+    if (previousCharacter.initiative != character.initiative) return;
+
+    final temp = character.tiebreaker;
+    character.tiebreaker = previousCharacter.tiebreaker + 1;
+    previousCharacter.tiebreaker = temp;
+
+    sortByInitiative();
+  }
+
+  void moveCharacterDown(Character character) {
+    final index = characterList.indexOf(character);
+    if (index >= characterList.length - 1) return;
+
+    final previousCharacter = characterList[index + 1];
+    if (previousCharacter.initiative != character.initiative) return;
+
+    final temp = character.tiebreaker;
+    character.tiebreaker = previousCharacter.tiebreaker - 1;
+    previousCharacter.tiebreaker = temp;
+
+    sortByInitiative();
   }
 }

@@ -5,6 +5,7 @@ import '../../models/character.dart';
 import 'widgets/party_health_stats.dart';
 import 'widgets/character_list_item.dart';
 import 'widgets/reset_initiatives_button.dart';
+import '../character_manager/character_manager_screen.dart';
 
 class CharacterListScreen extends StatefulWidget {
   const CharacterListScreen({super.key});
@@ -42,6 +43,31 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
     });
   }
 
+  Future<void> _refreshCharacterList() async {
+    if (!context.mounted) return;
+    await Provider.of<AppState>(context, listen: false).initializeCharacters();
+  }
+
+  Future<void> _handleRefresh() async {
+    final messenger = ScaffoldMessenger.of(context);
+    if (!context.mounted) return;
+
+    messenger.showSnackBar(
+      const SnackBar(
+          content: Text('Actualisation des données...'),
+          duration: Duration(milliseconds: 1000)),
+    );
+
+    await _refreshCharacterList();
+
+    if (!context.mounted) return;
+    messenger.showSnackBar(
+      const SnackBar(
+          content: Text('Données actualisées avec succès'),
+          backgroundColor: Colors.green),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final appState = context.watch<AppState>();
@@ -51,51 +77,26 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
         title: const Text('Statut du groupe'),
         actions: [
           IconButton(
-            icon: const Icon(Icons.refresh),
-            onPressed: () async {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Row(
-                    children: [
-                      SizedBox(
-                        width: 20,
-                        height: 20,
-                        child: CircularProgressIndicator(
-                          strokeWidth: 2,
-                          color: Colors.white,
-                        ),
-                      ),
-                      SizedBox(width: 16),
-                      Text('Actualisation des données...'),
-                    ],
-                  ),
-                  duration: Duration(milliseconds: 1000),
+            icon: const Icon(Icons.settings),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const CharacterManagerScreen(),
                 ),
-              );
-
-              await Provider.of<AppState>(context, listen: false)
-                  .initializeCharacters();
-
-              if (context.mounted) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Row(
-                      children: [
-                        Icon(Icons.check_circle, color: Colors.white),
-                        SizedBox(width: 16),
-                        Text('Données actualisées avec succès'),
-                      ],
-                    ),
-                    backgroundColor: Colors.green,
-                    duration: Duration(seconds: 2),
-                  ),
-                );
-              }
+              ).then((_) => _refreshCharacterList());
             },
+            tooltip: 'Gérer les personnages',
+          ),
+          IconButton(
+            icon: const Icon(Icons.refresh),
+            onPressed: _handleRefresh,
             tooltip: 'Actualiser les données',
           ),
         ],
       ),
+
+      // Body
       body: Stack(
         children: [
           Column(
@@ -116,6 +117,22 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
                     itemCount: appState.characterList.length,
                     itemBuilder: (context, index) {
                       final character = appState.characterList[index];
+
+                      bool hasSameInitiativeAbove = false;
+                      if (index > 0 && character.initiative != null) {
+                        hasSameInitiativeAbove =
+                            appState.characterList[index - 1].initiative ==
+                                character.initiative;
+                      }
+
+                      bool hasSameInitiativeBelow = false;
+                      if (index < appState.characterList.length - 1 &&
+                          character.initiative != null) {
+                        hasSameInitiativeBelow =
+                            appState.characterList[index + 1].initiative ==
+                                character.initiative;
+                      }
+
                       return CharacterListItem(
                         character: character,
                         controller: _controllers.putIfAbsent(
@@ -127,6 +144,14 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
                         onSort: appState.sortByInitiative,
                         index: index,
                         showTurnOrder: _shouldShowTurnOrder(character),
+                        onMoveUp: hasSameInitiativeAbove
+                            ? () => appState.moveCharacterUp(character)
+                            : null,
+                        onMoveDown: hasSameInitiativeBelow
+                            ? () => appState.moveCharacterDown(character)
+                            : null,
+                        hasSameInitiativeAbove: hasSameInitiativeAbove,
+                        hasSameInitiativeBelow: hasSameInitiativeBelow,
                       );
                     },
                   ),

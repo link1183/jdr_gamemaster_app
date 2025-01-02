@@ -18,19 +18,6 @@ class ResetInitiativesButton extends StatelessWidget {
         label: const Text('Réinitialiser les initiatives'),
         onPressed: () {
           onReset();
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Row(
-                children: [
-                  Icon(Icons.check_circle, color: Colors.white),
-                  SizedBox(width: 16),
-                  Text('Initiatives réinitialisées'),
-                ],
-              ),
-              backgroundColor: Colors.orange,
-              duration: Duration(seconds: 2),
-            ),
-          );
         },
       ),
     );

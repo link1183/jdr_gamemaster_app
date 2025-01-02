@@ -28,16 +28,12 @@ class CharacterListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return Container(
-      height: 56, // Increased height for better touch targets
+      height: 56,
       margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            theme.colorScheme.primary.withValues(alpha: 0.9),
-            theme.colorScheme.primary,
-          ],
+        gradient: const LinearGradient(
+          colors: [Color(0xFF2D7C9D), Color(0xFF1F5C77)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -50,125 +46,127 @@ class CharacterListItem extends StatelessWidget {
           ),
         ],
       ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(12),
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          decoration: BoxDecoration(
-            border: Border(
-              left: BorderSide(
-                color: theme.colorScheme.onPrimary.withValues(alpha: 0.2),
-                width: 4,
+      child: Row(
+        children: [
+          SizedBox(
+            width: 200,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 16),
+              child: Text(
+                character.name,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w400,
+                  fontSize: 16,
+                ),
               ),
             ),
           ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _buildPassiveStat(
+                    character.passivePerception, 'PERCEPTION PASSIVE'),
+                const SizedBox(width: 8),
+                _buildPassiveStat(
+                    character.passiveInvestigation, 'INVESTIGATION PASSIVE'),
+                const SizedBox(width: 8),
+                _buildPassiveStat(
+                    character.passiveInsight, 'INTUITION PASSIVE'),
+              ],
+            ),
+          ),
+          Row(
+            mainAxisSize: MainAxisSize.min,
             children: [
-              // Left side with rank and name
-              Expanded(
-                child: Row(
+              if (showTurnOrder &&
+                  (hasSameInitiativeAbove || hasSameInitiativeBelow))
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 8),
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: Colors.white.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      if (hasSameInitiativeAbove)
+                        _buildArrowButton(Icons.keyboard_arrow_up, onMoveUp),
+                      if (hasSameInitiativeBelow)
+                        _buildArrowButton(
+                            Icons.keyboard_arrow_down, onMoveDown),
+                    ],
+                  ),
+                ),
+              SizedBox(
+                width: 84,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    if (showTurnOrder)
-                      Container(
-                        width: 28,
-                        height: 28,
-                        margin: const EdgeInsets.only(right: 12),
-                        decoration: BoxDecoration(
-                          color: theme.colorScheme.onPrimary
-                              .withValues(alpha: 0.15),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Center(
-                          child: Text(
-                            '${index + 1}',
-                            style: TextStyle(
-                              color: theme.colorScheme.onPrimary,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                            ),
-                          ),
-                        ),
-                      ),
-                    Text(
-                      character.name,
-                      style: TextStyle(
-                        color: theme.colorScheme.onPrimary,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16,
+                    SizedBox(
+                      height: 32,
+                      child: InitiativeInput(
+                        character: character,
+                        controller: controller,
+                        onSort: onSort,
                       ),
                     ),
                   ],
                 ),
               ),
-              // Right side with arrows and initiative
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  if (showTurnOrder &&
-                      (hasSameInitiativeAbove || hasSameInitiativeBelow))
-                    Container(
-                      margin: const EdgeInsets.only(right: 8),
-                      decoration: BoxDecoration(
-                        color:
-                            theme.colorScheme.onPrimary.withValues(alpha: 0.1),
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          if (hasSameInitiativeAbove)
-                            IconButton(
-                              icon:
-                                  const Icon(Icons.keyboard_arrow_up, size: 20),
-                              onPressed: onMoveUp,
-                              color: theme.colorScheme.onPrimary
-                                  .withValues(alpha: 0.7),
-                              hoverColor: theme.colorScheme.onPrimary
-                                  .withValues(alpha: 0.2),
-                              splashRadius: 14,
-                              padding: EdgeInsets.zero,
-                              constraints: const BoxConstraints(
-                                minWidth: 24,
-                                minHeight: 20,
-                              ),
-                            )
-                          else
-                            const SizedBox(height: 20),
-                          if (hasSameInitiativeBelow)
-                            IconButton(
-                              icon: const Icon(Icons.keyboard_arrow_down,
-                                  size: 20),
-                              onPressed: onMoveDown,
-                              color: theme.colorScheme.onPrimary
-                                  .withValues(alpha: 0.7),
-                              hoverColor: theme.colorScheme.onPrimary
-                                  .withValues(alpha: 0.2),
-                              splashRadius: 14,
-                              padding: EdgeInsets.zero,
-                              constraints: const BoxConstraints(
-                                minWidth: 24,
-                                minHeight: 20,
-                              ),
-                            )
-                          else
-                            const SizedBox(height: 20),
-                        ],
-                      ),
-                    ),
-                  SizedBox(
-                    width: 80,
-                    child: InitiativeInput(
-                      character: character,
-                      controller: controller,
-                      onSort: onSort,
-                    ),
-                  ),
-                ],
-              ),
+              const SizedBox(width: 8),
             ],
           ),
-        ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildPassiveStat(int value, String label) {
+    return Container(
+      height: 24,
+      padding: const EdgeInsets.symmetric(horizontal: 8),
+      decoration: BoxDecoration(
+        color: Colors.white.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            value.toString(),
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 12,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          const SizedBox(width: 4),
+          Text(
+            label,
+            style: const TextStyle(
+              color: Colors.white70,
+              fontSize: 10,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildArrowButton(IconData icon, VoidCallback? onPressed) {
+    return IconButton(
+      icon: Icon(icon, size: 20),
+      onPressed: onPressed,
+      color: Colors.white70,
+      hoverColor: Colors.white24,
+      splashRadius: 14,
+      padding: EdgeInsets.zero,
+      constraints: const BoxConstraints(
+        minWidth: 24,
+        minHeight: 20,
       ),
     );
   }

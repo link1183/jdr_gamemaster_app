@@ -55,7 +55,7 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
     messenger.showSnackBar(
       const SnackBar(
           content: Text('Actualisation des données...'),
-          duration: Duration(milliseconds: 1000)),
+          duration: Duration(seconds: 1)),
     );
 
     await _refreshCharacterList();
@@ -63,8 +63,10 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
     if (!context.mounted) return;
     messenger.showSnackBar(
       const SnackBar(
-          content: Text('Données actualisées avec succès'),
-          backgroundColor: Colors.green),
+        content: Text('Données actualisées avec succès'),
+        backgroundColor: Colors.green,
+        duration: Duration(seconds: 1),
+      ),
     );
   }
 
@@ -74,7 +76,7 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Statut du groupe'),
+        title: const Text('Status du groupe'),
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),

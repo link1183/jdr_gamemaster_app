@@ -104,6 +104,7 @@ enum ModifierSubType {
   intelligenceScore,
   wisdomScore,
   charismaScore,
+  chooseAnAbilityScore,
 
   // Skills
   acrobatics,
@@ -165,19 +166,13 @@ enum ModifierSubType {
   fire,
   acid,
   necrotic,
-  cold,
-  lightning,
-  poison,
-  psychic,
-  radiant,
-  thunder,
-  bludgeoning,
-  slashing,
-  piercing,
 
   // Special Features & Choices
   medium,
   subclass,
+  chooseABloodHunterSkill,
+  chooseABarbarianSkill,
+  chooseAFighterSkillProficiency,
   notFound
 }
 
@@ -194,6 +189,7 @@ extension ModifierSubTypeExtension on ModifierSubType {
       'intelligence-saving-throws' => ModifierSubType.intelligenceSavingThrows,
       'wisdom-saving-throws' => ModifierSubType.wisdomSavingThrows,
       'charisma-saving-throws' => ModifierSubType.charismaSavingThrows,
+      'hit-points' => ModifierSubType.hitPoints,
 
       // Armor & Weapons
       'light-armor' => ModifierSubType.lightArmor,
@@ -204,17 +200,13 @@ extension ModifierSubTypeExtension on ModifierSubType {
       'martial-weapons' => ModifierSubType.martialWeapons,
       'crossbow-hand' => ModifierSubType.crossbowHand,
       'scimitar' => ModifierSubType.scimitar,
-      'short-sword' => ModifierSubType.shortsword,
+      'shortsword' => ModifierSubType.shortsword,
 
       // Movement & Actions
       'unarmored-movement' => ModifierSubType.unarmoredMovement,
       'extra-attacks' => ModifierSubType.extraAttacks,
-      'hit-points' => ModifierSubType.hitPoints,
-      'speed' => ModifierSubType.speed,
-      'initiative' => ModifierSubType.initiative,
 
       // Combat Abilities
-      'strength-attacks' => ModifierSubType.strengthAttacks,
       'unarmed-attacks' => ModifierSubType.unarmedAttacks,
 
       // Ability Scores
@@ -245,24 +237,9 @@ extension ModifierSubTypeExtension on ModifierSubType {
       'stealth' => ModifierSubType.stealth,
       'survival' => ModifierSubType.survival,
 
-      // Tools & Equipment
-      'alchemists-supplies' => ModifierSubType.alchemistsSupplies,
+      // Tools
       'herbalism-kit' => ModifierSubType.herbalismKit,
-      'calligraphers-supplies' => ModifierSubType.calligraphersSupplies,
-      'poisoners-kit' => ModifierSubType.poisonersKit,
-      'thieves-tools' => ModifierSubType.thievesTools,
-      'dragonchess-set' => ModifierSubType.dragonchessSet,
       'flute' => ModifierSubType.flute,
-
-      // Magic & Spells
-      'magic' => ModifierSubType.magic,
-      'spell-attacks' => ModifierSubType.spellAttacks,
-      'druid-cantrip-damage' => ModifierSubType.druidCantripDamage,
-      'self' => ModifierSubType.self,
-
-      // Movement & Senses
-      'darkvision' => ModifierSubType.darkvision,
-      'innate-speed-flying' => ModifierSubType.innateSpeedFlying,
 
       // Languages
       'common' => ModifierSubType.common,
@@ -270,32 +247,41 @@ extension ModifierSubTypeExtension on ModifierSubType {
       'common-sign-language' => ModifierSubType.commonSignLanguage,
       'orc' => ModifierSubType.orc,
       'infernal' => ModifierSubType.infernal,
+      'dwarvish' => ModifierSubType.dwarvish,
+
+      // Features
+      'subclass' => ModifierSubType.subclass,
+      'strengthattacks' => ModifierSubType.strengthAttacks,
+      'chooseanabilityscore' => ModifierSubType.chooseAnAbilityScore,
+      'alchemistssupplies' => ModifierSubType.alchemistsSupplies,
+      'calligrapherssupplies' => ModifierSubType.calligraphersSupplies,
+      'poisonerskit' => ModifierSubType.poisonersKit,
+      'thievestools' => ModifierSubType.thievesTools,
+      'dragonchessset' => ModifierSubType.dragonchessSet,
+      'magic' => ModifierSubType.magic,
+      'spellattacks' => ModifierSubType.spellAttacks,
+      'druidcantripdamage' => ModifierSubType.druidCantripDamage,
+      'self' => ModifierSubType.self,
+      'darkvision' => ModifierSubType.darkvision,
+      'innatespeedflying' => ModifierSubType.innateSpeedFlying,
+      'speed' => ModifierSubType.speed,
+      'initiative' => ModifierSubType.initiative,
       'goblin' => ModifierSubType.goblin,
       'draconic' => ModifierSubType.draconic,
       'druidic' => ModifierSubType.druidic,
-      'dwarvish' => ModifierSubType.dwarvish,
       'abyssal' => ModifierSubType.abyssal,
-      'under-common' => ModifierSubType.undercommon,
-      'deep-speech' => ModifierSubType.deepSpeech,
-
-      // Damage & Resistance
+      'undercommon' => ModifierSubType.undercommon,
+      'deepspeech' => ModifierSubType.deepSpeech,
       'force' => ModifierSubType.force,
       'fire' => ModifierSubType.fire,
       'acid' => ModifierSubType.acid,
       'necrotic' => ModifierSubType.necrotic,
-      'cold' => ModifierSubType.cold,
-      'lightning' => ModifierSubType.lightning,
-      'poison' => ModifierSubType.poison,
-      'psychic' => ModifierSubType.psychic,
-      'radiant' => ModifierSubType.radiant,
-      'thunder' => ModifierSubType.thunder,
-      'bludgeoning' => ModifierSubType.bludgeoning,
-      'slashing' => ModifierSubType.slashing,
-      'piercing' => ModifierSubType.piercing,
-
-      // Special Features & Choices
       'medium' => ModifierSubType.medium,
-      'subclass' => ModifierSubType.subclass,
+      'chooseabloodhunterskill' => ModifierSubType.chooseABloodHunterSkill,
+      'chooseabarbarianskill' => ModifierSubType.chooseABarbarianSkill,
+      'chooseafighterskillproficiency' => ModifierSubType.chooseAFighterSkillProficiency,
+      'notfound' => ModifierSubType.notFound,
+
       _ => ModifierSubType.notFound,
     };
   }

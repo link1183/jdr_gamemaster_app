@@ -30,12 +30,9 @@ Future<void> main() async {
     Map<String, dynamic> characterJson =
         await fetchCharacterData(character.key);
     Character c = Character.fromJson(characterJson);
-    //int totalAc = c.calculateArmorClass();
-    //print('Expected AC: ${character.value}');
-    //print('Calculation matches expected: ${totalAc == character.value}');
-    //print('==================\n');
-
-    print("${c.name}: ${c.currentHealth}/${c.maxHealth}");
+    print('${c.name} : passivePerception : ${c.passivePerception}');
+    print('${c.name} : passiveInvestigation : ${c.passiveInvestigation}');
+    print('${c.name} : passiveInsight : ${c.passiveInsight}');
   }).toList();
 
   await Future.wait(futures);

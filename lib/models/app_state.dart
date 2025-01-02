@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:flutter/foundation.dart';
 import 'package:jdr_gamemaster_app/services/storage_service.dart';
 import '../services/character_service.dart';
@@ -38,6 +37,19 @@ class AppState extends ChangeNotifier {
     } catch (e) {
       _logger.severe('Error adding character', e);
       return false; // Invalid ID or network error
+    }
+  }
+
+  Future<bool> editCharacter(int oldId, int newId) async {
+    try {
+      if (!characterIds.contains(oldId)) return false;
+      characterIds =
+          characterIds.map((id) => oldId == id ? newId : id).toList();
+      await _storageService.saveCharacterIds(characterIds);
+      return true;
+    } catch (e) {
+      _logger.severe('Error editing character', e);
+      return false;
     }
   }
 
@@ -91,33 +103,50 @@ class AppState extends ChangeNotifier {
     notifyListeners();
   }
 
-  Map<String, int> getHealthStats() {
-    if (characterList.isEmpty) return {'avg': 0, 'variance': 0, 'percent': 0};
+  Map<String, dynamic> getHealthStats() {
+    if (characterList.isEmpty) {
+      return {
+        'categories': {
+          'healthy': 0,
+          'injured': 0,
+          'bloodied': 0,
+          'critical': 0,
+        },
+        'percent': 0
+      };
+    }
 
     double sum = 0;
     double baseSum = 0;
-    List<int> healthValues = [];
+    Map<String, int> categories = {
+      'healthy': 0,
+      'injured': 0,
+      'bloodied': 0,
+      'critical': 0,
+    };
 
     for (Character character in characterList) {
       int health = character.currentHealth;
+      int maxHealth = character.maxHealth;
+      double healthPercent = (health / maxHealth) * 100;
+
+      if (healthPercent > 75) {
+        categories['healthy'] = categories['healthy']! + 1;
+      } else if (healthPercent > 50) {
+        categories['injured'] = categories['injured']! + 1;
+      } else if (healthPercent > 25) {
+        categories['bloodied'] = categories['bloodied']! + 1;
+      } else {
+        categories['critical'] = categories['critical']! + 1;
+      }
+
       sum += health;
-      baseSum += character.maxHealth;
-      healthValues.add(health);
+      baseSum += maxHealth;
     }
-
-    double mean = sum / characterList.length;
-    double variance = 0;
-
-    for (int health in healthValues) {
-      variance += (health - mean) * (health - mean);
-    }
-    variance = (variance / characterList.length).round().toDouble();
-    double standardDeviation = sqrt(variance);
 
     return {
-      'avg': mean.round(),
-      'variance': standardDeviation.round(),
-      'percent': ((sum / baseSum) * 100).round()
+      'categories': categories,
+      'percent': ((sum / baseSum) * 100).round(),
     };
   }
 

@@ -4,21 +4,27 @@ import 'modifier.dart';
 
 class AbilityScore {
   final Ability name;
-  final int value;
+  final int baseValue;
+  final Character? character;
 
   AbilityScore({
     required this.name,
-    required this.value,
+    required this.baseValue,
+    this.character,
   });
 
-  int _getScore(Character character) {
-    int totalScore = value;
+  int get value {
+    if (character == null) return baseValue;
+    return _getScore(character!);
+  }
 
-    // Get the corresponding ModifierSubType for this ability
+  int get modifier => ((value - 10) / 2).floor();
+
+  int _getScore(Character character) {
+    int totalScore = baseValue;
     ModifierSubType subType = _getAbilityScoreSubType(name);
     if (subType == ModifierSubType.notFound) return totalScore;
 
-    // Process all modifier sources
     for (var source in [
       character.modifiers.race,
       character.modifiers.classModifier,
@@ -31,7 +37,6 @@ class AbilityScore {
         }
       }
     }
-
     return totalScore;
   }
 
@@ -51,7 +56,8 @@ class AbilityScore {
     };
   }
 
-  factory AbilityScore.fromJson(Map<String, dynamic> json) {
+  factory AbilityScore.fromJson(Map<String, dynamic> json,
+      {Character? character}) {
     Ability name = switch (json['id'] as int) {
       1 => Ability.strength,
       2 => Ability.dexterity,
@@ -61,10 +67,10 @@ class AbilityScore {
       6 => Ability.charisma,
       _ => Ability.notFound
     };
-
     return AbilityScore(
       name: name,
-      value: (json['value'] as int?) ?? 10,
+      baseValue: (json['value'] as int?) ?? 10,
+      character: character,
     );
   }
 }
@@ -73,25 +79,26 @@ class AbilityScores {
   final List<AbilityScore> _scores;
   final Character _character;
 
-  AbilityScores(this._scores, this._character);
+  AbilityScores(List<AbilityScore> scores, this._character)
+      : _scores = scores
+            .map((score) => AbilityScore(
+                name: score.name,
+                baseValue: score.baseValue,
+                character: _character))
+            .toList();
 
   AbilityScore getAbilityScore(Ability ability) {
     return _scores.firstWhere(
       (score) => score.name == ability,
-      orElse: () => AbilityScore(name: ability, value: 10),
+      orElse: () =>
+          AbilityScore(name: ability, baseValue: 10, character: _character),
     );
   }
 
-  int getModifier(int value) {
-    return ((value - 10) / 2).floor();
-  }
-
-  int get strength => getAbilityScore(Ability.strength)._getScore(_character);
-  int get dexterity => getAbilityScore(Ability.dexterity)._getScore(_character);
-  int get constitution =>
-      getAbilityScore(Ability.constitution)._getScore(_character);
-  int get intelligence =>
-      getAbilityScore(Ability.intelligence)._getScore(_character);
-  int get wisdom => getAbilityScore(Ability.wisdom)._getScore(_character);
-  int get charisma => getAbilityScore(Ability.charisma)._getScore(_character);
+  AbilityScore get strength => getAbilityScore(Ability.strength);
+  AbilityScore get dexterity => getAbilityScore(Ability.dexterity);
+  AbilityScore get constitution => getAbilityScore(Ability.constitution);
+  AbilityScore get intelligence => getAbilityScore(Ability.intelligence);
+  AbilityScore get wisdom => getAbilityScore(Ability.wisdom);
+  AbilityScore get charisma => getAbilityScore(Ability.charisma);
 }

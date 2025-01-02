@@ -11,6 +11,7 @@
 .svn/
 .swiftpm/
 migrate_working_dir/
+Output/
 
 # IntelliJ related
 *.iml
@@ -29,6 +30,8 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 /build/
+linux/
+windows/
 
 # Symbolication related
 app.*.symbols

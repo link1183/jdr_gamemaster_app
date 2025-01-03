@@ -9,10 +9,6 @@ import 'screens/character_list/character_list_screen.dart';
 void main(List<String> args) {
   WidgetsFlutterBinding.ensureInitialized();
 
-  if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
-    setWindowMinSize(const Size(600, 400));
-  }
-
   Logger.root.level = Level.ALL;
   Logger.root.onRecord.listen((record) {
     debugPrint(
@@ -36,8 +32,7 @@ class App extends StatelessWidget {
     return LayoutBuilder(builder: (context, constraints) {
       if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
         setWindowMinSize(Size(
-          constraints.minWidth > 0 ? constraints.minWidth : 600,
-          constraints.minHeight > 0 ? constraints.minHeight : 400,
+          800, 700
         ));
       }
 

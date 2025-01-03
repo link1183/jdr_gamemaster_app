@@ -56,6 +56,7 @@ class StorageService {
       133113999, // Facilier
       132588957, // Merlin
       138231200, // Hikari
+      139153342, // Salazar
     ];
 
     await saveCharacterIds(defaultCharacters);

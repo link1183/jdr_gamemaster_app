@@ -21,14 +21,26 @@ class _AddCharactersFormState extends State<AddCharactersForm> {
 
   Future<void> _processBatchIds() async {
     setState(() => _isLoading = true);
-
     try {
-      final ids = _textController.text
+      final inputLines = _textController.text
           .split('\n')
           .map((s) => s.trim())
-          .where((s) => s.isNotEmpty)
-          .map((s) => int.parse(s))
-          .toList();
+          .where((s) => s.isNotEmpty);
+
+      final ids = inputLines.map((line) {
+        if (line.startsWith('https://www.dndbeyond.com/characters/')) {
+          // Extract ID from URL
+          final uri = Uri.parse(line);
+          final pathSegments = uri.pathSegments;
+          if (pathSegments.length >= 2 && pathSegments[0] == 'characters') {
+            // Get the ID part and remove any additional segments
+            final idPart = pathSegments[1].split('/')[0];
+            return int.parse(idPart);
+          }
+        }
+        // If not a URL, treat as direct ID
+        return int.parse(line);
+      }).toList();
 
       final results = <int, bool>{};
       for (final id in ids) {
@@ -39,7 +51,6 @@ class _AddCharactersFormState extends State<AddCharactersForm> {
       if (mounted) {
         final successful = results.values.where((v) => v).length;
         final failed = results.values.where((v) => !v).length;
-
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('$successful ajoutés, $failed échecs'),
@@ -47,6 +58,15 @@ class _AddCharactersFormState extends State<AddCharactersForm> {
           ),
         );
         _textController.clear();
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Erreur de traitement: ${e.toString()}'),
+            backgroundColor: Colors.red,
+          ),
+        );
       }
     } finally {
       if (mounted) {

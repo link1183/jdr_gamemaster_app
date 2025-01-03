@@ -44,3 +44,5 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 data/armor.py
+linux/flutter
+windows/flutter

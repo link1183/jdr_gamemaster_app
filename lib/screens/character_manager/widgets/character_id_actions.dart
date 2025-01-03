@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:toastification/toastification.dart';
 import '../../../models/app_state.dart';
 
 class CharacterIdActions extends StatefulWidget {
@@ -53,7 +54,6 @@ class _CharacterIdActionsState extends State<CharacterIdActions>
 
   void _handleEdit() async {
     final controller = TextEditingController(text: widget.id.toString());
-    final scaffoldMessenger = ScaffoldMessenger.of(context);
     final navigator = Navigator.of(context);
 
     showDialog(
@@ -77,24 +77,37 @@ class _CharacterIdActionsState extends State<CharacterIdActions>
                 final appState = Provider.of<AppState>(context, listen: false);
                 if (await appState.editCharacter(widget.id, newId)) {
                   if (mounted) {
-                    scaffoldMessenger.showSnackBar(
-                      const SnackBar(
-                        duration: Duration(seconds: 2),
-                        content: Text('ID modifié avec succès'),
-                        backgroundColor: Colors.green,
-                      ),
+                    toastification.show(
+                      context: context,
+                      type: ToastificationType.success,
+                      style: ToastificationStyle.flatColored,
+                      title: const Text("Succès"),
+                      description:
+                          const Text("L'ID a été modifié avec succès."),
+                      alignment: Alignment.topRight,
+                      autoCloseDuration: const Duration(seconds: 4),
+                      boxShadow: highModeShadow,
+                      showProgressBar: false,
+                      closeOnClick: true,
+                      applyBlurEffect: true,
                     );
                   }
                 } else {
                   if (mounted) {
-                    scaffoldMessenger.showSnackBar(
-                      const SnackBar(
-                        duration: Duration(seconds: 2),
-                        content: Text(
-                          'Une erreur s\'est produite. Merci de contacter Adrien pour la résolution de celle-ci.',
-                        ),
-                        backgroundColor: Colors.red,
-                      ),
+                    toastification.show(
+                      context: context,
+                      type: ToastificationType.error,
+                      style: ToastificationStyle.flatColored,
+                      title: const Text("Une erreur s'est produite"),
+                      description: const Text(
+                          "Merci de contacter Adrien pour la résolution de celle-ci."),
+                      alignment: Alignment.topRight,
+                      autoCloseDuration: const Duration(seconds: 4),
+                      borderRadius: BorderRadius.circular(12.0),
+                      boxShadow: lowModeShadow,
+                      showProgressBar: false,
+                      closeOnClick: true,
+                      applyBlurEffect: true,
                     );
                   }
                 }

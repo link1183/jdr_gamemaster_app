@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:logging/logging.dart';
+import 'package:window_size/window_size.dart';
+import 'dart:io';
 import 'models/app_state.dart';
 import 'screens/character_list/character_list_screen.dart';
 
 void main(List<String> args) {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
+    setWindowMinSize(const Size(600, 400));
+  }
+
   Logger.root.level = Level.ALL;
   Logger.root.onRecord.listen((record) {
     debugPrint(
@@ -25,20 +33,29 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) {
-        final appState = AppState();
-        appState.loadCharacterIds();
-        return appState;
-      },
-      child: MaterialApp(
-        title: 'JDR Gamemaster App',
-        theme: ThemeData(
-          useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueGrey),
+    return LayoutBuilder(builder: (context, constraints) {
+      if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
+        setWindowMinSize(Size(
+          constraints.minWidth > 0 ? constraints.minWidth : 600,
+          constraints.minHeight > 0 ? constraints.minHeight : 400,
+        ));
+      }
+
+      return ChangeNotifierProvider(
+        create: (context) {
+          final appState = AppState();
+          appState.loadCharacterIds();
+          return appState;
+        },
+        child: MaterialApp(
+          title: 'JDR Gamemaster App',
+          theme: ThemeData(
+            useMaterial3: true,
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueGrey),
+          ),
+          home: const CharacterListScreen(),
         ),
-        home: const CharacterListScreen(),
-      ),
-    );
+      );
+    });
   }
 }

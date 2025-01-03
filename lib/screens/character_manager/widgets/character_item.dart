@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:toastification/toastification.dart';
 import '../../../models/app_state.dart';
 import 'character_id_actions.dart';
 
@@ -17,11 +19,10 @@ class CharacterItem extends StatelessWidget {
 
   Future<void> _removeSelected(BuildContext context) async {
     final appState = Provider.of<AppState>(context, listen: false);
-    final scaffoldMessenger = ScaffoldMessenger.of(context);
-    
+
     final confirmed = await showDialog<bool>(
       context: context,
-      builder: (context) => AlertDialog(
+      builder: (localContext) => AlertDialog(
         title: const Text('Confirmer la suppression'),
         content:
             const Text('Êtes-vous sûr de vouloir supprimer ce personnage ?'),
@@ -41,12 +42,46 @@ class CharacterItem extends StatelessWidget {
 
     if (confirmed == true) {
       final success = await appState.removeCharacter(id);
-      if (success) {
-        scaffoldMessenger.showSnackBar(
-          const SnackBar(
-            content: Text('Personnage supprimé'),
-            backgroundColor: Colors.orange,
-          ),
+      if (success && context.mounted) {
+        toastification.show(
+          context: context,
+          type: ToastificationType.success,
+          style: ToastificationStyle.flatColored,
+          title: const Text("Succès"),
+          description: const Text("Personnage supprimé avec succès."),
+          alignment: Alignment.topRight,
+          autoCloseDuration: const Duration(seconds: 4),
+          boxShadow: highModeShadow,
+          showProgressBar: false,
+          closeOnClick: true,
+          applyBlurEffect: true,
+        );
+      }
+    }
+  }
+
+  Future<void> _openLink(BuildContext context) async {
+    final Uri url = Uri.parse('https://www.dndbeyond.com/characters/$id');
+    try {
+      if (await canLaunchUrl(url)) {
+        await launchUrl(url);
+      } else {
+        throw 'Could not launch URL';
+      }
+    } catch (e) {
+      if (context.mounted) {
+        toastification.show(
+          context: context,
+          type: ToastificationType.error,
+          style: ToastificationStyle.flatColored,
+          title: const Text("Erreur"),
+          description: Text("Erreur en ouvrant le lien : $e"),
+          alignment: Alignment.topRight,
+          autoCloseDuration: const Duration(seconds: 4),
+          boxShadow: highModeShadow,
+          showProgressBar: false,
+          closeOnClick: true,
+          applyBlurEffect: true,
         );
       }
     }
@@ -63,9 +98,18 @@ class CharacterItem extends StatelessWidget {
           CharacterIdActions(id: id),
         ],
       ),
-      trailing: IconButton(
-        icon: const Icon(Icons.delete),
-        onPressed: () => _removeSelected(context),
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          IconButton(
+            icon: const Icon(Icons.open_in_new_rounded),
+            onPressed: () => _openLink(context),
+          ),
+          IconButton(
+            icon: const Icon(Icons.delete),
+            onPressed: () => _removeSelected(context),
+          ),
+        ],
       ),
     );
   }

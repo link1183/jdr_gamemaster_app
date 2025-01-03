@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:toastification/toastification.dart';
 import '../../models/app_state.dart';
 import '../../models/character.dart';
 import 'widgets/party_health_stats.dart';
@@ -49,24 +50,36 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
   }
 
   Future<void> _handleRefresh() async {
-    final messenger = ScaffoldMessenger.of(context);
-    if (!context.mounted) return;
-
-    messenger.showSnackBar(
-      const SnackBar(
-          content: Text('Actualisation des données...'),
-          duration: Duration(seconds: 1)),
+    if (!mounted) return;
+    toastification.show(
+      context: context,
+      type: ToastificationType.warning,
+      style: ToastificationStyle.flatColored,
+      title: const Text("Attente"),
+      description: const Text("Actualisation des données en cours..."),
+      alignment: Alignment.topRight,
+      autoCloseDuration: const Duration(seconds: 4),
+      boxShadow: highModeShadow,
+      showProgressBar: false,
+      closeOnClick: true,
+      applyBlurEffect: true,
     );
 
     await _refreshCharacterList();
 
-    if (!context.mounted) return;
-    messenger.showSnackBar(
-      const SnackBar(
-        content: Text('Données actualisées avec succès'),
-        backgroundColor: Colors.green,
-        duration: Duration(seconds: 1),
-      ),
+    if (!mounted) return;
+    toastification.show(
+      context: context,
+      type: ToastificationType.success,
+      style: ToastificationStyle.flatColored,
+      title: const Text("Succès"),
+      description: const Text("Données actualisées avec succès"),
+      alignment: Alignment.topRight,
+      autoCloseDuration: const Duration(seconds: 4),
+      boxShadow: highModeShadow,
+      showProgressBar: false,
+      closeOnClick: true,
+      applyBlurEffect: true,
     );
   }
 

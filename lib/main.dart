@@ -31,9 +31,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
       if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
-        setWindowMinSize(Size(
-          800, 700
-        ));
+        setWindowMinSize(const Size(800, 700));
       }
 
       return ChangeNotifierProvider(

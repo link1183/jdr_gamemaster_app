@@ -1,10 +1,11 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:jdr_gamemaster_app/services/logging_service.dart';
 import 'package:logging/logging.dart';
 
-final _logger = Logger('CharacterService');
-
 class CharacterService {
+  static final Logger _logger = LoggingService().getLogger("CharacterService");
+
   static Future<Map<String, dynamic>> fetchCharacterData(
       int characterId) async {
     final url =

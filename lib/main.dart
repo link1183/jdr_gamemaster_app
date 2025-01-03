@@ -1,25 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:jdr_gamemaster_app/services/logging_service.dart';
 import 'package:provider/provider.dart';
-import 'package:logging/logging.dart';
 import 'package:window_size/window_size.dart';
+import 'package:logging/logging.dart';
 import 'dart:io';
 import 'models/app_state.dart';
 import 'screens/character_list/character_list_screen.dart';
 
-void main(List<String> args) {
+void main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  Logger.root.level = Level.ALL;
-  Logger.root.onRecord.listen((record) {
-    debugPrint(
-        '[${record.loggerName}] ${record.level.name}: ${record.time}: ${record.message}');
-    if (record.error != null) {
-      debugPrint('Error: ${record.error}');
-    }
-    if (record.stackTrace != null) {
-      debugPrint('Stack trace:\n${record.stackTrace}');
-    }
-  });
+  final loggingService = LoggingService();
+  await loggingService.initialize(
+    logLevel: Level.INFO,
+  );
+
+  final logger = loggingService.getLogger('Main');
+  logger.info('Application started');
 
   runApp(const App());
 }

@@ -1,12 +1,11 @@
 import 'package:flutter/foundation.dart';
+import 'package:jdr_gamemaster_app/services/logging_service.dart';
 import 'package:jdr_gamemaster_app/services/storage_service.dart';
 import '../services/character_service.dart';
 import 'character.dart';
-import 'package:logging/logging.dart';
-
-final _logger = Logger('AppState');
 
 class AppState extends ChangeNotifier {
+  final _logger = LoggingService().getLogger('AppState');
   final StorageService _storageService = StorageService();
   List<int> characterIds = [];
   List<Character> characterList = [];
@@ -86,8 +85,7 @@ class AppState extends ChangeNotifier {
         tempCharacters[id] = c;
         _logger.info('Successfully loaded character $id');
       } catch (e) {
-        _logger.severe(
-            'Error processing character $id: $e', e, StackTrace.current);
+        _logger.severe('Error processing character $id', e);
       }
     }).toList();
 

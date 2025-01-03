@@ -89,7 +89,7 @@ class _AddCharactersFormState extends State<AddCharactersForm> {
             type: ToastificationType.error,
             style: ToastificationStyle.flatColored,
             title: const Text("Erreur d'ajout"),
-            description: Text("Impossible d'ajouter l'ID $id: ${e.toString()}"),
+            description: Text("Impossible d'ajouter l'ID $id: $e"),
             alignment: Alignment.topRight,
             autoCloseDuration: const Duration(seconds: 4),
             boxShadow: highModeShadow,

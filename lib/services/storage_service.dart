@@ -1,12 +1,14 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:jdr_gamemaster_app/services/logging_service.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:logging/logging.dart';
 import 'package:path/path.dart' as path;
 
-final _logger = Logger('StorageService');
-
 class StorageService {
+  final Logger _logger;
+  StorageService() : _logger = LoggingService().getLogger('StorageService');
+
   static const String _charactersFileName = 'characters.json';
   static const String _appFolderName = 'JDR Gamemaster App';
 

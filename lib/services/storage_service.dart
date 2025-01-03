@@ -2,15 +2,38 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 import 'package:logging/logging.dart';
+import 'package:path/path.dart' as path;
 
 final _logger = Logger('StorageService');
 
 class StorageService {
   static const String _charactersFileName = 'characters.json';
+  static const String _appFolderName = 'JDR Gamemaster App';
 
   Future<String> get _localPath async {
-    final directory = await getApplicationDocumentsDirectory();
-    return directory.path;
+    if (Platform.isWindows) {
+      final String appDataPath = Platform.environment['APPDATA'] ?? '';
+      if (appDataPath.isEmpty) {
+        throw Exception('Could not find APPDATA directory');
+      }
+      final directory = Directory(path.join(appDataPath, _appFolderName));
+      await directory.create(recursive: true);
+      return directory.path;
+    } else if (Platform.isLinux) {
+      final String homeDir = Platform.environment['HOME'] ?? '';
+      if (homeDir.isEmpty) {
+        throw Exception('Could not find HOME directory');
+      }
+      final directory =
+          Directory(path.join(homeDir, '.local', 'share', _appFolderName));
+      await directory.create(recursive: true);
+      return directory.path;
+    } else {
+      final directory = await getApplicationDocumentsDirectory();
+      final appDirectory = Directory(path.join(directory.path, _appFolderName));
+      await appDirectory.create(recursive: true);
+      return appDirectory.path;
+    }
   }
 
   Future<File> get _charactersFile async {

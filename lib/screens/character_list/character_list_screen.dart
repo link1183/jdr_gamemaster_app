@@ -76,7 +76,7 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Status du groupe'),
+        title: const Text('Statut du groupe'),
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),

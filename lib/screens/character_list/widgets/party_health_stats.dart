@@ -83,7 +83,7 @@ class PartyHealthStats extends StatelessWidget {
                     ),
                     const SizedBox(width: 8),
                     Text(
-                      'Status du groupe (${healthStats['percent']}% PV)',
+                      'Statut du groupe (${healthStats['percent']}% HP)',
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
@@ -169,7 +169,7 @@ class PartyHealthStats extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 4),
                     child: Tooltip(
                       message:
-                          '$count personnage${count > 1 ? 's' : ''} ${entry.value.$1.toLowerCase()}${count > 1 ? 's' : ''}\n${entry.value.$4}',
+                          '$count personnage${count > 1 ? 's' : ''} ${entry.value.$1.toLowerCase()}\n${entry.value.$4}',
                       child: Container(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 16, vertical: 8),

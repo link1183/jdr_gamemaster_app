@@ -30,8 +30,6 @@ Output/
 .pub-cache/
 .pub/
 /build/
-linux/
-windows/
 
 # Symbolication related
 app.*.symbols

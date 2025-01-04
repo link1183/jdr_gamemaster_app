@@ -1,4 +1,5 @@
 import 'package:jdr_gamemaster_app/models/classes.dart';
+import 'package:jdr_gamemaster_app/models/currency.dart';
 import 'package:jdr_gamemaster_app/models/enums.dart';
 import 'package:jdr_gamemaster_app/models/inventory.dart';
 import 'package:jdr_gamemaster_app/models/modifier.dart';
@@ -18,6 +19,7 @@ class Character {
   final Modifier modifiers;
   final List<JsonObject> customDefenseAdjustments;
   late final AbilityScores stats;
+  final Currency currency;
   int? initiative;
   int tiebreaker = 0;
 
@@ -32,6 +34,7 @@ class Character {
     required this.classes,
     required this.modifiers,
     required this.customDefenseAdjustments,
+    required this.currency,
     this.initiative,
     this.tiebreaker = 0,
   }) : _stats = stats {
@@ -150,6 +153,7 @@ class Character {
           (json['customDefenseAdjustments'] as List<dynamic>)
               .map((x) => x as Map<String, dynamic>)
               .toList(),
+      currency: Currency.fromJson(json['currencies']),
       initiative: null,
       tiebreaker: 0,
     );

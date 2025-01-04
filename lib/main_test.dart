@@ -30,9 +30,11 @@ Future<void> main() async {
     Map<String, dynamic> characterJson =
         await fetchCharacterData(character.key);
     Character c = Character.fromJson(characterJson);
-    print('${c.name} : passivePerception : ${c.passivePerception}');
-    print('${c.name} : passiveInvestigation : ${c.passiveInvestigation}');
-    print('${c.name} : passiveInsight : ${c.passiveInsight}');
+    print('${c.name} : ${c.currency.platinum}');
+    print('${c.name} : ${c.currency.gold}');
+    print('${c.name} : ${c.currency.electrum}');
+    print('${c.name} : ${c.currency.silver}');
+    print('${c.name} : ${c.currency.copper}');
   }).toList();
 
   await Future.wait(futures);

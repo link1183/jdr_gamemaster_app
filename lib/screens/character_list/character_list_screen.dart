@@ -4,8 +4,8 @@ import 'package:toastification/toastification.dart';
 import '../../models/app_state.dart';
 import '../../models/character.dart';
 import 'widgets/party_health_stats.dart';
-import 'widgets/character_list_item.dart';
-import 'widgets/reset_initiatives_button.dart';
+import 'widgets/character/character_list_item.dart';
+import 'widgets/initiative/reset_initiatives_button.dart';
 import '../character_manager/character_manager_screen.dart';
 
 class CharacterListScreen extends StatefulWidget {
@@ -110,8 +110,6 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
           ),
         ],
       ),
-
-      // Body
       body: Stack(
         children: [
           Column(
@@ -122,42 +120,49 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
                     child: CircularProgressIndicator(),
                   ),
                 )
-              else ...[
-                PartyHealthStats(
-                  healthStats: appState.getHealthStats(),
-                ),
+              else
                 Expanded(
                   child: ListView.builder(
-                    padding: const EdgeInsets.all(8),
-                    itemCount: appState.characterList.length,
+                    padding: EdgeInsets.zero,
+                    itemCount: appState.characterList.length + 1,
                     itemBuilder: (context, index) {
-                      final character = appState.characterList[index];
+                      if (index == 0) {
+                        return PartyHealthStats(
+                          healthStats: appState.getHealthStats(),
+                        );
+                      }
+
+                      final adjustedIndex = index - 1;
+                      final character = appState.characterList[adjustedIndex];
 
                       bool hasSameInitiativeAbove = false;
-                      if (index > 0 && character.initiative != null) {
+                      if (adjustedIndex > 0 && character.initiative != null) {
                         hasSameInitiativeAbove =
-                            appState.characterList[index - 1].initiative ==
+                            appState.characterList[adjustedIndex - 1].initiative ==
                                 character.initiative;
                       }
 
                       bool hasSameInitiativeBelow = false;
-                      if (index < appState.characterList.length - 1 &&
+                      if (adjustedIndex < appState.characterList.length - 1 &&
                           character.initiative != null) {
                         hasSameInitiativeBelow =
-                            appState.characterList[index + 1].initiative ==
+                            appState.characterList[adjustedIndex + 1].initiative ==
                                 character.initiative;
                       }
 
-                      return CharacterListItem(
-                        character: character,
-                        controller: _controllers.putIfAbsent(
-                          character.name,
-                          () => TextEditingController(
-                            text: character.initiative?.toString() ?? '',
-                          ),
+                      final controller = _controllers.putIfAbsent(
+                        character.name,
+                        () => TextEditingController(
+                          text: character.initiative?.toString() ?? '',
                         ),
+                      );
+
+                      return CharacterListItem(
+                        key: ValueKey(character.name),
+                        character: character,
+                        controller: controller,
                         onSort: appState.sortByInitiative,
-                        index: index,
+                        index: adjustedIndex,
                         showTurnOrder: _shouldShowTurnOrder(character),
                         onMoveUp: hasSameInitiativeAbove
                             ? () => appState.moveCharacterUp(character)
@@ -171,7 +176,6 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
                     },
                   ),
                 ),
-              ],
             ],
           ),
           if (appState.characterList.isNotEmpty)

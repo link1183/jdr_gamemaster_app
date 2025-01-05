@@ -15,9 +15,9 @@ class Class {
       definition: json['definition'] != null
           ? ClassDefinition.fromJson(json['definition'] as Map<String, dynamic>)
           : null,
-      subClassDefinition: json['subClassDefinition'] != null
+      subClassDefinition: json['subclassDefinition'] != null
           ? ClassDefinition.fromJson(
-              json['subClassDefinition'] as Map<String, dynamic>)
+              json['subclassDefinition'] as Map<String, dynamic>)
           : null,
     );
   }
@@ -25,13 +25,14 @@ class Class {
 
 class ClassDefinition {
   final String name;
-  final String description;
 
-  ClassDefinition({required this.name, required this.description});
+  ClassDefinition({
+    required this.name,
+  });
 
   factory ClassDefinition.fromJson(Map<String, dynamic> json) {
     return ClassDefinition(
-        name: json['name'] as String? ?? '',
-        description: json['description'] as String? ?? '');
+      name: json['name'] as String? ?? '',
+    );
   }
 }

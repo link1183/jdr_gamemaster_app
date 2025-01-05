@@ -19,22 +19,28 @@ class Modifier {
   factory Modifier.fromJson(Map<String, dynamic> json) {
     return Modifier(
       race: (json['race'] as List<dynamic>)
-          .map((x) => ClassModifier.fromJson(x as Map<String, dynamic>))
+          .map<ClassModifier>(
+              (dynamic x) => ClassModifier.fromJson(x as Map<String, dynamic>))
           .toList(),
       classModifier: (json['class'] as List<dynamic>)
-          .map((x) => ClassModifier.fromJson(x as Map<String, dynamic>))
+          .map<ClassModifier>(
+              (dynamic x) => ClassModifier.fromJson(x as Map<String, dynamic>))
           .toList(),
       background: (json['background'] as List<dynamic>)
-          .map((x) => ClassModifier.fromJson(x as Map<String, dynamic>))
+          .map<ClassModifier>(
+              (dynamic x) => ClassModifier.fromJson(x as Map<String, dynamic>))
           .toList(),
       item: (json['item'] as List<dynamic>)
-          .map((x) => ClassModifier.fromJson(x as Map<String, dynamic>))
+          .map<ClassModifier>(
+              (dynamic x) => ClassModifier.fromJson(x as Map<String, dynamic>))
           .toList(),
       feat: (json['feat'] as List<dynamic>)
-          .map((x) => ClassModifier.fromJson(x as Map<String, dynamic>))
+          .map<ClassModifier>(
+              (dynamic x) => ClassModifier.fromJson(x as Map<String, dynamic>))
           .toList(),
       condition: (json['condition'] as List<dynamic>)
-          .map((x) => ClassModifier.fromJson(x as Map<String, dynamic>))
+          .map<ClassModifier>(
+              (dynamic x) => ClassModifier.fromJson(x as Map<String, dynamic>))
           .toList(),
     );
   }

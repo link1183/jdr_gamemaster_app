@@ -14,13 +14,14 @@ class CharacterIdActions extends StatefulWidget {
 }
 
 class _CharacterIdActionsState extends State<CharacterIdActions>
-    with TickerProviderStateMixin {
-  final Map<int, AnimationController> _fadeControllers = {};
+    with TickerProviderStateMixin<CharacterIdActions> {
+  final Map<int, AnimationController> _fadeControllers =
+      <int, AnimationController>{};
   int? _copiedId;
 
   @override
   void dispose() {
-    for (var controller in _fadeControllers.values) {
+    for (AnimationController controller in _fadeControllers.values) {
       controller.dispose();
     }
     super.dispose();
@@ -30,7 +31,7 @@ class _CharacterIdActionsState extends State<CharacterIdActions>
     Clipboard.setData(ClipboardData(text: widget.id.toString()));
     _fadeControllers[widget.id]?.dispose();
 
-    final controller = AnimationController(
+    final AnimationController controller = AnimationController(
       duration: const Duration(milliseconds: 200),
       vsync: this,
     );
@@ -39,9 +40,9 @@ class _CharacterIdActionsState extends State<CharacterIdActions>
     controller.forward();
     setState(() => _copiedId = widget.id);
 
-    Future.delayed(const Duration(seconds: 1), () {
+    Future<Null>.delayed(const Duration(seconds: 1), () {
       if (mounted) {
-        controller.reverse().then((_) {
+        controller.reverse().then<Null>((void _) {
           if (mounted) {
             setState(() => _copiedId = null);
             _fadeControllers[widget.id]?.dispose();
@@ -53,28 +54,30 @@ class _CharacterIdActionsState extends State<CharacterIdActions>
   }
 
   void _handleEdit() async {
-    final controller = TextEditingController(text: widget.id.toString());
-    final navigator = Navigator.of(context);
+    final TextEditingController controller =
+        TextEditingController(text: widget.id.toString());
+    final NavigatorState navigator = Navigator.of(context);
 
-    showDialog(
+    showDialog<dynamic>(
       context: context,
-      builder: (dialogContext) => AlertDialog(
+      builder: (BuildContext dialogContext) => AlertDialog(
         title: const Text('Modifier l\'ID'),
         content: TextField(
           controller: controller,
           keyboardType: TextInputType.number,
           decoration: const InputDecoration(labelText: 'Nouvel ID'),
         ),
-        actions: [
+        actions: <Widget>[
           TextButton(
-            onPressed: () => Navigator.pop(dialogContext),
+            onPressed: () => Navigator.pop<Object?>(dialogContext),
             child: const Text('Annuler'),
           ),
           TextButton(
             onPressed: () async {
-              final newId = int.tryParse(controller.text);
+              final int? newId = int.tryParse(controller.text);
               if (newId != null) {
-                final appState = Provider.of<AppState>(context, listen: false);
+                final AppState appState =
+                    Provider.of<AppState>(context, listen: false);
                 if (await appState.editCharacter(widget.id, newId)) {
                   if (mounted) {
                     toastification.show(
@@ -111,25 +114,25 @@ class _CharacterIdActionsState extends State<CharacterIdActions>
                     );
                   }
                 }
-                navigator.pop();
+                navigator.pop<Object?>();
               }
             },
             child: const Text('Sauvegarder'),
           )
         ],
       ),
-    ).then((_) => controller.dispose());
+    ).then<void>((dynamic _) => controller.dispose());
   }
 
   @override
   Widget build(BuildContext context) {
     return Row(
-      children: [
+      children: <Widget>[
         SizedBox(
           width: 80,
           child: Stack(
             clipBehavior: Clip.none,
-            children: [
+            children: <Widget>[
               IconButton(
                 icon: const Icon(Icons.copy, size: 16),
                 onPressed: _handleCopy,

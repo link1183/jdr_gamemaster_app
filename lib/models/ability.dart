@@ -25,13 +25,13 @@ class AbilityScore {
     ModifierSubType subType = _getAbilityScoreSubType(name);
     if (subType == ModifierSubType.notFound) return totalScore;
 
-    for (var source in [
+    for (List<ClassModifier> source in <List<ClassModifier>>[
       character.modifiers.race,
       character.modifiers.classModifier,
       character.modifiers.background,
       character.modifiers.feat
     ]) {
-      for (var modifier in source) {
+      for (ClassModifier modifier in source) {
         if (_isRelevantModifier(modifier, subType)) {
           totalScore += modifier.fixedValue;
         }
@@ -58,7 +58,6 @@ class AbilityScore {
 
   factory AbilityScore.fromJson(Map<String, dynamic> json,
       {Character? character}) {
-    // First handle the statId/name mapping
     Ability name;
     if (json.containsKey('id')) {
       name = switch (json['id'] as int) {
@@ -82,14 +81,13 @@ class AbilityScore {
       };
     }
 
-    // Then handle the value
     int value;
     if (json.containsKey('value')) {
       value = json['value'] as int? ?? 10;
     } else if (json.containsKey('statValue')) {
       value = json['statValue'] as int? ?? 10;
     } else {
-      value = 10; // default value
+      value = 10;
     }
 
     return AbilityScore(
@@ -106,7 +104,7 @@ class AbilityScores {
 
   AbilityScores(List<AbilityScore> scores, [this._character])
       : _scores = scores
-            .map((score) => AbilityScore(
+            .map<AbilityScore>((AbilityScore score) => AbilityScore(
                 name: score.name,
                 baseValue: score.baseValue,
                 character: _character))
@@ -114,7 +112,7 @@ class AbilityScores {
 
   AbilityScore getAbilityScore(Ability ability) {
     return _scores.firstWhere(
-      (score) => score.name == ability,
+      (AbilityScore score) => score.name == ability,
       orElse: () =>
           AbilityScore(name: ability, baseValue: 10, character: _character),
     );

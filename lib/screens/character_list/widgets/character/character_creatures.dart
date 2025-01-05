@@ -21,7 +21,7 @@ class CharacterCreatures extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+        children: <Widget>[
           const Text(
             'Créatures',
             style: TextStyle(
@@ -35,7 +35,8 @@ class CharacterCreatures extends StatelessWidget {
             spacing: 8,
             runSpacing: 8,
             children: creatures
-                .map((creature) => _buildCreatureCard(creature))
+                .map<Widget>(
+                    (Creature creature) => _buildCreatureCard(creature))
                 .toList(),
           ),
         ],
@@ -44,10 +45,10 @@ class CharacterCreatures extends StatelessWidget {
   }
 
   Widget _buildCreatureCard(Creature creature) {
-    final healthPercent =
+    final int healthPercent =
         (creature.currentHealth / creature.averageHitPoints * 100).round();
-    final color = _getHealthColor(healthPercent);
-    final isTransformed = activeTransformation?.id == creature.id;
+    final Color color = _getHealthColor(healthPercent);
+    final bool isTransformed = activeTransformation?.id == creature.id;
 
     return Container(
       padding: const EdgeInsets.all(12),
@@ -62,10 +63,10 @@ class CharacterCreatures extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
-        children: [
+        children: <Widget>[
           Row(
             mainAxisSize: MainAxisSize.min,
-            children: [
+            children: <Widget>[
               Checkbox(
                 value: isTransformed,
                 onChanged: (bool? value) {
@@ -102,7 +103,7 @@ class CharacterCreatures extends StatelessWidget {
           const SizedBox(height: 8),
           Row(
             mainAxisSize: MainAxisSize.min,
-            children: [
+            children: <Widget>[
               _buildCreatureStat(
                 'HP',
                 '${creature.currentHealth}/${creature.averageHitPoints}',
@@ -133,7 +134,7 @@ class CharacterCreatures extends StatelessWidget {
   Widget _buildCreatureStat(String label, String value, Color color) {
     return Row(
       mainAxisSize: MainAxisSize.min,
-      children: [
+      children: <Widget>[
         Text(
           label,
           style: TextStyle(

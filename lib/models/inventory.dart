@@ -49,10 +49,11 @@ class ItemDefinition {
       type: json['type'] as String? ?? '',
       description: json['description'] as String,
       grantedModifiers: (json['grantedModifiers'] as List<dynamic>)
-          .map((x) => GrantedModifier.fromJson(x as Map<String, dynamic>))
+          .map<GrantedModifier>((dynamic x) =>
+              GrantedModifier.fromJson(x as Map<String, dynamic>))
           .toList(),
       weaponBehaviors: (json['weaponBehaviors'] as List<dynamic>)
-          .map((x) => WeaponBehavior.fromJson(x))
+          .map<WeaponBehavior>((dynamic x) => WeaponBehavior.fromJson(x))
           .toList(),
       filterType: json['filterType'] as String? ?? '',
       armorClass: json['armorClass'] as int? ?? 10,

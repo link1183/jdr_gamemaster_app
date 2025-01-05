@@ -11,13 +11,13 @@ class CharacterService {
 
   static Future<Map<String, dynamic>> fetchCharacterData(
       int characterId) async {
-    final url =
+    final String url =
         'https://character-service.dndbeyond.com/character/v5/character/$characterId';
 
     for (int attempt = 1; attempt <= _retryCount; attempt++) {
       try {
         _logger.info('Fetching character data (Attempt $attempt): $url');
-        final response =
+        final http.Response response =
             await http.get(Uri.parse(url)).timeout(const Duration(seconds: 10));
 
         if (response.statusCode == 200) {
@@ -41,11 +41,11 @@ class CharacterService {
       }
 
       if (attempt < _retryCount) {
-        await Future.delayed(_retryDelay);
+        await Future<dynamic>.delayed(_retryDelay);
       }
     }
 
-    final errorMessage =
+    final String errorMessage =
         'Failed to fetch character data after $_retryCount attempts';
     _logger.severe(errorMessage);
     throw Exception(errorMessage);

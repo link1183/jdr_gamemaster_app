@@ -11,7 +11,7 @@ class AddCharactersForm extends StatefulWidget {
 }
 
 class _AddCharactersFormState extends State<AddCharactersForm> {
-  final _textController = TextEditingController();
+  final TextEditingController _textController = TextEditingController();
   bool _isLoading = false;
 
   @override
@@ -23,21 +23,21 @@ class _AddCharactersFormState extends State<AddCharactersForm> {
   Future<void> _processBatchIds() async {
     setState(() => _isLoading = true);
     try {
-      final inputLines = _textController.text
+      final Iterable<String> inputLines = _textController.text
           .split('\n')
-          .map((s) => s.trim())
-          .where((s) => s.isNotEmpty);
+          .map<String>((String s) => s.trim())
+          .where((String s) => s.isNotEmpty);
 
-      final ids = <int>[];
-      for (final line in inputLines) {
+      final List<int> ids = <int>[];
+      for (final String line in inputLines) {
         try {
           if (line.startsWith('https://www.dndbeyond.com/characters/')) {
-            final uri = Uri.parse(line);
+            final Uri uri = Uri.parse(line);
             if (uri.pathSegments.length < 2 ||
                 uri.pathSegments[0] != 'characters') {
               throw FormatException('URL invalide: $line');
             }
-            final idPart = uri.pathSegments[1].split('/')[0];
+            final String idPart = uri.pathSegments[1].split('/')[0];
             ids.add(int.parse(idPart));
           } else {
             ids.add(int.parse(line));
@@ -77,8 +77,8 @@ class _AddCharactersFormState extends State<AddCharactersForm> {
         return;
       }
 
-      final results = <int, bool>{};
-      for (final id in ids) {
+      final Map<int, bool> results = <int, bool>{};
+      for (final int id in ids) {
         try {
           results[id] = await Provider.of<AppState>(context, listen: false)
               .addCharacter(id, context);
@@ -101,8 +101,8 @@ class _AddCharactersFormState extends State<AddCharactersForm> {
       }
 
       if (mounted) {
-        final successful = results.values.where((v) => v).length;
-        final failed = results.values.where((v) => !v).length;
+        final int successful = results.values.where((v) => v).length;
+        final int failed = results.values.where((v) => !v).length;
 
         toastification.show(
           context: context,
@@ -149,7 +149,7 @@ class _AddCharactersFormState extends State<AddCharactersForm> {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
-        children: [
+        children: <Widget>[
           TextField(
             controller: _textController,
             decoration: const InputDecoration(

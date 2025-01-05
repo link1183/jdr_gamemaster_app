@@ -19,7 +19,8 @@ class StorageService {
       if (appDataPath.isEmpty) {
         throw Exception('Could not find APPDATA directory');
       }
-      final directory = Directory(path.join(appDataPath, _appFolderName));
+      final Directory directory =
+          Directory(path.join(appDataPath, _appFolderName));
       await directory.create(recursive: true);
       return directory.path;
     } else if (Platform.isLinux) {
@@ -27,26 +28,27 @@ class StorageService {
       if (homeDir.isEmpty) {
         throw Exception('Could not find HOME directory');
       }
-      final directory =
+      final Directory directory =
           Directory(path.join(homeDir, '.local', 'share', _appFolderName));
       await directory.create(recursive: true);
       return directory.path;
     } else {
-      final directory = await getApplicationDocumentsDirectory();
-      final appDirectory = Directory(path.join(directory.path, _appFolderName));
+      final Directory directory = await getApplicationDocumentsDirectory();
+      final Directory appDirectory =
+          Directory(path.join(directory.path, _appFolderName));
       await appDirectory.create(recursive: true);
       return appDirectory.path;
     }
   }
 
   Future<File> get _charactersFile async {
-    final path = await _localPath;
+    final String path = await _localPath;
     return File('$path/$_charactersFileName');
   }
 
   Future<List<int>> loadCharacterIds() async {
     try {
-      final file = await _charactersFile;
+      final File file = await _charactersFile;
 
       // If file doesn't exist, create it with default values
       if (!await file.exists()) {
@@ -56,16 +58,16 @@ class StorageService {
       final String contents = await file.readAsString();
       final List<dynamic> jsonList = json.decode(contents);
 
-      return jsonList.map((item) => item as int).toList();
+      return jsonList.map<int>((item) => item as int).toList();
     } catch (e) {
       _logger.severe('Error loading character IDs', e);
-      return [];
+      return <int>[];
     }
   }
 
   Future<void> saveCharacterIds(List<int> characterIds) async {
     try {
-      final file = await _charactersFile;
+      final File file = await _charactersFile;
       await file.writeAsString(json.encode(characterIds));
       _logger.info('Character IDs saved successfully');
     } catch (e) {
@@ -75,7 +77,7 @@ class StorageService {
   }
 
   Future<void> _createDefaultCharactersFile() async {
-    final defaultCharacters = [
+    final List<int> defaultCharacters = <int>[
       133116028, // Selenna
       132627929, // Lorakk
       133113999, // Facilier

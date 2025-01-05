@@ -6,8 +6,6 @@ import 'package:jdr_gamemaster_app/models/inventory.dart';
 import 'package:jdr_gamemaster_app/models/modifier.dart';
 import 'package:jdr_gamemaster_app/models/ability.dart';
 
-typedef JsonObject = Map<String, dynamic>;
-
 class Character {
   int id;
   final String name;
@@ -18,7 +16,7 @@ class Character {
   final List<InventoryItem> inventory;
   final List<Class> classes;
   final Modifier modifiers;
-  final List<JsonObject> customDefenseAdjustments;
+  final List<Map<String, dynamic>> customDefenseAdjustments;
   late final AbilityScores stats;
   final Currency currency;
   final List<Creature> creatures;
@@ -62,8 +60,8 @@ class Character {
       _activeTransformation?.currentHealth ??
       (maxHealth + _temporaryHitPoints - _removedHitPoints);
 
-  int get level =>
-      classes.fold(0, (sum, characterClass) => sum + characterClass.level);
+  int get level => classes.fold<int>(
+      0, (int sum, Class characterClass) => sum + characterClass.level);
 
   int get proficiencyBonus {
     if (level <= 4) {
@@ -89,7 +87,7 @@ class Character {
   int _calculatePassivePerception() {
     int score = stats.wisdom.modifier + 10;
 
-    for (var source in [
+    for (List<ClassModifier> source in <List<ClassModifier>>[
       modifiers.race,
       modifiers.classModifier,
       modifiers.background,
@@ -97,7 +95,7 @@ class Character {
       modifiers.condition,
       modifiers.item,
     ]) {
-      for (var modifiers in source) {
+      for (ClassModifier modifiers in source) {
         if (modifiers.type == ModifierType.proficiency &&
             modifiers.subType == ModifierSubType.perception) {
           score += proficiencyBonus;
@@ -111,13 +109,13 @@ class Character {
   int get passiveInvestigation {
     int score = stats.intelligence.modifier + 10;
 
-    for (var source in [
+    for (List<ClassModifier> source in <List<ClassModifier>>[
       modifiers.race,
       modifiers.classModifier,
       modifiers.background,
       modifiers.feat,
     ]) {
-      for (var modifiers in source) {
+      for (ClassModifier modifiers in source) {
         if (modifiers.type == ModifierType.proficiency &&
             modifiers.subType == ModifierSubType.investigation) {
           score += proficiencyBonus;
@@ -131,13 +129,13 @@ class Character {
   int get passiveInsight {
     int score = stats.wisdom.modifier + 10;
 
-    for (var source in [
+    for (List<ClassModifier> source in <List<ClassModifier>>[
       modifiers.race,
       modifiers.classModifier,
       modifiers.background,
       modifiers.feat,
     ]) {
-      for (var modifiers in source) {
+      for (ClassModifier modifiers in source) {
         if (modifiers.type == ModifierType.proficiency &&
             modifiers.subType == ModifierSubType.insight) {
           score += proficiencyBonus;
@@ -157,24 +155,27 @@ class Character {
       removedHitPoints: json['removedHitPoints'] as int,
       temporaryHitPoints: json['temporaryHitPoints'] as int,
       stats: (json['stats'] as List<dynamic>)
-          .map((x) => AbilityScore.fromJson(x as Map<String, dynamic>))
+          .map<AbilityScore>(
+              (dynamic x) => AbilityScore.fromJson(x as Map<String, dynamic>))
           .toList(),
       inventory: (json['inventory'] as List<dynamic>)
-          .map((x) => InventoryItem.fromJson(x as Map<String, dynamic>))
+          .map<InventoryItem>(
+              (dynamic x) => InventoryItem.fromJson(x as Map<String, dynamic>))
           .toList(),
       classes: (json['classes'] as List<dynamic>)
-          .map((x) => Class.fromJson(x))
+          .map<Class>((dynamic x) => Class.fromJson(x))
           .toList(),
       modifiers: Modifier.fromJson(json['modifiers']),
-      customDefenseAdjustments:
-          (json['customDefenseAdjustments'] as List<dynamic>)
-              .map((x) => x as Map<String, dynamic>)
-              .toList(),
+      customDefenseAdjustments: (json['customDefenseAdjustments']
+              as List<dynamic>)
+          .map<Map<String, dynamic>>((dynamic x) => x as Map<String, dynamic>)
+          .toList(),
       currency: Currency.fromJson(json['currencies']),
       creatures: (json['creatures'] as List<dynamic>?)
-              ?.map((x) => Creature.fromJson(x as Map<String, dynamic>))
+              ?.map<Creature>(
+                  (dynamic x) => Creature.fromJson(x as Map<String, dynamic>))
               .toList() ??
-          [],
+          <Creature>[],
       initiative: null,
       tiebreaker: 0,
     );

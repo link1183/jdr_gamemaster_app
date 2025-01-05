@@ -2,15 +2,16 @@ import 'package:flutter/widgets.dart';
 import 'package:jdr_gamemaster_app/models/creature.dart';
 import 'package:jdr_gamemaster_app/services/logging_service.dart';
 import 'package:jdr_gamemaster_app/services/storage_service.dart';
+import 'package:logging/logging.dart';
 import 'package:toastification/toastification.dart';
 import '../services/character_service.dart';
 import 'character.dart';
 
 class AppState extends ChangeNotifier {
-  final _logger = LoggingService().getLogger('AppState');
+  final Logger _logger = LoggingService().getLogger('AppState');
   final StorageService _storageService = StorageService();
-  List<int> characterIds = [];
-  List<Character> characterList = [];
+  List<int> characterIds = <int>[];
+  List<Character> characterList = <Character>[];
   bool isLoading = false;
 
   void showToast(
@@ -60,7 +61,7 @@ class AppState extends ChangeNotifier {
     try {
       if (!characterIds.contains(oldId)) return false;
       characterIds =
-          characterIds.map((id) => oldId == id ? newId : id).toList();
+          characterIds.map<int>((int id) => oldId == id ? newId : id).toList();
       await _storageService.saveCharacterIds(characterIds);
       return true;
     } catch (e) {
@@ -74,11 +75,11 @@ class AppState extends ChangeNotifier {
       if (characterIds.contains(id)) {
         characterIds.remove(id);
         await _storageService.saveCharacterIds(characterIds);
-        characterList.removeWhere((character) => character.id == id);
+        characterList.removeWhere((Character character) => character.id == id);
         notifyListeners();
         return true;
       }
-      return false; // ID not found
+      return false;
     } catch (e) {
       _logger.severe('Error removing character', e);
       if (context != null) {
@@ -92,25 +93,21 @@ class AppState extends ChangeNotifier {
   }
 
   Future<void> initializeCharacters() async {
-    // Store current transformations before refresh
-    Map<int, Creature?> currentTransformations = {};
-    for (var character in characterList) {
+    Map<int, Creature?> currentTransformations = <int, Creature?>{};
+    for (Character character in characterList) {
       if (character.activeTransformation != null) {
         currentTransformations[character.id] = character.activeTransformation;
       }
     }
 
-    // Load new data
     final List<Character> newCharacters = await loadCharacters();
 
-    // Restore transformations
-    for (var character in newCharacters) {
+    for (Character character in newCharacters) {
       if (currentTransformations.containsKey(character.id)) {
-        // Find the matching creature in the new data
-        final oldCreatureId = currentTransformations[character.id]?.id;
+        final int? oldCreatureId = currentTransformations[character.id]?.id;
         if (oldCreatureId != null) {
-          final newCreature = character.creatures.firstWhere(
-            (c) => c.id == oldCreatureId,
+          final Creature newCreature = character.creatures.firstWhere(
+            (Creature c) => c.id == oldCreatureId,
             orElse: () {
               _logger.warning(
                   'Could not find creature $oldCreatureId for character ${character.id}');
@@ -140,10 +137,10 @@ class AppState extends ChangeNotifier {
     isLoading = true;
     notifyListeners();
 
-    Map<int, Character> tempCharacters = {};
-    List<int> failedCharacterIds = []; // Track failed character loads
+    Map<int, Character> tempCharacters = <int, Character>{};
+    List<int> failedCharacterIds = <int>[];
 
-    List<Future<void>> futures = characterIds.map((id) async {
+    List<Future<void>> futures = characterIds.map<Future<Null>>((id) async {
       try {
         Map<String, dynamic> characterJson =
             await CharacterService.fetchCharacterData(id);
@@ -156,12 +153,11 @@ class AppState extends ChangeNotifier {
       }
     }).toList();
 
-    await Future.wait(futures);
+    await Future.wait<void>(futures);
 
     isLoading = false;
     _logger.info('Finished loading all characters');
 
-    // If any characters failed to load and context is provided, show a toast
     if (failedCharacterIds.isNotEmpty && context != null) {
       if (context.mounted) {
         showToast(
@@ -173,15 +169,15 @@ class AppState extends ChangeNotifier {
     }
 
     return characterIds
-        .where((id) => tempCharacters.containsKey(id))
-        .map((id) => tempCharacters[id]!)
+        .where((int id) => tempCharacters.containsKey(id))
+        .map<Character>((int id) => tempCharacters[id]!)
         .toList();
   }
 
   Map<String, dynamic> getHealthStats() {
     if (characterList.isEmpty) {
-      return {
-        'categories': {
+      return <String, dynamic>{
+        'categories': <String, int>{
           'healthy': 0,
           'injured': 0,
           'bloodied': 0,
@@ -195,7 +191,7 @@ class AppState extends ChangeNotifier {
     double sum = 0;
     double baseSum = 0;
     int transformedCount = 0;
-    Map<String, int> categories = {
+    Map<String, int> categories = <String, int>{
       'healthy': 0,
       'injured': 0,
       'bloodied': 0,
@@ -207,12 +203,11 @@ class AppState extends ChangeNotifier {
         transformedCount++;
       }
 
-      // Use transformed stats if available
-      final health = character.activeTransformation?.currentHealth ??
+      final int health = character.activeTransformation?.currentHealth ??
           character.currentHealth;
-      final maxHealth = character.activeTransformation?.averageHitPoints ??
+      final int maxHealth = character.activeTransformation?.averageHitPoints ??
           character.maxHealth;
-      final healthPercent = (health / maxHealth) * 100;
+      final double healthPercent = (health / maxHealth) * 100;
 
       if (healthPercent > 75) {
         categories['healthy'] = categories['healthy']! + 1;
@@ -228,7 +223,7 @@ class AppState extends ChangeNotifier {
       baseSum += maxHealth;
     }
 
-    return {
+    return <String, dynamic>{
       'categories': categories,
       'percent': ((sum / baseSum) * 100).round(),
       'transformedCount': transformedCount,
@@ -236,7 +231,7 @@ class AppState extends ChangeNotifier {
   }
 
   void sortByInitiative() {
-    characterList.sort((a, b) {
+    characterList.sort((Character a, Character b) {
       if (a.initiative == null && b.initiative == null) return 0;
       if (a.initiative == null) return 1;
       if (b.initiative == null) return -1;
@@ -251,20 +246,20 @@ class AppState extends ChangeNotifier {
   }
 
   void resetInitiative() {
-    for (var character in characterList) {
+    for (Character character in characterList) {
       character.initiative = null;
     }
     notifyListeners();
   }
 
   void moveCharacterUp(Character character) {
-    final index = characterList.indexOf(character);
+    final int index = characterList.indexOf(character);
     if (index <= 0) return;
 
-    final previousCharacter = characterList[index - 1];
+    final Character previousCharacter = characterList[index - 1];
     if (previousCharacter.initiative != character.initiative) return;
 
-    final temp = character.tiebreaker;
+    final int temp = character.tiebreaker;
     character.tiebreaker = previousCharacter.tiebreaker + 1;
     previousCharacter.tiebreaker = temp;
 
@@ -272,13 +267,13 @@ class AppState extends ChangeNotifier {
   }
 
   void moveCharacterDown(Character character) {
-    final index = characterList.indexOf(character);
+    final int index = characterList.indexOf(character);
     if (index >= characterList.length - 1) return;
 
-    final previousCharacter = characterList[index + 1];
+    final Character previousCharacter = characterList[index + 1];
     if (previousCharacter.initiative != character.initiative) return;
 
-    final temp = character.tiebreaker;
+    final int temp = character.tiebreaker;
     character.tiebreaker = previousCharacter.tiebreaker - 1;
     previousCharacter.tiebreaker = temp;
 

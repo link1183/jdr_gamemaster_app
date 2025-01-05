@@ -16,7 +16,7 @@ class CharacterStats extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
-        children: [
+        children: <Widget>[
           _buildPassiveStat(character.passivePerception, 'PERCEPTION'),
           const SizedBox(width: 8),
           _buildPassiveStat(character.passiveInvestigation, 'INVESTIGATION'),
@@ -33,7 +33,7 @@ class CharacterStats extends StatelessWidget {
       child: StatContainer(
         child: Row(
           mainAxisSize: MainAxisSize.min,
-          children: [
+          children: <Widget>[
             Text(
               value.toString(),
               style: const TextStyle(

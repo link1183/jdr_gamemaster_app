@@ -40,7 +40,8 @@ class Creature {
       armorClass: json['definition']['armorClass'] as int,
       passivePerception: json['definition']['passivePerception'] as int,
       stats: (json['definition']['stats'] as List<dynamic>)
-          .map((x) => AbilityScore.fromJson(x as Map<String, dynamic>))
+          .map<AbilityScore>(
+              (dynamic x) => AbilityScore.fromJson(x as Map<String, dynamic>))
           .toList(),
     );
   }

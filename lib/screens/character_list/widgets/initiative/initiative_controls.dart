@@ -34,7 +34,7 @@ class InitiativeControls extends StatelessWidget {
       width: 180,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
-        children: [
+        children: <Widget>[
           if (showTurnOrder &&
               (hasSameInitiativeAbove || hasSameInitiativeBelow))
             Container(
@@ -47,7 +47,7 @@ class InitiativeControls extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
+                children: <Widget>[
                   if (hasSameInitiativeBelow)
                     _buildArrowButton(
                       Icons.keyboard_arrow_down,

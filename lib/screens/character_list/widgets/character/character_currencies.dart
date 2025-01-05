@@ -15,7 +15,7 @@ class CharacterCurrencies extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
       child: Row(
-        children: [
+        children: <Widget>[
           _buildCurrencyItem(
               character.currency.platinum, 'PP', Colors.grey[300]!),
           const SizedBox(width: 8),
@@ -59,7 +59,7 @@ class CharacterCurrencies extends StatelessWidget {
         borderColor: color,
         child: Row(
           mainAxisSize: MainAxisSize.min,
-          children: [
+          children: <Widget>[
             Text(
               amount.toString(),
               style: TextStyle(

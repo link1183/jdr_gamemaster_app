@@ -8,10 +8,21 @@ class PartyHealthStats extends StatelessWidget {
     required this.healthStats,
   });
 
-  static const Map<String, (String, Color, IconData, String)> categoryInfo = {
+  static const Map<String, (String, Color, IconData, String)> categoryInfo =
+      <String, (String, Color, IconData, String)>{
     'healthy': ('En forme', Color(0xFF43A047), Icons.favorite, '> 75% HP'),
-    'injured': ('Blessé', Color(0xFFEF6C00), Icons.heart_broken, '50% - 75% HP'),
-    'bloodied': ('Mal en point', Color(0xFFD32F2F), Icons.dangerous, '25% - 50% HP'),
+    'injured': (
+      'Blessé',
+      Color(0xFFEF6C00),
+      Icons.heart_broken,
+      '50% - 75% HP'
+    ),
+    'bloodied': (
+      'Mal en point',
+      Color(0xFFD32F2F),
+      Icons.dangerous,
+      '25% - 50% HP'
+    ),
     'critical': ('Critique', Color(0xFF6A1B9A), Icons.emergency, '< 25% HP'),
   };
 
@@ -38,10 +49,11 @@ class PartyHealthStats extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final categories = healthStats['categories'] as Map<String, int>;
-    final theme = Theme.of(context);
-    final groupPercent = healthStats['percent'] as int;
-    final statusColor = _getStatusColor(groupPercent);
+    final Map<String, int> categories =
+        healthStats['categories'] as Map<String, int>;
+    final ThemeData theme = Theme.of(context);
+    final int groupPercent = healthStats['percent'] as int;
+    final Color statusColor = _getStatusColor(groupPercent);
 
     return Container(
       width: double.infinity,
@@ -50,7 +62,7 @@ class PartyHealthStats extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [
+          colors: <Color>[
             theme.colorScheme.primaryContainer,
             theme.colorScheme.primaryContainer.withValues(alpha: 0.8),
           ],
@@ -59,7 +71,7 @@ class PartyHealthStats extends StatelessWidget {
           bottomLeft: Radius.circular(16),
           bottomRight: Radius.circular(16),
         ),
-        boxShadow: [
+        boxShadow: <BoxShadow>[
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.1),
             blurRadius: 8,
@@ -68,12 +80,13 @@ class PartyHealthStats extends StatelessWidget {
         ],
       ),
       child: Column(
-        children: [
+        children: <Widget>[
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+            children: <Widget>[
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 decoration: BoxDecoration(
                   color: statusColor.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(20),
@@ -86,7 +99,7 @@ class PartyHealthStats extends StatelessWidget {
                   message: _getGroupStatusDescription(groupPercent),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
-                    children: [
+                    children: <Widget>[
                       Icon(
                         _getStatusIcon(groupPercent),
                         size: 20,
@@ -126,8 +139,9 @@ class PartyHealthStats extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: categoryInfo.entries
-          .map((entry) {
-            final count = categories[entry.key] ?? 0;
+          .map<SingleChildRenderObjectWidget>(
+              (MapEntry<String, (String, Color, IconData, String)> entry) {
+            final int count = categories[entry.key] ?? 0;
             if (count == 0) return const SizedBox.shrink();
 
             return Padding(
@@ -135,14 +149,17 @@ class PartyHealthStats extends StatelessWidget {
               child: _buildCategoryBadge(entry, count),
             );
           })
-          .where((widget) => widget != const SizedBox.shrink())
+          .where((SingleChildRenderObjectWidget widget) =>
+              widget != const SizedBox.shrink())
           .toList(),
     );
   }
 
-  Widget _buildCategoryBadge(MapEntry<String, (String, Color, IconData, String)> entry, int count) {
+  Widget _buildCategoryBadge(
+      MapEntry<String, (String, Color, IconData, String)> entry, int count) {
     return Tooltip(
-      message: '$count personnage${count > 1 ? 's' : ''} ${entry.value.$1.toLowerCase()}\n${entry.value.$4}',
+      message:
+          '$count personnage${count > 1 ? 's' : ''} ${entry.value.$1.toLowerCase()}\n${entry.value.$4}',
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
@@ -152,7 +169,7 @@ class PartyHealthStats extends StatelessWidget {
             color: entry.value.$2.withValues(alpha: 0.5),
             width: 1,
           ),
-          boxShadow: [
+          boxShadow: <BoxShadow>[
             BoxShadow(
               color: entry.value.$2.withValues(alpha: 0.1),
               blurRadius: 4,
@@ -162,7 +179,7 @@ class PartyHealthStats extends StatelessWidget {
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
-          children: [
+          children: <Widget>[
             Icon(
               entry.value.$3,
               color: entry.value.$2,
@@ -184,12 +201,12 @@ class PartyHealthStats extends StatelessWidget {
   }
 
   void _showHealthCategories(BuildContext context) {
-    final theme = Theme.of(context);
-    showDialog(
+    final ThemeData theme = Theme.of(context);
+    showDialog<dynamic>(
       context: context,
-      builder: (context) => AlertDialog(
+      builder: (BuildContext context) => AlertDialog(
         title: Row(
-          children: [
+          children: <Widget>[
             Icon(
               Icons.info_outline,
               color: theme.colorScheme.primary,
@@ -202,7 +219,8 @@ class PartyHealthStats extends StatelessWidget {
         content: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: categoryInfo.entries.map((entry) {
+          children: categoryInfo.entries.map<Container>(
+              (MapEntry<String, (String, Color, IconData, String)> entry) {
             return Container(
               margin: const EdgeInsets.symmetric(vertical: 4),
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
@@ -215,7 +233,7 @@ class PartyHealthStats extends StatelessWidget {
                 ),
               ),
               child: Row(
-                children: [
+                children: <Widget>[
                   Icon(
                     entry.value.$3,
                     color: entry.value.$2,
@@ -239,9 +257,9 @@ class PartyHealthStats extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
         ),
-        actions: [
+        actions: <Widget>[
           TextButton(
-            onPressed: () => Navigator.of(context).pop(),
+            onPressed: () => Navigator.of(context).pop<Object?>(),
             child: const Text('Fermer'),
           ),
         ],

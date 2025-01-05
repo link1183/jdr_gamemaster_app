@@ -10,12 +10,12 @@ import 'screens/character_list/character_list_screen.dart';
 void main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  final loggingService = LoggingService();
+  final LoggingService loggingService = LoggingService();
   await loggingService.initialize(
     logLevel: Level.INFO,
   );
 
-  final logger = loggingService.getLogger('Main');
+  final Logger logger = loggingService.getLogger('Main');
   logger.info('Application started');
 
   runApp(const App());
@@ -26,14 +26,15 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, constraints) {
+    return LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
       if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
         setWindowMinSize(const Size(800, 700));
       }
 
-      return ChangeNotifierProvider(
-        create: (context) {
-          final appState = AppState();
+      return ChangeNotifierProvider<AppState>(
+        create: (BuildContext context) {
+          final AppState appState = AppState();
           appState.loadCharacterIds();
           return appState;
         },

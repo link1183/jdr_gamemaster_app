@@ -16,7 +16,8 @@ class CharacterListScreen extends StatefulWidget {
 }
 
 class _CharacterListScreenState extends State<CharacterListScreen> {
-  final Map<String, TextEditingController> _controllers = {};
+  final Map<String, TextEditingController> _controllers =
+      <String, TextEditingController>{};
 
   @override
   void initState() {
@@ -26,7 +27,7 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
 
   @override
   void dispose() {
-    for (var controller in _controllers.values) {
+    for (TextEditingController controller in _controllers.values) {
       controller.dispose();
     }
     super.dispose();
@@ -37,9 +38,9 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
   }
 
   void _handleResetInitiatives() {
-    final appState = Provider.of<AppState>(context, listen: false);
+    final AppState appState = Provider.of<AppState>(context, listen: false);
     appState.resetInitiative();
-    _controllers.forEach((key, controller) {
+    _controllers.forEach((String key, TextEditingController controller) {
       controller.clear();
     });
   }
@@ -85,21 +86,22 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final appState = context.watch<AppState>();
+    final AppState appState = context.watch<AppState>();
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('Statut du groupe'),
-        actions: [
+        actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.settings),
             onPressed: () {
-              Navigator.push(
+              Navigator.push<dynamic>(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => const CharacterManagerScreen(),
+                MaterialPageRoute<dynamic>(
+                  builder: (BuildContext context) =>
+                      const CharacterManagerScreen(),
                 ),
-              ).then((_) => _refreshCharacterList());
+              ).then<void>((dynamic _) => _refreshCharacterList());
             },
             tooltip: 'Gérer les personnages',
           ),
@@ -111,9 +113,9 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
         ],
       ),
       body: Stack(
-        children: [
+        children: <Widget>[
           Column(
-            children: [
+            children: <Widget>[
               if (appState.characterList.isEmpty)
                 const Expanded(
                   child: Center(
@@ -125,32 +127,34 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
                   child: ListView.builder(
                     padding: EdgeInsets.zero,
                     itemCount: appState.characterList.length + 1,
-                    itemBuilder: (context, index) {
+                    itemBuilder: (BuildContext context, int index) {
                       if (index == 0) {
                         return PartyHealthStats(
                           healthStats: appState.getHealthStats(),
                         );
                       }
 
-                      final adjustedIndex = index - 1;
-                      final character = appState.characterList[adjustedIndex];
+                      final int adjustedIndex = index - 1;
+                      final Character character =
+                          appState.characterList[adjustedIndex];
 
                       bool hasSameInitiativeAbove = false;
                       if (adjustedIndex > 0 && character.initiative != null) {
-                        hasSameInitiativeAbove =
-                            appState.characterList[adjustedIndex - 1].initiative ==
-                                character.initiative;
+                        hasSameInitiativeAbove = appState
+                                .characterList[adjustedIndex - 1].initiative ==
+                            character.initiative;
                       }
 
                       bool hasSameInitiativeBelow = false;
                       if (adjustedIndex < appState.characterList.length - 1 &&
                           character.initiative != null) {
-                        hasSameInitiativeBelow =
-                            appState.characterList[adjustedIndex + 1].initiative ==
-                                character.initiative;
+                        hasSameInitiativeBelow = appState
+                                .characterList[adjustedIndex + 1].initiative ==
+                            character.initiative;
                       }
 
-                      final controller = _controllers.putIfAbsent(
+                      final TextEditingController controller =
+                          _controllers.putIfAbsent(
                         character.name,
                         () => TextEditingController(
                           text: character.initiative?.toString() ?? '',
@@ -158,7 +162,7 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
                       );
 
                       return CharacterListItem(
-                        key: ValueKey(character.name),
+                        key: ValueKey<String>(character.name),
                         character: character,
                         controller: controller,
                         onSort: appState.sortByInitiative,

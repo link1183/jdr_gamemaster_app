@@ -33,7 +33,7 @@ class CharacterHeader extends StatelessWidget {
   });
 
   Color _getHealthColor(int current, int max) {
-    final percent = (current / max * 100).round();
+    final int percent = (current / max * 100).round();
     if (percent > 75) return const Color(0xFF43A047); // healthy
     if (percent > 50) return const Color(0xFFEF6C00); // injured
     if (percent > 25) return const Color(0xFFD32F2F); // bloodied
@@ -41,7 +41,7 @@ class CharacterHeader extends StatelessWidget {
   }
 
   IconData _getHealthIcon(int current, int max) {
-    final percent = (current / max * 100).round();
+    final int percent = (current / max * 100).round();
     if (percent > 75) return Icons.favorite;
     if (percent > 50) return Icons.heart_broken;
     if (percent > 25) return Icons.dangerous;
@@ -49,13 +49,13 @@ class CharacterHeader extends StatelessWidget {
   }
 
   Widget _buildHealthDisplay() {
-    final current = character.currentHealth;
-    final max = character.maxHealth;
-    final color = _getHealthColor(current, max);
+    final int current = character.currentHealth;
+    final int max = character.maxHealth;
+    final Color color = _getHealthColor(current, max);
 
     return Row(
       mainAxisSize: MainAxisSize.min,
-      children: [
+      children: <Widget>[
         const Text(
           'HP',
           style: TextStyle(
@@ -92,7 +92,7 @@ class CharacterHeader extends StatelessWidget {
           height: 56,
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Row(
-            children: [
+            children: <Widget>[
               Icon(
                 isExpanded
                     ? Icons.keyboard_arrow_up

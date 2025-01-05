@@ -15,15 +15,15 @@ class InitiativeInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+    final ThemeData theme = Theme.of(context);
     return Focus(
-      onFocusChange: (hasFocus) {
+      onFocusChange: (bool hasFocus) {
         if (!hasFocus) onSort();
       },
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
-          boxShadow: [
+          boxShadow: <BoxShadow>[
             BoxShadow(
               color: Colors.black.withValues(alpha: 0.1),
               blurRadius: 2,
@@ -74,13 +74,13 @@ class InitiativeInput extends StatelessWidget {
             if (value.isEmpty) {
               character.initiative = null;
             } else {
-              final initiative = int.tryParse(value);
+              final int? initiative = int.tryParse(value);
               if (initiative != null) {
                 character.initiative = initiative;
               }
             }
           },
-          onSubmitted: (_) => onSort(),
+          onSubmitted: (String _) => onSort(),
           controller: controller,
         ),
       ),

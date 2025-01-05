@@ -1,4 +1,5 @@
 import 'package:jdr_gamemaster_app/models/classes.dart';
+import 'package:jdr_gamemaster_app/models/creature.dart';
 import 'package:jdr_gamemaster_app/models/currency.dart';
 import 'package:jdr_gamemaster_app/models/enums.dart';
 import 'package:jdr_gamemaster_app/models/inventory.dart';
@@ -10,9 +11,9 @@ typedef JsonObject = Map<String, dynamic>;
 class Character {
   int id;
   final String name;
-  final int baseHitPoints;
-  final int removedHitPoints;
-  final int temporaryHitPoints;
+  final int _baseHitPoints;
+  final int _removedHitPoints;
+  final int _temporaryHitPoints;
   final List<AbilityScore> _stats;
   final List<InventoryItem> inventory;
   final List<Class> classes;
@@ -20,30 +21,46 @@ class Character {
   final List<JsonObject> customDefenseAdjustments;
   late final AbilityScores stats;
   final Currency currency;
+  final List<Creature> creatures;
   int? initiative;
   int tiebreaker = 0;
+  Creature? _activeTransformation;
 
   Character({
     required this.id,
     required this.name,
-    required this.baseHitPoints,
-    required this.removedHitPoints,
-    required this.temporaryHitPoints,
+    required int baseHitPoints,
+    required int removedHitPoints,
+    required int temporaryHitPoints,
     required List<AbilityScore> stats,
     required this.inventory,
     required this.classes,
     required this.modifiers,
     required this.customDefenseAdjustments,
     required this.currency,
+    required this.creatures,
     this.initiative,
     this.tiebreaker = 0,
-  }) : _stats = stats {
+  })  : _temporaryHitPoints = temporaryHitPoints,
+        _removedHitPoints = removedHitPoints,
+        _baseHitPoints = baseHitPoints,
+        _stats = stats {
     this.stats = AbilityScores(_stats, this);
   }
 
-  int get maxHealth => baseHitPoints + stats.constitution.modifier * level;
+  Creature? get activeTransformation => _activeTransformation;
 
-  int get currentHealth => maxHealth + temporaryHitPoints - removedHitPoints;
+  void transform(Creature? creature) {
+    _activeTransformation = creature;
+  }
+
+  int get maxHealth =>
+      _activeTransformation?.averageHitPoints ??
+      (_baseHitPoints + stats.constitution.modifier * level);
+
+  int get currentHealth =>
+      _activeTransformation?.currentHealth ??
+      (maxHealth + _temporaryHitPoints - _removedHitPoints);
 
   int get level =>
       classes.fold(0, (sum, characterClass) => sum + characterClass.level);
@@ -62,14 +79,14 @@ class Character {
     }
   }
 
-  int get armorClass {
-    int wisMod = stats.wisdom.modifier;
-    int dexMod = stats.dexterity.modifier;
+  int get armorClass =>
+      _activeTransformation?.armorClass ??
+      (10 + stats.wisdom.modifier + stats.dexterity.modifier);
 
-    return 10 + wisMod + dexMod;
-  }
+  int get passivePerception =>
+      _activeTransformation?.passivePerception ?? _calculatePassivePerception();
 
-  int get passivePerception {
+  int _calculatePassivePerception() {
     int score = stats.wisdom.modifier + 10;
 
     for (var source in [
@@ -154,6 +171,10 @@ class Character {
               .map((x) => x as Map<String, dynamic>)
               .toList(),
       currency: Currency.fromJson(json['currencies']),
+      creatures: (json['creatures'] as List<dynamic>?)
+              ?.map((x) => Creature.fromJson(x as Map<String, dynamic>))
+              .toList() ??
+          [],
       initiative: null,
       tiebreaker: 0,
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:jdr_gamemaster_app/models/creature.dart';
 import 'package:jdr_gamemaster_app/services/logging_service.dart';
 import 'package:jdr_gamemaster_app/services/storage_service.dart';
 import '../services/character_service.dart';
@@ -69,6 +70,47 @@ class AppState extends ChangeNotifier {
   }
 
   Future<void> initializeCharacters() async {
+    // Store current transformations before refresh
+    Map<int, Creature?> currentTransformations = {};
+    for (var character in characterList) {
+      if (character.activeTransformation != null) {
+        currentTransformations[character.id] = character.activeTransformation;
+      }
+    }
+
+    // Load new data
+    final List<Character> newCharacters = await loadCharacters();
+
+    // Restore transformations
+    for (var character in newCharacters) {
+      if (currentTransformations.containsKey(character.id)) {
+        // Find the matching creature in the new data
+        final oldCreatureId = currentTransformations[character.id]?.id;
+        if (oldCreatureId != null) {
+          final newCreature = character.creatures.firstWhere(
+            (c) => c.id == oldCreatureId,
+            orElse: () {
+              _logger.warning(
+                  'Could not find creature $oldCreatureId for character ${character.id}');
+              return character.creatures.first;
+            },
+          );
+          if (newCreature.id == oldCreatureId) {
+            character.transform(newCreature);
+          }
+        }
+      }
+    }
+
+    characterList = newCharacters;
+    notifyListeners();
+  }
+
+  void notifyCharacterChanged() {
+    notifyListeners();
+  }
+
+  Future<List<Character>> loadCharacters() async {
     if (characterIds.isEmpty) {
       await loadCharacterIds();
     }
@@ -91,14 +133,13 @@ class AppState extends ChangeNotifier {
 
     await Future.wait(futures);
 
-    characterList = characterIds
+    isLoading = false;
+    _logger.info('Finished loading all characters');
+
+    return characterIds
         .where((id) => tempCharacters.containsKey(id))
         .map((id) => tempCharacters[id]!)
         .toList();
-
-    isLoading = false;
-    _logger.info('Finished loading all characters');
-    notifyListeners();
   }
 
   Map<String, dynamic> getHealthStats() {
@@ -110,12 +151,14 @@ class AppState extends ChangeNotifier {
           'bloodied': 0,
           'critical': 0,
         },
-        'percent': 0
+        'percent': 0,
+        'transformedCount': 0
       };
     }
 
     double sum = 0;
     double baseSum = 0;
+    int transformedCount = 0;
     Map<String, int> categories = {
       'healthy': 0,
       'injured': 0,
@@ -124,9 +167,16 @@ class AppState extends ChangeNotifier {
     };
 
     for (Character character in characterList) {
-      int health = character.currentHealth;
-      int maxHealth = character.maxHealth;
-      double healthPercent = (health / maxHealth) * 100;
+      if (character.activeTransformation != null) {
+        transformedCount++;
+      }
+
+      // Use transformed stats if available
+      final health = character.activeTransformation?.currentHealth ??
+          character.currentHealth;
+      final maxHealth = character.activeTransformation?.averageHitPoints ??
+          character.maxHealth;
+      final healthPercent = (health / maxHealth) * 100;
 
       if (healthPercent > 75) {
         categories['healthy'] = categories['healthy']! + 1;
@@ -145,6 +195,7 @@ class AppState extends ChangeNotifier {
     return {
       'categories': categories,
       'percent': ((sum / baseSum) * 100).round(),
+      'transformedCount': transformedCount,
     };
   }
 

@@ -17,28 +17,55 @@ class CharacterStats extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          StatContainer(
-            child: PassiveStatLabel(
-              value: character.passivePerception,
-              label: 'PERCEPTION',
-            ),
-          ),
+          _buildPassiveStat(character.passivePerception, 'PERCEPTION'),
           const SizedBox(width: 8),
-          StatContainer(
-            child: PassiveStatLabel(
-              value: character.passiveInvestigation,
-              label: 'INVESTIGATION',
-            ),
-          ),
+          _buildPassiveStat(character.passiveInvestigation, 'INVESTIGATION'),
           const SizedBox(width: 8),
-          StatContainer(
-            child: PassiveStatLabel(
-              value: character.passiveInsight,
-              label: 'INSIGHT',
-            ),
-          ),
+          _buildPassiveStat(character.passiveInsight, 'INSIGHT'),
         ],
       ),
     );
+  }
+
+  Widget _buildPassiveStat(int value, String label) {
+    return Tooltip(
+      message: _getPassiveDescription(label, value),
+      child: StatContainer(
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              value.toString(),
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            const SizedBox(width: 4),
+            Text(
+              label,
+              style: const TextStyle(
+                color: Colors.white70,
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  String _getPassiveDescription(String type, int value) {
+    switch (type) {
+      case 'PERCEPTION':
+        return 'Perception passive: $value\nUtilisé pour repérer automatiquement les choses cachées';
+      case 'INVESTIGATION':
+        return 'Investigation passive: $value\nUtilisé pour remarquer automatiquement les indices et anomalies';
+      case 'INSIGHT':
+        return 'Intuition passive: $value\nUtilisé pour détecter automatiquement les mensonges et intentions';
+      default:
+        return '$type: $value';
+    }
   }
 }

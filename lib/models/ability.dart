@@ -58,18 +58,43 @@ class AbilityScore {
 
   factory AbilityScore.fromJson(Map<String, dynamic> json,
       {Character? character}) {
-    Ability name = switch (json['id'] as int) {
-      1 => Ability.strength,
-      2 => Ability.dexterity,
-      3 => Ability.constitution,
-      4 => Ability.intelligence,
-      5 => Ability.wisdom,
-      6 => Ability.charisma,
-      _ => Ability.notFound
-    };
+    // First handle the statId/name mapping
+    Ability name;
+    if (json.containsKey('id')) {
+      name = switch (json['id'] as int) {
+        1 => Ability.strength,
+        2 => Ability.dexterity,
+        3 => Ability.constitution,
+        4 => Ability.intelligence,
+        5 => Ability.wisdom,
+        6 => Ability.charisma,
+        _ => Ability.notFound
+      };
+    } else {
+      name = switch (json['statId'] as int?) {
+        1 => Ability.strength,
+        2 => Ability.dexterity,
+        3 => Ability.constitution,
+        4 => Ability.intelligence,
+        5 => Ability.wisdom,
+        6 => Ability.charisma,
+        _ => Ability.notFound
+      };
+    }
+
+    // Then handle the value
+    int value;
+    if (json.containsKey('value')) {
+      value = json['value'] as int? ?? 10;
+    } else if (json.containsKey('statValue')) {
+      value = json['statValue'] as int? ?? 10;
+    } else {
+      value = 10; // default value
+    }
+
     return AbilityScore(
       name: name,
-      baseValue: (json['value'] as int?) ?? 10,
+      baseValue: value,
       character: character,
     );
   }
@@ -77,9 +102,9 @@ class AbilityScore {
 
 class AbilityScores {
   final List<AbilityScore> _scores;
-  final Character _character;
+  final Character? _character;
 
-  AbilityScores(List<AbilityScore> scores, this._character)
+  AbilityScores(List<AbilityScore> scores, [this._character])
       : _scores = scores
             .map((score) => AbilityScore(
                 name: score.name,

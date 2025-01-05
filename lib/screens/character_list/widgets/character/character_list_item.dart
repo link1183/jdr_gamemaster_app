@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:jdr_gamemaster_app/models/app_state.dart';
+import 'package:jdr_gamemaster_app/screens/character_list/widgets/initiative/initiative_input.dart';
+import 'package:provider/provider.dart';
 import '../../../../models/character.dart';
-import '../initiative/initiative_input.dart';
+import '../../../../models/creature.dart';
+import 'character_currencies.dart';
+import 'character_creatures.dart';
+import 'character_stats.dart';
 
 class CharacterListItem extends StatefulWidget {
   final Character character;
@@ -92,6 +98,13 @@ class _CharacterListItemState extends State<CharacterListItem>
     });
   }
 
+  void _handleTransformation(Creature? creature) {
+    setState(() {
+      widget.character.transform(creature);
+    });
+    Provider.of<AppState>(context, listen: false).notifyCharacterChanged();
+  }
+
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
@@ -140,9 +153,14 @@ class _CharacterListItemState extends State<CharacterListItem>
                   secondChild: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _buildPassiveStats(),
-                      _buildCurrencies(),
-                      _buildAdditionalInfo(),
+                      CharacterStats(character: widget.character),
+                      CharacterCurrencies(character: widget.character),
+                      CharacterCreatures(
+                        creatures: widget.character.creatures,
+                        activeTransformation:
+                            widget.character.activeTransformation,
+                        onTransformationChanged: _handleTransformation,
+                      ),
                     ],
                   ),
                   crossFadeState: _isExpanded
@@ -159,6 +177,7 @@ class _CharacterListItemState extends State<CharacterListItem>
   }
 
   Widget _buildHeader() {
+    final isTransformed = widget.character.activeTransformation != null;
     return Container(
       height: 56,
       padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -171,17 +190,38 @@ class _CharacterListItemState extends State<CharacterListItem>
           ),
           const SizedBox(width: 8),
           Expanded(
-            child: Text(
-              widget.character.name,
-              style: const TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w500,
-                fontSize: 18,
-              ),
+            child: Row(
+              children: [
+                Text(
+                  widget.character.name,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 18,
+                  ),
+                ),
+                if (isTransformed) ...[
+                  const SizedBox(width: 8),
+                  const Icon(
+                    Icons.transform,
+                    color: Colors.white70,
+                    size: 16,
+                  ),
+                  const SizedBox(width: 4),
+                  Text(
+                    '→ ${widget.character.activeTransformation!.name}',
+                    style: const TextStyle(
+                      color: Colors.white70,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 14,
+                    ),
+                  ),
+                ],
+              ],
             ),
           ),
           SizedBox(
-            width: 150, // Fixed width for HP section
+            width: 150,
             child: _buildInfoRow(
               'HP',
               '${widget.character.currentHealth}/${widget.character.maxHealth}',
@@ -189,7 +229,7 @@ class _CharacterListItemState extends State<CharacterListItem>
           ),
           const SizedBox(width: 16),
           SizedBox(
-            width: 180, // Fixed width for initiative controls section
+            width: 180,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -234,158 +274,6 @@ class _CharacterListItemState extends State<CharacterListItem>
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _buildPassiveStats() {
-    return Container(
-      padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          _buildPassiveStat(widget.character.passivePerception, 'PERCEPTION'),
-          const SizedBox(width: 8),
-          _buildPassiveStat(
-              widget.character.passiveInvestigation, 'INVESTIGATION'),
-          const SizedBox(width: 8),
-          _buildPassiveStat(widget.character.passiveInsight, 'INSIGHT'),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildCurrencies() {
-    return Container(
-      padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
-      child: Row(
-        children: [
-          _buildCurrencyItem(
-              widget.character.currency.platinum, 'PP', Colors.grey[300]!),
-          const SizedBox(width: 8),
-          _buildCurrencyItem(
-              widget.character.currency.gold, 'GP', Colors.yellow[600]!),
-          const SizedBox(width: 8),
-          _buildCurrencyItem(
-              widget.character.currency.electrum, 'EP', Colors.blue[200]!),
-          const SizedBox(width: 8),
-          _buildCurrencyItem(
-              widget.character.currency.silver, 'SP', Colors.grey[400]!),
-          const SizedBox(width: 8),
-          _buildCurrencyItem(
-              widget.character.currency.copper, 'CP', Colors.orange[300]!),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildAdditionalInfo() {
-    return Container(
-      padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-      child: const Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [],
-      ),
-    );
-  }
-
-  String _getPassiveDescription(String type, int value) {
-    switch (type) {
-      case 'PERCEPTION':
-        return 'Perception passive: $value\nUtilisé pour repérer automatiquement les choses cachées';
-      case 'INVESTIGATION':
-        return 'Investigation passive: $value\nUtilisé pour remarquer automatiquement les indices et anomalies';
-      case 'INSIGHT':
-        return 'Intuition passive: $value\nUtilisé pour détecter automatiquement les mensonges et intentions';
-      default:
-        return '$type: $value';
-    }
-  }
-
-  Widget _buildPassiveStat(int value, String label) {
-    return Tooltip(
-      message: _getPassiveDescription(label, value),
-      child: Container(
-        height: 28,
-        padding: const EdgeInsets.symmetric(horizontal: 12),
-        decoration: BoxDecoration(
-          color: Colors.white.withValues(alpha: 0.1),
-          borderRadius: BorderRadius.circular(14),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              value.toString(),
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-            const SizedBox(width: 4),
-            Text(
-              label,
-              style: const TextStyle(
-                color: Colors.white70,
-                fontSize: 12,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  String _getCurrencyDescription(String symbol) {
-    switch (symbol) {
-      case 'PP':
-        return 'Pièces de Platine (Platinum)\n1 PP = 10 GP';
-      case 'GP':
-        return 'Pièces d\'Or (Gold)\n1 GP = 2 EP';
-      case 'EP':
-        return 'Pièces d\'Electrum (Electrum)\n1 GP = 2 EP';
-      case 'SP':
-        return 'Pièces d\'Argent (Silver)\n1 GP = 10 SP';
-      case 'CP':
-        return 'Pièces de Cuivre (Copper)\n1 SP = 10 CP';
-      default:
-        return symbol;
-    }
-  }
-
-  Widget _buildCurrencyItem(int amount, String symbol, Color color) {
-    return Tooltip(
-      message: _getCurrencyDescription(symbol),
-      child: Container(
-        height: 28,
-        padding: const EdgeInsets.symmetric(horizontal: 12),
-        decoration: BoxDecoration(
-          color: Colors.white.withValues(alpha: 0.1),
-          borderRadius: BorderRadius.circular(14),
-          border: Border.all(color: color.withValues(alpha: 0.3)),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              amount.toString(),
-              style: TextStyle(
-                color: color,
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-            const SizedBox(width: 4),
-            Text(
-              symbol,
-              style: TextStyle(
-                color: color.withValues(alpha: 0.7),
-                fontSize: 12,
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }

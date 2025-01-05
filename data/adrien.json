@@ -3,11 +3,11 @@
   "success": true,
   "message": "Character successfully received.",
   "data": {
-    "id": 138289249,
+    "id": 133116028,
     "userId": 119492639,
     "username": "link1183",
     "isAssignedToPlayer": true,
-    "readonlyUrl": "https://dndbeyond.com/characters/138289249",
+    "readonlyUrl": "https://dndbeyond.com/characters/133116028",
     "decorations": {
       "avatarUrl": null,
       "frameAvatarUrl": null,
@@ -47,7 +47,7 @@
         "decorationKey": "438"
       }
     },
-    "name": "Copy of Selenna Incirion",
+    "name": "Selenna Incirion",
     "socialName": null,
     "gender": null,
     "faith": null,
@@ -58,12 +58,12 @@
     "height": null,
     "weight": null,
     "inspiration": false,
-    "baseHitPoints": 42,
+    "baseHitPoints": 48,
     "bonusHitPoints": null,
     "overrideHitPoints": null,
     "removedHitPoints": 0,
-    "temporaryHitPoints": 0,
-    "currentXp": 34000,
+    "temporaryHitPoints": 28,
+    "currentXp": 64000,
     "alignmentId": 6,
     "lifestyleId": 6,
     "stats": [
@@ -339,7 +339,7 @@
       },
       "definitionId": null,
       "customBackground": {
-        "id": 138289249,
+        "id": 133116028,
         "entityTypeId": 1581111423,
         "name": null,
         "description": null,
@@ -801,7 +801,7 @@
       "enforceMulticlassRules": true,
       "enableOptionalClassFeatures": true,
       "enableOptionalOrigins": true,
-      "enableDarkMode": false,
+      "enableDarkMode": true,
       "enableContainerCurrency": false
     },
     "configuration": {
@@ -812,156 +812,7 @@
     "lifestyle": null,
     "inventory": [
       {
-        "id": 1583085527,
-        "entityTypeId": 1439493548,
-        "definition": {
-          "id": 4607,
-          "baseTypeId": 2103445194,
-          "entityTypeId": 112130694,
-          "definitionKey": "112130694:4607",
-          "canEquip": true,
-          "magic": true,
-          "name": "Cloak of Protection",
-          "snippet": "",
-          "weight": 0,
-          "weightMultiplier": 1.00,
-          "capacity": null,
-          "capacityWeight": 0,
-          "type": "Wondrous item",
-          "description": "<p>You gain a +1 bonus to Armor Class and saving throws while you wear this cloak.</p>",
-          "canAttune": true,
-          "attunementDescription": null,
-          "rarity": "Uncommon",
-          "isHomebrew": false,
-          "version": null,
-          "sourceId": null,
-          "sourcePageNumber": null,
-          "stackable": false,
-          "bundleSize": 1,
-          "avatarUrl": "https://www.dndbeyond.com/avatars/19/215/636382363291130832.jpeg?width=350&height=350&fit=bounds&quality=95&auto=webp",
-          "largeAvatarUrl": "https://www.dndbeyond.com/avatars/7/168/636284723508326581.jpeg?width=1000&height=1000&fit=bounds&quality=95&auto=webp",
-          "filterType": "Wondrous item",
-          "cost": null,
-          "isPack": false,
-          "tags": [
-            "Warding",
-            "Outerwear"
-          ],
-          "grantedModifiers": [
-            {
-              "fixedValue": 1,
-              "id": "8",
-              "entityId": null,
-              "entityTypeId": null,
-              "type": "bonus",
-              "subType": "armor-class",
-              "dice": null,
-              "restriction": null,
-              "statId": null,
-              "requiresAttunement": true,
-              "duration": null,
-              "friendlyTypeName": "Bonus",
-              "friendlySubtypeName": "Armor Class",
-              "isGranted": true,
-              "bonusTypes": [],
-              "value": 1,
-              "availableToMulticlass": true,
-              "modifierTypeId": 1,
-              "modifierSubTypeId": 1,
-              "componentId": 4607,
-              "componentTypeId": 112130694,
-              "tagConstraints": []
-            },
-            {
-              "fixedValue": 1,
-              "id": "73",
-              "entityId": null,
-              "entityTypeId": null,
-              "type": "bonus",
-              "subType": "saving-throws",
-              "dice": null,
-              "restriction": "",
-              "statId": null,
-              "requiresAttunement": true,
-              "duration": null,
-              "friendlyTypeName": "Bonus",
-              "friendlySubtypeName": "Saving Throws",
-              "isGranted": true,
-              "bonusTypes": [],
-              "value": 1,
-              "availableToMulticlass": true,
-              "modifierTypeId": 1,
-              "modifierSubTypeId": 8,
-              "componentId": 4607,
-              "componentTypeId": 112130694,
-              "tagConstraints": []
-            }
-          ],
-          "subType": null,
-          "isConsumable": false,
-          "weaponBehaviors": [],
-          "baseItemId": null,
-          "baseArmorName": null,
-          "strengthRequirement": null,
-          "armorClass": null,
-          "stealthCheck": null,
-          "damage": null,
-          "damageType": null,
-          "fixedDamage": null,
-          "properties": null,
-          "attackType": null,
-          "categoryId": null,
-          "range": null,
-          "longRange": null,
-          "isMonkWeapon": false,
-          "levelInfusionGranted": 10,
-          "sources": [
-            {
-              "sourceId": 148,
-              "pageNumber": 159,
-              "sourceType": 1
-            },
-            {
-              "sourceId": 146,
-              "pageNumber": null,
-              "sourceType": 2
-            },
-            {
-              "sourceId": 1,
-              "pageNumber": null,
-              "sourceType": 2
-            },
-            {
-              "sourceId": 146,
-              "pageNumber": null,
-              "sourceType": 2
-            }
-          ],
-          "armorTypeId": null,
-          "gearTypeId": 10,
-          "groupedId": null,
-          "canBeAddedToInventory": true,
-          "isContainer": false,
-          "isCustomItem": false,
-          "isLegacy": false
-        },
-        "definitionId": 0,
-        "definitionTypeId": 0,
-        "displayAsAttack": null,
-        "quantity": 1,
-        "isAttuned": false,
-        "equipped": true,
-        "equippedEntityTypeId": 1581111423,
-        "equippedEntityId": 138289249,
-        "chargesUsed": 0,
-        "limitedUse": null,
-        "containerEntityId": 138289249,
-        "containerEntityTypeId": 1581111423,
-        "containerDefinitionKey": "1581111423:138289249",
-        "currency": null
-      },
-      {
-        "id": 1583084733,
+        "id": 1518220121,
         "entityTypeId": 1439493548,
         "definition": {
           "id": 4631,
@@ -1091,165 +942,16 @@
         "isAttuned": false,
         "equipped": true,
         "equippedEntityTypeId": 1581111423,
-        "equippedEntityId": 138289249,
+        "equippedEntityId": 133116028,
         "chargesUsed": 0,
         "limitedUse": null,
-        "containerEntityId": 138289249,
+        "containerEntityId": 133116028,
         "containerEntityTypeId": 1581111423,
-        "containerDefinitionKey": "1581111423:138289249",
+        "containerDefinitionKey": "1581111423:133116028",
         "currency": null
       },
       {
-        "id": 1583086063,
-        "entityTypeId": 1439493548,
-        "definition": {
-          "id": 4726,
-          "baseTypeId": 2103445194,
-          "entityTypeId": 112130694,
-          "definitionKey": "112130694:4726",
-          "canEquip": true,
-          "magic": true,
-          "name": "Ring of Protection",
-          "snippet": "",
-          "weight": 0,
-          "weightMultiplier": 1.00,
-          "capacity": null,
-          "capacityWeight": 0,
-          "type": "Ring",
-          "description": "<p>You gain a +1 bonus to Armor Class and saving throws while wearing this ring.</p>",
-          "canAttune": true,
-          "attunementDescription": null,
-          "rarity": "Rare",
-          "isHomebrew": false,
-          "version": null,
-          "sourceId": null,
-          "sourcePageNumber": null,
-          "stackable": false,
-          "bundleSize": 1,
-          "avatarUrl": "https://www.dndbeyond.com/avatars/19/145/636382339584981416.jpeg?width=350&height=350&fit=bounds&quality=95&auto=webp",
-          "largeAvatarUrl": "https://www.dndbeyond.com/avatars/7/358/636284760778005239.jpeg?width=1000&height=1000&fit=bounds&quality=95&auto=webp",
-          "filterType": "Ring",
-          "cost": null,
-          "isPack": false,
-          "tags": [
-            "Warding",
-            "Jewelry"
-          ],
-          "grantedModifiers": [
-            {
-              "fixedValue": 1,
-              "id": "465",
-              "entityId": null,
-              "entityTypeId": null,
-              "type": "bonus",
-              "subType": "armor-class",
-              "dice": null,
-              "restriction": "",
-              "statId": null,
-              "requiresAttunement": true,
-              "duration": null,
-              "friendlyTypeName": "Bonus",
-              "friendlySubtypeName": "Armor Class",
-              "isGranted": true,
-              "bonusTypes": [],
-              "value": 1,
-              "availableToMulticlass": true,
-              "modifierTypeId": 1,
-              "modifierSubTypeId": 1,
-              "componentId": 4726,
-              "componentTypeId": 112130694,
-              "tagConstraints": []
-            },
-            {
-              "fixedValue": 1,
-              "id": "466",
-              "entityId": null,
-              "entityTypeId": null,
-              "type": "bonus",
-              "subType": "saving-throws",
-              "dice": null,
-              "restriction": "",
-              "statId": null,
-              "requiresAttunement": true,
-              "duration": null,
-              "friendlyTypeName": "Bonus",
-              "friendlySubtypeName": "Saving Throws",
-              "isGranted": true,
-              "bonusTypes": [],
-              "value": 1,
-              "availableToMulticlass": true,
-              "modifierTypeId": 1,
-              "modifierSubTypeId": 8,
-              "componentId": 4726,
-              "componentTypeId": 112130694,
-              "tagConstraints": []
-            }
-          ],
-          "subType": null,
-          "isConsumable": false,
-          "weaponBehaviors": [],
-          "baseItemId": null,
-          "baseArmorName": null,
-          "strengthRequirement": null,
-          "armorClass": null,
-          "stealthCheck": null,
-          "damage": null,
-          "damageType": null,
-          "fixedDamage": null,
-          "properties": null,
-          "attackType": null,
-          "categoryId": null,
-          "range": null,
-          "longRange": null,
-          "isMonkWeapon": false,
-          "levelInfusionGranted": 14,
-          "sources": [
-            {
-              "sourceId": 148,
-              "pageNumber": 191,
-              "sourceType": 1
-            },
-            {
-              "sourceId": 146,
-              "pageNumber": null,
-              "sourceType": 2
-            },
-            {
-              "sourceId": 1,
-              "pageNumber": null,
-              "sourceType": 2
-            },
-            {
-              "sourceId": 146,
-              "pageNumber": null,
-              "sourceType": 2
-            }
-          ],
-          "armorTypeId": null,
-          "gearTypeId": 4,
-          "groupedId": null,
-          "canBeAddedToInventory": true,
-          "isContainer": false,
-          "isCustomItem": false,
-          "isLegacy": false
-        },
-        "definitionId": 0,
-        "definitionTypeId": 0,
-        "displayAsAttack": null,
-        "quantity": 1,
-        "isAttuned": false,
-        "equipped": true,
-        "equippedEntityTypeId": 1581111423,
-        "equippedEntityId": 138289249,
-        "chargesUsed": 0,
-        "limitedUse": null,
-        "containerEntityId": 138289249,
-        "containerEntityTypeId": 1581111423,
-        "containerDefinitionKey": "1581111423:138289249",
-        "currency": null
-      },
-      {
-        "id": 1583084734,
+        "id": 1518219993,
         "entityTypeId": 1439493548,
         "definition": {
           "id": 4741,
@@ -1358,21 +1060,21 @@
         "isAttuned": true,
         "equipped": true,
         "equippedEntityTypeId": 1581111423,
-        "equippedEntityId": 138289249,
-        "chargesUsed": 0,
+        "equippedEntityId": 133116028,
+        "chargesUsed": 6,
         "limitedUse": {
           "maxUses": 6,
-          "numberUsed": 0,
+          "numberUsed": 6,
           "resetType": "Other",
           "resetTypeDescription": "1d6 removed stars reappear at dusk"
         },
-        "containerEntityId": 138289249,
+        "containerEntityId": 133116028,
         "containerEntityTypeId": 1581111423,
-        "containerDefinitionKey": "1581111423:138289249",
+        "containerDefinitionKey": "1581111423:133116028",
         "currency": null
       },
       {
-        "id": 1583084735,
+        "id": 1518220259,
         "entityTypeId": 1439493548,
         "definition": {
           "id": 5163,
@@ -1461,181 +1163,13 @@
           "resetType": "Consumable",
           "resetTypeDescription": ""
         },
-        "containerEntityId": 138289249,
+        "containerEntityId": 133116028,
         "containerEntityTypeId": 1581111423,
-        "containerDefinitionKey": "1581111423:138289249",
+        "containerDefinitionKey": "1581111423:133116028",
         "currency": null
       },
       {
-        "id": 1583085074,
-        "entityTypeId": 1439493548,
-        "definition": {
-          "id": 13,
-          "baseTypeId": 701257905,
-          "entityTypeId": 701257905,
-          "definitionKey": "701257905:13",
-          "canEquip": true,
-          "magic": false,
-          "name": "Breastplate",
-          "snippet": null,
-          "weight": 20.00,
-          "weightMultiplier": 1,
-          "capacity": null,
-          "capacityWeight": 0,
-          "type": "",
-          "description": "<p>This armor consists of a fitted metal chest piece worn with supple leather. Although it leaves the legs and arms relatively unprotected, this armor provides good protection for the wearer's vital organs while leaving the wearer relatively unencumbered.</p>",
-          "canAttune": false,
-          "attunementDescription": null,
-          "rarity": "Common",
-          "isHomebrew": false,
-          "version": null,
-          "sourceId": null,
-          "sourcePageNumber": null,
-          "stackable": false,
-          "bundleSize": 1,
-          "avatarUrl": null,
-          "largeAvatarUrl": null,
-          "filterType": "Armor",
-          "cost": 400.0000,
-          "isPack": false,
-          "tags": [
-            "Warding"
-          ],
-          "grantedModifiers": [],
-          "subType": null,
-          "isConsumable": false,
-          "weaponBehaviors": [],
-          "baseItemId": 13,
-          "baseArmorName": "Breastplate",
-          "strengthRequirement": null,
-          "armorClass": 14,
-          "stealthCheck": 1,
-          "damage": null,
-          "damageType": null,
-          "fixedDamage": null,
-          "properties": null,
-          "attackType": null,
-          "categoryId": null,
-          "range": null,
-          "longRange": null,
-          "isMonkWeapon": false,
-          "levelInfusionGranted": null,
-          "sources": [
-            {
-              "sourceId": 148,
-              "pageNumber": null,
-              "sourceType": 1
-            }
-          ],
-          "armorTypeId": 2,
-          "gearTypeId": null,
-          "groupedId": null,
-          "canBeAddedToInventory": true,
-          "isContainer": false,
-          "isCustomItem": false,
-          "isLegacy": false
-        },
-        "definitionId": 0,
-        "definitionTypeId": 0,
-        "displayAsAttack": null,
-        "quantity": 1,
-        "isAttuned": false,
-        "equipped": false,
-        "equippedEntityTypeId": null,
-        "equippedEntityId": null,
-        "chargesUsed": 0,
-        "limitedUse": null,
-        "containerEntityId": 138289249,
-        "containerEntityTypeId": 1581111423,
-        "containerDefinitionKey": "1581111423:138289249",
-        "currency": null
-      },
-      {
-        "id": 1583085174,
-        "entityTypeId": 1439493548,
-        "definition": {
-          "id": 16,
-          "baseTypeId": 701257905,
-          "entityTypeId": 701257905,
-          "definitionKey": "701257905:16",
-          "canEquip": true,
-          "magic": false,
-          "name": "Chain Mail",
-          "snippet": null,
-          "weight": 55.00,
-          "weightMultiplier": 1,
-          "capacity": null,
-          "capacityWeight": 0,
-          "type": "Heavy Armor",
-          "description": "<p>Made of interlocking metal rings, chain mail includes a layer of quilted fabric worn underneath the mail to prevent chafing and to cushion the impact of blows. The suit includes gauntlets.</p>",
-          "canAttune": false,
-          "attunementDescription": null,
-          "rarity": "Common",
-          "isHomebrew": false,
-          "version": null,
-          "sourceId": null,
-          "sourcePageNumber": null,
-          "stackable": false,
-          "bundleSize": 1,
-          "avatarUrl": null,
-          "largeAvatarUrl": null,
-          "filterType": "Armor",
-          "cost": 75.0000,
-          "isPack": false,
-          "tags": [
-            "Warding"
-          ],
-          "grantedModifiers": [],
-          "subType": null,
-          "isConsumable": false,
-          "weaponBehaviors": [],
-          "baseItemId": 16,
-          "baseArmorName": "Chain Mail",
-          "strengthRequirement": 13,
-          "armorClass": 16,
-          "stealthCheck": 2,
-          "damage": null,
-          "damageType": null,
-          "fixedDamage": null,
-          "properties": null,
-          "attackType": null,
-          "categoryId": null,
-          "range": null,
-          "longRange": null,
-          "isMonkWeapon": false,
-          "levelInfusionGranted": null,
-          "sources": [
-            {
-              "sourceId": 148,
-              "pageNumber": null,
-              "sourceType": 1
-            }
-          ],
-          "armorTypeId": 3,
-          "gearTypeId": null,
-          "groupedId": null,
-          "canBeAddedToInventory": true,
-          "isContainer": false,
-          "isCustomItem": false,
-          "isLegacy": false
-        },
-        "definitionId": 0,
-        "definitionTypeId": 0,
-        "displayAsAttack": null,
-        "quantity": 1,
-        "isAttuned": false,
-        "equipped": false,
-        "equippedEntityTypeId": null,
-        "equippedEntityId": null,
-        "chargesUsed": 0,
-        "limitedUse": null,
-        "containerEntityId": 138289249,
-        "containerEntityTypeId": 1581111423,
-        "containerDefinitionKey": "1581111423:138289249",
-        "currency": null
-      },
-      {
-        "id": 1583084737,
+        "id": 1518219699,
         "entityTypeId": 1439493548,
         "definition": {
           "id": 36,
@@ -1718,13 +1252,13 @@
         "equippedEntityId": null,
         "chargesUsed": 0,
         "limitedUse": null,
-        "containerEntityId": 138289249,
+        "containerEntityId": 133116028,
         "containerEntityTypeId": 1581111423,
-        "containerDefinitionKey": "1581111423:138289249",
+        "containerDefinitionKey": "1581111423:133116028",
         "currency": null
       },
       {
-        "id": 1583084738,
+        "id": 1518219710,
         "entityTypeId": 1439493548,
         "definition": {
           "id": 38,
@@ -1808,13 +1342,13 @@
         "equippedEntityId": null,
         "chargesUsed": 0,
         "limitedUse": null,
-        "containerEntityId": 138289249,
+        "containerEntityId": 133116028,
         "containerEntityTypeId": 1581111423,
-        "containerDefinitionKey": "1581111423:138289249",
+        "containerDefinitionKey": "1581111423:133116028",
         "currency": null
       },
       {
-        "id": 1583084739,
+        "id": 1522739643,
         "entityTypeId": 1439493548,
         "definition": {
           "id": 86,
@@ -1897,13 +1431,13 @@
         "equippedEntityId": null,
         "chargesUsed": 0,
         "limitedUse": null,
-        "containerEntityId": 138289249,
+        "containerEntityId": 133116028,
         "containerEntityTypeId": 1581111423,
-        "containerDefinitionKey": "1581111423:138289249",
+        "containerDefinitionKey": "1581111423:133116028",
         "currency": null
       },
       {
-        "id": 1583084740,
+        "id": 1518219700,
         "entityTypeId": 1439493548,
         "definition": {
           "id": 43,
@@ -1987,13 +1521,13 @@
         "equippedEntityId": null,
         "chargesUsed": 0,
         "limitedUse": null,
-        "containerEntityId": 1583084737,
+        "containerEntityId": 1518219699,
         "containerEntityTypeId": 1439493548,
-        "containerDefinitionKey": "1439493548:1583084737",
+        "containerDefinitionKey": "1439493548:1518219699",
         "currency": null
       },
       {
-        "id": 1583084741,
+        "id": 1518219701,
         "entityTypeId": 1439493548,
         "definition": {
           "id": 47,
@@ -2076,13 +1610,13 @@
         "equippedEntityId": null,
         "chargesUsed": 0,
         "limitedUse": null,
-        "containerEntityId": 1583084737,
+        "containerEntityId": 1518219699,
         "containerEntityTypeId": 1439493548,
-        "containerDefinitionKey": "1439493548:1583084737",
+        "containerDefinitionKey": "1439493548:1518219699",
         "currency": null
       },
       {
-        "id": 1583084742,
+        "id": 1518219704,
         "entityTypeId": 1439493548,
         "definition": {
           "id": 50,
@@ -2167,13 +1701,13 @@
         "equippedEntityId": null,
         "chargesUsed": 0,
         "limitedUse": null,
-        "containerEntityId": 1583084737,
+        "containerEntityId": 1518219699,
         "containerEntityTypeId": 1439493548,
-        "containerDefinitionKey": "1439493548:1583084737",
+        "containerDefinitionKey": "1439493548:1518219699",
         "currency": null
       },
       {
-        "id": 1583084743,
+        "id": 1518219705,
         "entityTypeId": 1439493548,
         "definition": {
           "id": 60,
@@ -2257,13 +1791,13 @@
         "equippedEntityId": null,
         "chargesUsed": 0,
         "limitedUse": null,
-        "containerEntityId": 1583084737,
+        "containerEntityId": 1518219699,
         "containerEntityTypeId": 1439493548,
-        "containerDefinitionKey": "1439493548:1583084737",
+        "containerDefinitionKey": "1439493548:1518219699",
         "currency": null
       },
       {
-        "id": 1583084744,
+        "id": 1518219706,
         "entityTypeId": 1439493548,
         "definition": {
           "id": 62,
@@ -2347,13 +1881,13 @@
         "equippedEntityId": null,
         "chargesUsed": 0,
         "limitedUse": null,
-        "containerEntityId": 1583084737,
+        "containerEntityId": 1518219699,
         "containerEntityTypeId": 1439493548,
-        "containerDefinitionKey": "1439493548:1583084737",
+        "containerDefinitionKey": "1439493548:1518219699",
         "currency": null
       },
       {
-        "id": 1583084745,
+        "id": 1518219707,
         "entityTypeId": 1439493548,
         "definition": {
           "id": 63,
@@ -2438,13 +1972,13 @@
         "equippedEntityId": null,
         "chargesUsed": 0,
         "limitedUse": null,
-        "containerEntityId": 1583084737,
+        "containerEntityId": 1518219699,
         "containerEntityTypeId": 1439493548,
-        "containerDefinitionKey": "1439493548:1583084737",
+        "containerDefinitionKey": "1439493548:1518219699",
         "currency": null
       },
       {
-        "id": 1583084746,
+        "id": 1518219708,
         "entityTypeId": 1439493548,
         "definition": {
           "id": 90,
@@ -2528,13 +2062,13 @@
         "equippedEntityId": null,
         "chargesUsed": 0,
         "limitedUse": null,
-        "containerEntityId": 1583084737,
+        "containerEntityId": 1518219699,
         "containerEntityTypeId": 1439493548,
-        "containerDefinitionKey": "1439493548:1583084737",
+        "containerDefinitionKey": "1439493548:1518219699",
         "currency": null
       },
       {
-        "id": 1583084747,
+        "id": 1518219709,
         "entityTypeId": 1439493548,
         "definition": {
           "id": 91,
@@ -2620,13 +2154,13 @@
         "equippedEntityId": null,
         "chargesUsed": 0,
         "limitedUse": null,
-        "containerEntityId": 1583084737,
+        "containerEntityId": 1518219699,
         "containerEntityTypeId": 1439493548,
-        "containerDefinitionKey": "1439493548:1583084737",
+        "containerDefinitionKey": "1439493548:1518219699",
         "currency": null
       },
       {
-        "id": 1583084748,
+        "id": 1518219702,
         "entityTypeId": 1439493548,
         "definition": {
           "id": 206,
@@ -2709,13 +2243,13 @@
         "equippedEntityId": null,
         "chargesUsed": 0,
         "limitedUse": null,
-        "containerEntityId": 1583084737,
+        "containerEntityId": 1518219699,
         "containerEntityTypeId": 1439493548,
-        "containerDefinitionKey": "1439493548:1583084737",
+        "containerDefinitionKey": "1439493548:1518219699",
         "currency": null
       },
       {
-        "id": 1583084749,
+        "id": 1518219703,
         "entityTypeId": 1439493548,
         "definition": {
           "id": 213,
@@ -2798,9 +2332,9 @@
         "equippedEntityId": null,
         "chargesUsed": 0,
         "limitedUse": null,
-        "containerEntityId": 1583084737,
+        "containerEntityId": 1518219699,
         "containerEntityTypeId": 1439493548,
-        "containerDefinitionKey": "1439493548:1583084737",
+        "containerDefinitionKey": "1439493548:1518219699",
         "currency": null
       }
     ],
@@ -2813,9 +2347,9 @@
     },
     "classes": [
       {
-        "id": 188819229,
+        "id": 180826568,
         "entityTypeId": 1446578651,
-        "level": 8,
+        "level": 9,
         "isStartingClass": true,
         "hitDiceUsed": 0,
         "definitionId": 0,
@@ -4199,7 +3733,7 @@
         ]
       },
       {
-        "id": 188819230,
+        "id": 180826819,
         "entityTypeId": 1446578651,
         "level": 1,
         "isStartingClass": false,
@@ -5871,8 +5405,8 @@
     ],
     "conditions": [],
     "deathSaves": {
-      "failCount": 0,
-      "successCount": 0,
+      "failCount": null,
+      "successCount": null,
       "isStabilized": false
     },
     "adjustmentXp": null,
@@ -5964,6 +5498,7 @@
       24,
       25,
       26,
+      27,
       28
     ],
     "spells": {
@@ -7045,22 +6580,6 @@
           }
         },
         {
-          "componentId": 13856160,
-          "componentTypeId": 1960452172,
-          "definition": {
-            "id": 3746466,
-            "entityTypeId": 306912077,
-            "name": "Intelligence",
-            "description": "<p>When you cast Thaumaturgy with this trait, it uses Intelligence.</p>",
-            "snippet": "You know the <em>Thaumaturgy</em> cantrip. When you cast it with this trait, the spell uses Intelligence.",
-            "activation": null,
-            "sourceId": null,
-            "sourcePageNumber": 197,
-            "creatureRules": [],
-            "spellListIds": []
-          }
-        },
-        {
           "componentId": 13856165,
           "componentTypeId": 1960452172,
           "definition": {
@@ -7069,6 +6588,22 @@
             "name": "Intelligence",
             "description": "<p>Your Cthonic Legacy spells use Intelligence.</p>",
             "snippet": "",
+            "activation": null,
+            "sourceId": null,
+            "sourcePageNumber": 197,
+            "creatureRules": [],
+            "spellListIds": []
+          }
+        },
+        {
+          "componentId": 13856160,
+          "componentTypeId": 1960452172,
+          "definition": {
+            "id": 3746466,
+            "entityTypeId": 306912077,
+            "name": "Intelligence",
+            "description": "<p>When you cast Thaumaturgy with this trait, it uses Intelligence.</p>",
+            "snippet": "You know the <em>Thaumaturgy</em> cantrip. When you cast it with this trait, the spell uses Intelligence.",
             "activation": null,
             "sourceId": null,
             "sourcePageNumber": 197,
@@ -7120,7 +6655,7 @@
         {
           "componentId": 13856164,
           "componentTypeId": 1960452172,
-          "id": "8-492827-75759550",
+          "id": "8-492827-71882206",
           "parentChoiceId": null,
           "type": 3,
           "subType": null,
@@ -7141,7 +6676,7 @@
         {
           "componentId": 13856165,
           "componentTypeId": 1960452172,
-          "id": "8-492828-75759551",
+          "id": "8-492828-71882274",
           "parentChoiceId": null,
           "type": 3,
           "subType": null,
@@ -7162,7 +6697,7 @@
         {
           "componentId": 13856166,
           "componentTypeId": 1960452172,
-          "id": "8-0-75759549",
+          "id": "8-0-71882391",
           "parentChoiceId": null,
           "type": 8,
           "subType": null,
@@ -7183,7 +6718,7 @@
           "componentId": 13856166,
           "componentTypeId": 1960452172,
           "id": "2-62628382",
-          "parentChoiceId": "8-0-75759549",
+          "parentChoiceId": "8-0-71882391",
           "type": 2,
           "subType": 5,
           "optionValue": 5689,
@@ -7207,7 +6742,7 @@
           "componentId": 13856166,
           "componentTypeId": 1960452172,
           "id": "2-62628383",
-          "parentChoiceId": "8-0-75759549",
+          "parentChoiceId": "8-0-71882391",
           "type": 2,
           "subType": 5,
           "optionValue": 5684,
@@ -7452,7 +6987,7 @@
         {
           "componentId": 1610579,
           "componentTypeId": 12168134,
-          "id": "3-0-412811581",
+          "id": "3-0-397258658",
           "parentChoiceId": null,
           "type": 3,
           "subType": null,
@@ -7472,7 +7007,7 @@
         {
           "componentId": 1611383,
           "componentTypeId": 12168134,
-          "id": "3-285457-412811582",
+          "id": "3-285457-397258752",
           "parentChoiceId": null,
           "type": 3,
           "subType": null,
@@ -9145,47 +8680,6 @@
           "ammunition": null
         },
         {
-          "componentId": 10292845,
-          "componentTypeId": 12168134,
-          "id": "9414545",
-          "entityTypeId": "222216831",
-          "limitedUse": null,
-          "name": "Undead Thralls",
-          "description": "",
-          "snippet": "You add the animate dead spell to your spellbook if it is not there already. When you cast animate dead, you can target one additional corpse or pile of bones, creating another zombie or skeleton, as appropriate. Whenever you create an undead using a necromancy spell, its max HP is increased by {{classlevel}} and it adds {{proficiency#signed}} to its weapon damage rolls.",
-          "abilityModifierStatId": null,
-          "onMissDescription": "",
-          "saveFailDescription": "",
-          "saveSuccessDescription": "",
-          "saveStatId": null,
-          "fixedSaveDc": null,
-          "attackTypeRange": null,
-          "actionType": 3,
-          "attackSubtype": null,
-          "dice": null,
-          "value": null,
-          "damageTypeId": null,
-          "isMartialArts": false,
-          "isProficient": false,
-          "spellRangeType": null,
-          "displayAsAttack": null,
-          "range": {
-            "range": null,
-            "longRange": null,
-            "aoeType": null,
-            "aoeSize": null,
-            "hasAoeSpecialDescription": false,
-            "minimumRange": null
-          },
-          "activation": {
-            "activationTime": null,
-            "activationType": 8
-          },
-          "numberOfTargets": null,
-          "fixedToHit": null,
-          "ammunition": null
-        },
-        {
           "componentId": 698617,
           "componentTypeId": 258900837,
           "id": "1248040",
@@ -9221,6 +8715,47 @@
           "activation": {
             "activationTime": null,
             "activationType": 3
+          },
+          "numberOfTargets": null,
+          "fixedToHit": null,
+          "ammunition": null
+        },
+        {
+          "componentId": 10292845,
+          "componentTypeId": 12168134,
+          "id": "9414545",
+          "entityTypeId": "222216831",
+          "limitedUse": null,
+          "name": "Undead Thralls",
+          "description": "",
+          "snippet": "You add the animate dead spell to your spellbook if it is not there already. When you cast animate dead, you can target one additional corpse or pile of bones, creating another zombie or skeleton, as appropriate. Whenever you create an undead using a necromancy spell, its max HP is increased by {{classlevel}} and it adds {{proficiency#signed}} to its weapon damage rolls.",
+          "abilityModifierStatId": null,
+          "onMissDescription": "",
+          "saveFailDescription": "",
+          "saveSuccessDescription": "",
+          "saveStatId": null,
+          "fixedSaveDc": null,
+          "attackTypeRange": null,
+          "actionType": 3,
+          "attackSubtype": null,
+          "dice": null,
+          "value": null,
+          "damageTypeId": null,
+          "isMartialArts": false,
+          "isProficient": false,
+          "spellRangeType": null,
+          "displayAsAttack": null,
+          "range": {
+            "range": null,
+            "longRange": null,
+            "aoeType": null,
+            "aoeSize": null,
+            "hasAoeSpecialDescription": false,
+            "minimumRange": null
+          },
+          "activation": {
+            "activationTime": null,
+            "activationType": 8
           },
           "numberOfTargets": null,
           "fixedToHit": null,
@@ -10009,54 +9544,6 @@
       "item": [
         {
           "fixedValue": 1,
-          "id": "8",
-          "entityId": null,
-          "entityTypeId": null,
-          "type": "bonus",
-          "subType": "armor-class",
-          "dice": null,
-          "restriction": null,
-          "statId": null,
-          "requiresAttunement": true,
-          "duration": null,
-          "friendlyTypeName": "Bonus",
-          "friendlySubtypeName": "Armor Class",
-          "isGranted": true,
-          "bonusTypes": [],
-          "value": 1,
-          "availableToMulticlass": true,
-          "modifierTypeId": 1,
-          "modifierSubTypeId": 1,
-          "componentId": 4607,
-          "componentTypeId": 112130694,
-          "tagConstraints": []
-        },
-        {
-          "fixedValue": 1,
-          "id": "73",
-          "entityId": null,
-          "entityTypeId": null,
-          "type": "bonus",
-          "subType": "saving-throws",
-          "dice": null,
-          "restriction": "",
-          "statId": null,
-          "requiresAttunement": true,
-          "duration": null,
-          "friendlyTypeName": "Bonus",
-          "friendlySubtypeName": "Saving Throws",
-          "isGranted": true,
-          "bonusTypes": [],
-          "value": 1,
-          "availableToMulticlass": true,
-          "modifierTypeId": 1,
-          "modifierSubTypeId": 8,
-          "componentId": 4607,
-          "componentTypeId": 112130694,
-          "tagConstraints": []
-        },
-        {
-          "fixedValue": 1,
           "id": "133",
           "entityId": null,
           "entityTypeId": null,
@@ -10100,54 +9587,6 @@
           "modifierTypeId": 10,
           "modifierSubTypeId": 1042,
           "componentId": 4631,
-          "componentTypeId": 112130694,
-          "tagConstraints": []
-        },
-        {
-          "fixedValue": 1,
-          "id": "465",
-          "entityId": null,
-          "entityTypeId": null,
-          "type": "bonus",
-          "subType": "armor-class",
-          "dice": null,
-          "restriction": "",
-          "statId": null,
-          "requiresAttunement": true,
-          "duration": null,
-          "friendlyTypeName": "Bonus",
-          "friendlySubtypeName": "Armor Class",
-          "isGranted": true,
-          "bonusTypes": [],
-          "value": 1,
-          "availableToMulticlass": true,
-          "modifierTypeId": 1,
-          "modifierSubTypeId": 1,
-          "componentId": 4726,
-          "componentTypeId": 112130694,
-          "tagConstraints": []
-        },
-        {
-          "fixedValue": 1,
-          "id": "466",
-          "entityId": null,
-          "entityTypeId": null,
-          "type": "bonus",
-          "subType": "saving-throws",
-          "dice": null,
-          "restriction": "",
-          "statId": null,
-          "requiresAttunement": true,
-          "duration": null,
-          "friendlyTypeName": "Bonus",
-          "friendlySubtypeName": "Saving Throws",
-          "isGranted": true,
-          "bonusTypes": [],
-          "value": 1,
-          "availableToMulticlass": true,
-          "modifierTypeId": 1,
-          "modifierSubTypeId": 8,
-          "componentId": 4726,
           "componentTypeId": 112130694,
           "tagConstraints": []
         },
@@ -10279,7 +9718,7 @@
     "classSpells": [
       {
         "entityTypeId": 1446578651,
-        "characterClassId": 188819229,
+        "characterClassId": 180826568,
         "spells": [
           {
             "overrideSaveDc": null,
@@ -11267,7 +10706,7 @@
               "isLegacy": false
             },
             "definitionId": 0,
-            "prepared": false,
+            "prepared": true,
             "countsAsKnownSpell": true,
             "usesSpellSlot": true,
             "castAtLevel": null,
@@ -13060,7 +12499,7 @@
               "isLegacy": false
             },
             "definitionId": 0,
-            "prepared": false,
+            "prepared": true,
             "countsAsKnownSpell": true,
             "usesSpellSlot": true,
             "castAtLevel": null,
@@ -13205,7 +12644,7 @@
               "isLegacy": false
             },
             "definitionId": 0,
-            "prepared": false,
+            "prepared": true,
             "countsAsKnownSpell": true,
             "usesSpellSlot": true,
             "castAtLevel": null,
@@ -13232,18 +12671,293 @@
             "componentId": 0,
             "componentTypeId": 0,
             "spellListId": null
+          },
+          {
+            "overrideSaveDc": null,
+            "limitedUse": null,
+            "id": 21171896,
+            "entityTypeId": 435869154,
+            "definition": {
+              "id": 2619042,
+              "definitionKey": "1118725998:2619042",
+              "name": "Cone of Cold",
+              "level": 5,
+              "school": "Evocation",
+              "duration": {
+                "durationInterval": 0,
+                "durationUnit": null,
+                "durationType": "Instantaneous"
+              },
+              "activation": {
+                "activationTime": 1,
+                "activationType": 1
+              },
+              "range": {
+                "origin": "Self",
+                "rangeValue": 0,
+                "aoeType": "Cone",
+                "aoeValue": 60
+              },
+              "asPartOfWeaponAttack": false,
+              "description": "<p>You unleash a blast of cold air. Each creature in a 60-foot Cone originating from you makes a Constitution saving throw, taking 8d8 Cold damage on a failed save or half as much damage on a successful one. A creature killed by this spell becomes a frozen statue until it thaws.</p>\r\n<p><strong><em>Using a Higher-Level Spell Slot.</em></strong> The damage increases by 1d8 for each spell slot level above 5.</p>",
+              "snippet": "",
+              "concentration": false,
+              "ritual": false,
+              "rangeArea": null,
+              "damageEffect": null,
+              "components": [
+                1,
+                2,
+                3
+              ],
+              "componentsDescription": "a small crystal or glass cone",
+              "saveDcAbilityId": 3,
+              "healing": null,
+              "healingDice": [],
+              "tempHpDice": [],
+              "attackType": null,
+              "canCastAtHigherLevel": true,
+              "isHomebrew": false,
+              "version": null,
+              "sourceId": null,
+              "sourcePageNumber": 253,
+              "requiresSavingThrow": true,
+              "requiresAttackRoll": false,
+              "atHigherLevels": {
+                "higherLevelDefinitions": [],
+                "additionalAttacks": [],
+                "additionalTargets": [],
+                "areaOfEffect": [],
+                "duration": [],
+                "creatures": [],
+                "special": [],
+                "points": [],
+                "range": []
+              },
+              "modifiers": [
+                {
+                  "fixedValue": null,
+                  "id": "spell_2619042_2142139",
+                  "entityId": null,
+                  "entityTypeId": null,
+                  "type": "damage",
+                  "subType": "cold",
+                  "dice": null,
+                  "restriction": "",
+                  "statId": null,
+                  "requiresAttunement": false,
+                  "duration": null,
+                  "friendlyTypeName": "Damage",
+                  "friendlySubtypeName": "Cold",
+                  "isGranted": false,
+                  "bonusTypes": [],
+                  "value": null,
+                  "availableToMulticlass": null,
+                  "modifierTypeId": 0,
+                  "modifierSubTypeId": 0,
+                  "componentId": 0,
+                  "componentTypeId": 0,
+                  "die": {
+                    "diceCount": 8,
+                    "diceValue": 8,
+                    "diceMultiplier": null,
+                    "fixedValue": null,
+                    "diceString": "8d8"
+                  },
+                  "count": 1,
+                  "durationUnit": null,
+                  "usePrimaryStat": false,
+                  "atHigherLevels": {
+                    "higherLevelDefinitions": [
+                      {
+                        "level": 1,
+                        "typeId": 15,
+                        "dice": {
+                          "diceCount": 1,
+                          "diceValue": 8,
+                          "diceMultiplier": null,
+                          "fixedValue": 0,
+                          "diceString": "1d8"
+                        },
+                        "value": null,
+                        "details": ""
+                      }
+                    ],
+                    "additionalAttacks": [],
+                    "additionalTargets": [],
+                    "areaOfEffect": [],
+                    "duration": [],
+                    "creatures": [],
+                    "special": [],
+                    "points": [],
+                    "range": []
+                  }
+                }
+              ],
+              "conditions": [],
+              "tags": [
+                "Damage"
+              ],
+              "castingTimeDescription": "",
+              "scaleType": "spellscale",
+              "sources": [
+                {
+                  "sourceId": 148,
+                  "pageNumber": 253,
+                  "sourceType": 1
+                }
+              ],
+              "spellGroups": [],
+              "isLegacy": false
+            },
+            "definitionId": 0,
+            "prepared": true,
+            "countsAsKnownSpell": true,
+            "usesSpellSlot": true,
+            "castAtLevel": null,
+            "alwaysPrepared": false,
+            "restriction": null,
+            "spellCastingAbilityId": null,
+            "displayAsAttack": null,
+            "additionalDescription": null,
+            "castOnlyAsRitual": false,
+            "ritualCastingType": null,
+            "range": {
+              "origin": "Self",
+              "rangeValue": 0,
+              "aoeType": "Cone",
+              "aoeValue": 60
+            },
+            "activation": {
+              "activationTime": 1,
+              "activationType": 1
+            },
+            "baseLevelAtWill": false,
+            "atWillLimitedUseLevel": null,
+            "isSignatureSpell": null,
+            "componentId": 0,
+            "componentTypeId": 0,
+            "spellListId": null
+          },
+          {
+            "overrideSaveDc": null,
+            "limitedUse": null,
+            "id": 21171686,
+            "entityTypeId": 435869154,
+            "definition": {
+              "id": 2619007,
+              "definitionKey": "1118725998:2619007",
+              "name": "Scrying",
+              "level": 5,
+              "school": "Divination",
+              "duration": {
+                "durationInterval": 10,
+                "durationUnit": "Minute",
+                "durationType": "Concentration"
+              },
+              "activation": {
+                "activationTime": 10,
+                "activationType": 6
+              },
+              "range": {
+                "origin": "Self",
+                "rangeValue": 0,
+                "aoeType": null,
+                "aoeValue": null
+              },
+              "asPartOfWeaponAttack": false,
+              "description": "<p>You can see and hear a creature you choose that is on the same plane of existence as you. The target makes a Wisdom saving throw, which is modified (see the tables below) by how well you know the target and the sort of physical connection you have to it. The target doesn’t know what it is making the save against, only that it feels uneasy.</p>\r\n<table class=\"table-compendium table--left-first\" style=\"--sb-table-row-bg-hover: #b3d3df; --sb-table-row-bg-dark: #d7e8ee; --sb-table-row-bg-light: #f1f7f9; --dark-sb-table-row-bg-light: #5e7982; --dark-sb-table-row-bg-dark: #5c7f8c; --dark-sb-table-row-bg-hover: #78a2b0;\">\r\n<thead>\r\n<tr>\r\n<th>Your Knowledge of the Target Is...</th>\r\n<th>Save Modifier</th>\r\n</tr>\r\n</thead>\r\n<tbody>\r\n<tr>\r\n<td>Secondhand (heard of the target)</td>\r\n<td>+5</td>\r\n</tr>\r\n<tr>\r\n<td>Firsthand (met the target)</td>\r\n<td>+0</td>\r\n</tr>\r\n<tr>\r\n<td>Extensive (know the target well)</td>\r\n<td>&minus;5</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<table class=\"table-compendium table--left-first\" style=\"--sb-table-row-bg-hover: #b3d3df; --sb-table-row-bg-dark: #d7e8ee; --sb-table-row-bg-light: #f1f7f9; --dark-sb-table-row-bg-light: #5e7982; --dark-sb-table-row-bg-dark: #5c7f8c; --dark-sb-table-row-bg-hover: #78a2b0;\">\r\n<thead>\r\n<tr>\r\n<th>You Have the Target’s...</th>\r\n<th>Save Modifier</th>\r\n</tr>\r\n</thead>\r\n<tbody>\r\n<tr>\r\n<td>Picture or other likeness</td>\r\n<td>&minus;2</td>\r\n</tr>\r\n<tr>\r\n<td>Garment or other possession</td>\r\n<td>&minus;4</td>\r\n</tr>\r\n<tr>\r\n<td>Body part, lock of hair, or bit of nail</td>\r\n<td>&minus;10</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<p>On a successful save, the target isn’t affected, and you can’t use this spell on it again for 24 hours.</p>\r\n<p>On a failed save, the spell creates an Invisible, intangible sensor within 10 feet of the target. You can see and hear through the sensor as if you were there. The sensor moves with the target, remaining within 10 feet of it for the duration. If something can see the sensor, it appears as a luminous orb about the size of your fist.</p>\r\n<p>Instead of targeting a creature, you can target a location you have seen. When you do so, the sensor appears at that location and doesn’t move.</p>",
+              "snippet": "",
+              "concentration": true,
+              "ritual": false,
+              "rangeArea": null,
+              "damageEffect": null,
+              "components": [
+                1,
+                2,
+                3
+              ],
+              "componentsDescription": "a focus worth 1,000+ GP, such as a crystal ball, mirror, or water-filled font",
+              "saveDcAbilityId": 5,
+              "healing": null,
+              "healingDice": [],
+              "tempHpDice": [],
+              "attackType": null,
+              "canCastAtHigherLevel": false,
+              "isHomebrew": false,
+              "version": null,
+              "sourceId": null,
+              "sourcePageNumber": 314,
+              "requiresSavingThrow": true,
+              "requiresAttackRoll": false,
+              "atHigherLevels": {
+                "higherLevelDefinitions": [],
+                "additionalAttacks": [],
+                "additionalTargets": [],
+                "areaOfEffect": [],
+                "duration": [],
+                "creatures": [],
+                "special": [],
+                "points": [],
+                "range": []
+              },
+              "modifiers": [],
+              "conditions": [],
+              "tags": [
+                "Detection"
+              ],
+              "castingTimeDescription": "",
+              "scaleType": null,
+              "sources": [
+                {
+                  "sourceId": 148,
+                  "pageNumber": 314,
+                  "sourceType": 1
+                }
+              ],
+              "spellGroups": [],
+              "isLegacy": false
+            },
+            "definitionId": 0,
+            "prepared": true,
+            "countsAsKnownSpell": true,
+            "usesSpellSlot": true,
+            "castAtLevel": null,
+            "alwaysPrepared": false,
+            "restriction": null,
+            "spellCastingAbilityId": null,
+            "displayAsAttack": null,
+            "additionalDescription": null,
+            "castOnlyAsRitual": false,
+            "ritualCastingType": null,
+            "range": {
+              "origin": "Self",
+              "rangeValue": 0,
+              "aoeType": null,
+              "aoeValue": null
+            },
+            "activation": {
+              "activationTime": 10,
+              "activationType": 6
+            },
+            "baseLevelAtWill": false,
+            "atWillLimitedUseLevel": null,
+            "isSignatureSpell": null,
+            "componentId": 0,
+            "componentTypeId": 0,
+            "spellListId": null
           }
         ]
       },
       {
         "entityTypeId": 1446578651,
-        "characterClassId": 188819230,
+        "characterClassId": 180826819,
         "spells": []
       }
     ],
     "customItems": [
       {
-        "id": 27097097,
+        "id": 25881328,
         "name": "Carapace de scorpion",
         "description": null,
         "weight": null,
@@ -13253,10 +12967,328 @@
       }
     ],
     "campaign": null,
-    "creatures": [],
+    "creatures": [
+      {
+        "id": 21013698,
+        "entityTypeId": 779871897,
+        "name": null,
+        "description": null,
+        "isActive": false,
+        "removedHitPoints": 300,
+        "temporaryHitPoints": 0,
+        "groupId": 7,
+        "definition": {
+          "id": 16979,
+          "entityTypeId": 779871897,
+          "name": "Pit Fiend",
+          "alignmentId": 7,
+          "sizeId": 5,
+          "typeId": 9,
+          "armorClass": 19,
+          "armorClassDescription": "(natural armor)  ",
+          "averageHitPoints": 300,
+          "hitPointDice": {
+            "diceCount": 24,
+            "diceValue": 10,
+            "diceMultiplier": null,
+            "fixedValue": 168,
+            "diceString": "24d10 + 168"
+          },
+          "movements": [
+            {
+              "movementId": 1,
+              "speed": 30,
+              "notes": ""
+            },
+            {
+              "movementId": 4,
+              "speed": 60,
+              "notes": ""
+            }
+          ],
+          "passivePerception": 14,
+          "isHomebrew": false,
+          "challengeRatingId": 24,
+          "sourceId": 1,
+          "sourcePageNumber": 278,
+          "isLegendary": false,
+          "isMythic": false,
+          "hasLair": false,
+          "avatarUrl": "https://www.dndbeyond.com/avatars/0/310/636252772131965976.jpeg?width=350&height=350&fit=bounds&quality=95&auto=webp",
+          "largeAvatarUrl": "https://www.dndbeyond.com/avatars/30782/33/638061948712807164.png?width=1000&height=1000&fit=bounds&quality=95&auto=webp",
+          "basicAvatarUrl": "https://www.dndbeyond.com/avatars/30782/34/638061948717647174.png?width=1000&height=1000&fit=bounds&quality=95&auto=webp",
+          "version": null,
+          "swarm": null,
+          "subTypes": [
+            5631131
+          ],
+          "environments": [],
+          "tags": [
+            "Devil"
+          ],
+          "sources": [
+            {
+              "sourceId": 1,
+              "pageNumber": null,
+              "sourceType": 2
+            },
+            {
+              "sourceId": 5,
+              "pageNumber": 278,
+              "sourceType": 1
+            }
+          ],
+          "stats": [
+            {
+              "statId": 1,
+              "name": null,
+              "value": 26
+            },
+            {
+              "statId": 2,
+              "name": null,
+              "value": 14
+            },
+            {
+              "statId": 3,
+              "name": null,
+              "value": 24
+            },
+            {
+              "statId": 4,
+              "name": null,
+              "value": 22
+            },
+            {
+              "statId": 5,
+              "name": null,
+              "value": 18
+            },
+            {
+              "statId": 6,
+              "name": null,
+              "value": 24
+            }
+          ],
+          "senses": [
+            {
+              "senseId": 4,
+              "notes": "120 ft."
+            }
+          ],
+          "damageAdjustments": [
+            7,
+            14,
+            22,
+            25
+          ],
+          "conditionImmunities": [
+            11
+          ],
+          "savingThrows": [
+            {
+              "statId": 2,
+              "bonusModifier": null
+            },
+            {
+              "statId": 3,
+              "bonusModifier": null
+            },
+            {
+              "statId": 5,
+              "bonusModifier": null
+            }
+          ],
+          "skills": [],
+          "languages": [
+            {
+              "languageId": 13,
+              "notes": ""
+            },
+            {
+              "languageId": 18,
+              "notes": "120 ft."
+            }
+          ],
+          "specialTraitsDescription": "<p><em><strong>Fear Aura.</strong></em> Any creature hostile to the pit fiend that starts its turn within 20 feet of the pit fiend must make a DC 21 Wisdom saving throw, unless the pit fiend is incapacitated. On a failed save, the creature is frightened until the start of its next turn. If a creature's saving throw is successful, the creature is immune to the pit fiend's Fear Aura for the next 24 hours.</p>\r\n<p><em><strong>Magic Resistance.</strong></em> The pit fiend has advantage on saving throws against spells and other magical effects.</p>\r\n<p><em><strong>Magic Weapons.</strong></em> The pit fiend's weapon attacks are magical.</p>\r\n<p><em><strong>Innate Spellcasting.</strong></em> The pit fiend's spellcasting ability is Charisma (spell save DC 21). The pit fiend can innately cast the following spells, requiring no material components:</p>\r\n<p>At will: detect magic, fireball</p>\r\n<p>3/day each: hold monster, wall of fire</p>",
+          "actionsDescription": "<p><em><strong>Multiattack.</strong></em> The pit fiend makes four attacks: one with its bite, one with its claw, one with its mace, and one with its tail.</p>\r\n<p><em><strong>Bite.</strong> Melee Weapon Attack:</em> +14 to hit, reach 5 ft., one target. <em>Hit:</em> 22 (4d6 + 8) piercing damage. The target must succeed on a DC 21 Constitution saving throw or become poisoned. While poisoned in this way, the target can't regain hit points, and it takes 21 (6d6) poison damage at the start of each of its turns. The poisoned target can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success.</p>\r\n<p><em><strong>Claw.</strong> Melee Weapon Attack:</em> +14 to hit, reach 10 ft., one target. <em>Hit:</em> 17 (2d8 + 8) slashing damage.</p>\r\n<p><em><strong>Mace.</strong> Melee Weapon Attack:</em> +14 to hit, reach 10 ft., one target. <em>Hit:</em> 15 (2d6 + 8) bludgeoning damage plus 21 (6d6) fire damage.</p>\r\n<p><em><strong>Tail.</strong> Melee Weapon Attack:</em> +14 to hit, reach 10 ft., one target. <em>Hit:</em> 24 (3d10 + 8) bludgeoning damage.</p>",
+          "reactionsDescription": "",
+          "legendaryActionsDescription": "",
+          "mythicActionsDescription": "",
+          "bonusActionsDescription": "",
+          "characteristicsDescription": "",
+          "lairDescription": "",
+          "languageDescription": " Infernal, telepathy 120 ft.  ",
+          "languageNote": "",
+          "hideCr": false,
+          "isLegacy": false,
+          "statBlockType": 0,
+          "initiative": null,
+          "lairChallengeRatingId": null,
+          "gear": null,
+          "slug": ""
+        }
+      },
+      {
+        "id": 21013810,
+        "entityTypeId": 779871897,
+        "name": null,
+        "description": null,
+        "isActive": false,
+        "removedHitPoints": 0,
+        "temporaryHitPoints": null,
+        "groupId": 7,
+        "definition": {
+          "id": 17043,
+          "entityTypeId": 779871897,
+          "name": "Vampire",
+          "alignmentId": 7,
+          "sizeId": 4,
+          "typeId": 16,
+          "armorClass": 16,
+          "armorClassDescription": "(natural armor)  ",
+          "averageHitPoints": 144,
+          "hitPointDice": {
+            "diceCount": 17,
+            "diceValue": 8,
+            "diceMultiplier": null,
+            "fixedValue": 68,
+            "diceString": "17d8 + 68"
+          },
+          "movements": [
+            {
+              "movementId": 1,
+              "speed": 30,
+              "notes": ""
+            }
+          ],
+          "passivePerception": 17,
+          "isHomebrew": false,
+          "challengeRatingId": 17,
+          "sourceId": 1,
+          "sourcePageNumber": 352,
+          "isLegendary": true,
+          "isMythic": false,
+          "hasLair": true,
+          "avatarUrl": "https://www.dndbeyond.com/avatars/0/90/636252738664754793.jpeg?width=350&height=350&fit=bounds&quality=95&auto=webp",
+          "largeAvatarUrl": "https://www.dndbeyond.com/avatars/30836/365/638063935245277290.png?width=1000&height=1000&fit=bounds&quality=95&auto=webp",
+          "basicAvatarUrl": "https://www.dndbeyond.com/avatars/30836/366/638063935246957286.png?width=1000&height=1000&fit=bounds&quality=95&auto=webp",
+          "version": null,
+          "swarm": null,
+          "subTypes": [
+            5643699
+          ],
+          "environments": [
+            20281701
+          ],
+          "tags": [
+            "Shapechanger"
+          ],
+          "sources": [
+            {
+              "sourceId": 1,
+              "pageNumber": null,
+              "sourceType": 2
+            },
+            {
+              "sourceId": 5,
+              "pageNumber": 352,
+              "sourceType": 1
+            }
+          ],
+          "stats": [
+            {
+              "statId": 1,
+              "name": null,
+              "value": 18
+            },
+            {
+              "statId": 2,
+              "name": null,
+              "value": 18
+            },
+            {
+              "statId": 3,
+              "name": null,
+              "value": 18
+            },
+            {
+              "statId": 4,
+              "name": null,
+              "value": 17
+            },
+            {
+              "statId": 5,
+              "name": null,
+              "value": 15
+            },
+            {
+              "statId": 6,
+              "name": null,
+              "value": 18
+            }
+          ],
+          "senses": [
+            {
+              "senseId": 2,
+              "notes": "120 ft."
+            }
+          ],
+          "damageAdjustments": [
+            10,
+            13
+          ],
+          "conditionImmunities": [],
+          "savingThrows": [
+            {
+              "statId": 2,
+              "bonusModifier": null
+            },
+            {
+              "statId": 5,
+              "bonusModifier": null
+            },
+            {
+              "statId": 6,
+              "bonusModifier": null
+            }
+          ],
+          "skills": [
+            {
+              "skillId": 5,
+              "value": 9,
+              "additionalBonus": null
+            },
+            {
+              "skillId": 14,
+              "value": 7,
+              "additionalBonus": null
+            }
+          ],
+          "languages": [],
+          "specialTraitsDescription": "<p><em><strong>Shapechanger.</strong></em> If the vampire isn’t in sunlight or running water, it can use its action to polymorph into a Tiny bat or a Medium cloud of mist, or back into its true form.</p>\r\n<p>While in bat form, the vampire can’t speak, its walking speed is 5 feet, and it has a flying speed of 30 feet. Its statistics, other than its size and speed, are unchanged. Anything it is wearing transforms with it, but nothing it is carrying does. It reverts to its true form if it dies.</p>\r\n<p>While in mist form, the vampire can’t take any actions, speak, or manipulate objects. It is weightless, has a flying speed of 20 feet, can hover, and can enter a hostile creature’s space and stop there. In addition, if air can pass through a space, the mist can do so without squeezing, and it can’t pass through water. It has advantage on Strength, Dexterity, and Constitution saving throws, and it is immune to all nonmagical damage, except the damage it takes from sunlight.</p>\r\n<p><em><strong>Legendary Resistance (3/Day).</strong></em> If the vampire fails a saving throw, it can choose to succeed instead.</p>\r\n<p><em><strong>Misty Escape.</strong></em> When it drops to 0 hit points outside its resting place, the vampire transforms into a cloud of mist (as in the Shapechanger trait) instead of falling unconscious, provided that it isn’t in sunlight or running water. If it can’t transform, it is destroyed.</p>\r\n<p>While it has 0 hit points in mist form, it can’t revert to its vampire form, and it must reach its resting place within 2 hours or be destroyed. Once in its resting place, it reverts to its vampire form. It is then paralyzed until it regains at least 1 hit point. After spending 1 hour in its resting place with 0 hit points, it regains 1 hit point.</p>\r\n<p><em><strong>Regeneration.</strong></em> The vampire regains 20 hit points at the start of its turn if it has at least 1 hit point and isn’t in sunlight or running water. If the vampire takes radiant damage or damage from holy water, this trait doesn’t function at the start of the vampire’s next turn.</p>\r\n<p><em><strong>Spider Climb.</strong></em> The vampire can climb difficult surfaces, including upside down on ceilings, without needing to make an ability check.</p>\r\n<p><em><strong>Vampire Weaknesses.</strong></em> The vampire has the following flaws:</p>\r\n<p><em>Forbiddance.</em> The vampire can’t enter a residence without an invitation from one of the occupants.</p>\r\n<p><em>Harmed by Running Water.</em> The vampire takes 20 acid damage if it ends its turn in running water.</p>\r\n<p><em>Stake to the Heart.</em> If a piercing weapon made of wood is driven into the vampire’s heart while the vampire is incapacitated in its resting place, the vampire is paralyzed until the stake is removed.</p>\r\n<p><em>Sunlight Hypersensitivity.</em> The vampire takes 20 radiant damage when it starts its turn in sunlight. While in sunlight, it has disadvantage on attack rolls and ability checks.</p>",
+          "actionsDescription": "<p><em><strong>Multiattack. (Vampire Form Only).</strong></em> The vampire makes two attacks, only one of which can be a bite attack.</p>\r\n<p><em><strong>Unarmed Strike (Vampire Form Only).</strong> Melee Weapon Attack:</em> +9 to hit, reach 5 ft., one creature. <em>Hit:</em> 8 (1d8 + 4) bludgeoning damage. Instead of dealing damage, the vampire can grapple the target (escape DC 18).</p>\r\n<p><em><strong>Bite. (Bat or Vampire Form Only).</strong> Melee Weapon Attack:</em> +9 to hit, reach 5 ft., one willing creature, or a creature that is grappled by the vampire, incapacitated, or restrained. <em>Hit:</em> 7 (1d6 + 4) piercing damage plus 10 (3d6) necrotic damage. The target’s hit point maximum is reduced by an amount equal to the necrotic damage taken, and the vampire regains hit points equal to that amount. The reduction lasts until the target finishes a long rest. The target dies if this effect reduces its hit point maximum to 0. A humanoid slain in this way and then buried in the ground rises the following night as a vampire spawn under the vampire’s control.</p>\r\n<p><em><strong>Charm.</strong></em> The vampire targets one humanoid it can see within 30 feet of it. If the target can see the vampire, the target must succeed on a DC 17 Wisdom saving throw against this magic or be charmed by the vampire. The charmed target regards the vampire as a trusted friend to be heeded and protected. Although the target isn’t under the vampire’s control, it takes the vampire’s requests or actions in the most favorable way it can, and it is a willing target for the vampire’s bite attack.</p>\r\n<p>Each time the vampire or the vampire’s companions do anything harmful to the target, it can repeat the saving throw, ending the effect on itself on a success. Otherwise, the effect lasts 24 hours or until the vampire is destroyed, is on a different plane of existence than the target, or takes a bonus action to end the effect.</p>\r\n<p><em><strong>Children of the Night (1/Day).</strong></em> The vampire magically calls 2d4 swarms of bats or rats, provided that the sun isn’t up. While outdoors, the vampire can call 3d6 wolves instead. The called creatures arrive in 1d4 rounds, acting as allies of the vampire and obeying its spoken commands. The beasts remain for 1 hour, until the vampire dies, or until the vampire dismisses them as a bonus action.</p>",
+          "reactionsDescription": "",
+          "legendaryActionsDescription": "<p>The vampire can take 3 legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature’s turn. The vampire regains spent legendary actions at the start of its turn.</p>\r\n<p><strong>Move.</strong> The vampire moves up to its speed without provoking opportunity attacks.</p>\r\n<p><strong>Unarmed Strike.</strong> The vampire makes one unarmed strike.</p>\r\n<p><strong>Bite (Costs 2 Actions).</strong> The vampire makes one bite attack.</p>",
+          "mythicActionsDescription": "",
+          "bonusActionsDescription": "",
+          "characteristicsDescription": "",
+          "lairDescription": "<h3>A Vampire’s Lair</h3>\r\n<p>A vampire chooses a grand yet defensible location for its lair, such as a castle, fortified manor, or walled abbey. It hides its coffin in an underground crypt or vault guarded by vampire spawn or other loyal creatures of the night.</p>\r\n<h4>Regional Effects</h4>\r\n<p>The region surrounding a vampire’s lair is warped by the creature’s unnatural presence, creating any of the following effects:</p>\r\n<ul>\r\n<li>There’s a noticeable increase in the populations of bats, rats, and wolves in the region.</li>\r\n<li>Plants within 500 feet of the lair wither, and their stems and branches become twisted and thorny.</li>\r\n<li>Shadows cast within 500 feet of the lair seem abnormally gaunt and sometimes move as though alive.</li>\r\n<li>A creeping fog clings to the ground within 500 feet of the vampire’s lair. The fog occasionally takes eerie forms, such as grasping claws and writhing serpents.</li>\r\n</ul>\r\n<p>If the vampire is destroyed, these effects end after 2d6 days.</p>",
+          "languageDescription": " the languages it knew in life  ",
+          "languageNote": "the languages it knew in life  ",
+          "hideCr": false,
+          "isLegacy": false,
+          "statBlockType": 0,
+          "initiative": null,
+          "lairChallengeRatingId": null,
+          "gear": null,
+          "slug": ""
+        }
+      }
+    ],
     "optionalOrigins": [],
     "optionalClassFeatures": [],
-    "dateModified": "2024-12-17T14:17:53.848Z",
+    "dateModified": "2025-01-04T22:53:53.064Z",
     "providedFrom": "storage",
     "canEdit": false,
     "status": 0,

@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:jdr_gamemaster_app/services/shared_variables.dart';
 import 'package:logging/logging.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:synchronized/synchronized.dart';
@@ -6,7 +7,7 @@ import 'package:path/path.dart' as path;
 
 class LoggingService {
   static const String _logFileName = 'app.log';
-  static const String _appFolderName = 'JDR Gamemaster App';
+  final String _appFolderName = SharedVariables().appFolderName;
   static final LoggingService _instance = LoggingService._internal();
 
   final _lock = Lock();

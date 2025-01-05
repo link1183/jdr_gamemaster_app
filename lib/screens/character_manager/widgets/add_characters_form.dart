@@ -81,7 +81,7 @@ class _AddCharactersFormState extends State<AddCharactersForm> {
       for (final id in ids) {
         try {
           results[id] = await Provider.of<AppState>(context, listen: false)
-              .addCharacter(id);
+              .addCharacter(id, context);
         } catch (e) {
           if (!mounted) return;
           toastification.show(

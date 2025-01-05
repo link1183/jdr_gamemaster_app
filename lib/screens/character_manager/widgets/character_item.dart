@@ -41,7 +41,8 @@ class CharacterItem extends StatelessWidget {
     );
 
     if (confirmed == true) {
-      final success = await appState.removeCharacter(id);
+      if (!context.mounted) return;
+      final success = await appState.removeCharacter(id, context);
       if (success && context.mounted) {
         toastification.show(
           context: context,

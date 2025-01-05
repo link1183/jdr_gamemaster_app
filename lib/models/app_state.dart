@@ -1,7 +1,8 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
 import 'package:jdr_gamemaster_app/models/creature.dart';
 import 'package:jdr_gamemaster_app/services/logging_service.dart';
 import 'package:jdr_gamemaster_app/services/storage_service.dart';
+import 'package:toastification/toastification.dart';
 import '../services/character_service.dart';
 import 'character.dart';
 
@@ -12,6 +13,18 @@ class AppState extends ChangeNotifier {
   List<Character> characterList = [];
   bool isLoading = false;
 
+  void showToast(
+      {required BuildContext context,
+      required String message,
+      ToastificationType type = ToastificationType.error}) {
+    toastification.show(
+        context: context,
+        type: type,
+        style: ToastificationStyle.minimal,
+        title: Text(message),
+        autoCloseDuration: const Duration(seconds: 5));
+  }
+
   Future<void> loadCharacterIds() async {
     try {
       characterIds = await _storageService.loadCharacterIds();
@@ -21,22 +34,25 @@ class AppState extends ChangeNotifier {
     }
   }
 
-  Future<bool> addCharacter(int id) async {
+  Future<bool> addCharacter(int id, BuildContext context) async {
     try {
-      // Check if the ID is valid (try to fetch the character)
       await CharacterService.fetchCharacterData(id);
 
-      // If the fetch was successful and the ID isn't already in the list
       if (!characterIds.contains(id)) {
         characterIds.add(id);
         await _storageService.saveCharacterIds(characterIds);
-        await initializeCharacters(); // Refresh the full list
+        await initializeCharacters();
         return true;
       }
-      return false; // ID already exists
+      return false;
     } catch (e) {
       _logger.severe('Error adding character', e);
-      return false; // Invalid ID or network error
+      if (!context.mounted) return false;
+      showToast(
+          context: context,
+          message:
+              'Failed to add character. Please check the ID and network connection.');
+      return false;
     }
   }
 
@@ -53,7 +69,7 @@ class AppState extends ChangeNotifier {
     }
   }
 
-  Future<bool> removeCharacter(int id) async {
+  Future<bool> removeCharacter(int id, BuildContext? context) async {
     try {
       if (characterIds.contains(id)) {
         characterIds.remove(id);
@@ -65,6 +81,12 @@ class AppState extends ChangeNotifier {
       return false; // ID not found
     } catch (e) {
       _logger.severe('Error removing character', e);
+      if (context != null) {
+        showToast(
+          context: context,
+          message: 'Failed to remove character. Please try again.',
+        );
+      }
       return false;
     }
   }
@@ -110,7 +132,7 @@ class AppState extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<List<Character>> loadCharacters() async {
+  Future<List<Character>> loadCharacters({BuildContext? context}) async {
     if (characterIds.isEmpty) {
       await loadCharacterIds();
     }
@@ -119,6 +141,8 @@ class AppState extends ChangeNotifier {
     notifyListeners();
 
     Map<int, Character> tempCharacters = {};
+    List<int> failedCharacterIds = []; // Track failed character loads
+
     List<Future<void>> futures = characterIds.map((id) async {
       try {
         Map<String, dynamic> characterJson =
@@ -128,6 +152,7 @@ class AppState extends ChangeNotifier {
         _logger.info('Successfully loaded character $id');
       } catch (e) {
         _logger.severe('Error processing character $id', e);
+        failedCharacterIds.add(id);
       }
     }).toList();
 
@@ -135,6 +160,17 @@ class AppState extends ChangeNotifier {
 
     isLoading = false;
     _logger.info('Finished loading all characters');
+
+    // If any characters failed to load and context is provided, show a toast
+    if (failedCharacterIds.isNotEmpty && context != null) {
+      if (context.mounted) {
+        showToast(
+          context: context,
+          message: 'Failed to load ${failedCharacterIds.length} character(s). '
+              'Check your network connection.',
+        );
+      }
+    }
 
     return characterIds
         .where((id) => tempCharacters.containsKey(id))

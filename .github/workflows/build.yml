@@ -44,6 +44,19 @@ jobs:
           cd build/windows/x64/runner/Release
           7z a -tzip ../../../../../windows-release.zip *
 
+      # Build Windows Installer
+      - name: Install Inno Setup
+        if: matrix.os == 'windows-latest'
+        run: |
+          choco install innosetup -y
+
+      - name: Build Windows Installer
+        if: matrix.os == 'windows-latest'
+        env:
+          APP_VERSION: ${{ inputs.version || '1.0.0' }}
+        run: |
+          iscc.exe /Q /O"." /DAppVersion="%APP_VERSION%" "windows/setup.iss"
+
       # Build Linux
       - name: Build Linux
         if: matrix.os == 'ubuntu-latest'
@@ -52,13 +65,21 @@ jobs:
           cd build/linux/x64/release/bundle
           zip -r ../../../../../linux-release.zip *
 
-      # Upload Windows artifact
-      - name: Upload Windows artifact
+      # Upload Windows portable
+      - name: Upload Windows portable
         if: matrix.os == 'windows-latest'
         uses: actions/upload-artifact@v3
         with:
-          name: windows-build
+          name: windows-portable
           path: windows-release.zip
+
+      # Upload Windows installer
+      - name: Upload Windows installer
+        if: matrix.os == 'windows-latest'
+        uses: actions/upload-artifact@v3
+        with:
+          name: windows-installer
+          path: JDR-Gamemaster-App-*.exe
 
       # Upload Linux artifact
       - name: Upload Linux artifact
@@ -89,7 +110,8 @@ jobs:
           draft: false
           prerelease: false
           files: |
-            windows-build/windows-release.zip
+            windows-portable/windows-release.zip
+            windows-installer/JDR-Gamemaster-App-*.exe
             linux-build/linux-release.zip
 
 on:

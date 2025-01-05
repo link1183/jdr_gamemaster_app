@@ -14,15 +14,18 @@ class CharacterStats extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          _buildPassiveStat(character.passivePerception, 'PERCEPTION'),
-          const SizedBox(width: 8),
-          _buildPassiveStat(character.passiveInvestigation, 'INVESTIGATION'),
-          const SizedBox(width: 8),
-          _buildPassiveStat(character.passiveInsight, 'INSIGHT'),
-        ],
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            _buildPassiveStat(character.passivePerception, 'PERCEPTION'),
+            const SizedBox(width: 8),
+            _buildPassiveStat(character.passiveInvestigation, 'INVESTIGATION'),
+            const SizedBox(width: 8),
+            _buildPassiveStat(character.passiveInsight, 'INSIGHT'),
+          ],
+        ),
       ),
     );
   }

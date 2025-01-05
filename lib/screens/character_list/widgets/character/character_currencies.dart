@@ -14,23 +14,27 @@ class CharacterCurrencies extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
-      child: Row(
-        children: <Widget>[
-          _buildCurrencyItem(
-              character.currency.platinum, 'PP', Colors.grey[300]!),
-          const SizedBox(width: 8),
-          _buildCurrencyItem(
-              character.currency.gold, 'GP', Colors.yellow[600]!),
-          const SizedBox(width: 8),
-          _buildCurrencyItem(
-              character.currency.electrum, 'EP', Colors.blue[200]!),
-          const SizedBox(width: 8),
-          _buildCurrencyItem(
-              character.currency.silver, 'SP', Colors.grey[400]!),
-          const SizedBox(width: 8),
-          _buildCurrencyItem(
-              character.currency.copper, 'CP', Colors.orange[300]!),
-        ],
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            _buildCurrencyItem(
+                character.currency.platinum, 'PP', Colors.grey[300]!),
+            const SizedBox(width: 8),
+            _buildCurrencyItem(
+                character.currency.gold, 'GP', Colors.yellow[600]!),
+            const SizedBox(width: 8),
+            _buildCurrencyItem(
+                character.currency.electrum, 'EP', Colors.blue[200]!),
+            const SizedBox(width: 8),
+            _buildCurrencyItem(
+                character.currency.silver, 'SP', Colors.grey[400]!),
+            const SizedBox(width: 8),
+            _buildCurrencyItem(
+                character.currency.copper, 'CP', Colors.orange[300]!),
+          ],
+        ),
       ),
     );
   }

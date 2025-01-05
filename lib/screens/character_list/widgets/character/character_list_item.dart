@@ -295,16 +295,30 @@ class _CharacterListItemState extends State<CharacterListItem>
                 ),
                 AnimatedCrossFade(
                   firstChild: const SizedBox.shrink(),
-                  secondChild: Column(
+                  secondChild: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      CharacterStats(character: widget.character),
-                      CharacterCurrencies(character: widget.character),
-                      CharacterCreatures(
-                        creatures: widget.character.creatures,
-                        activeTransformation:
-                            widget.character.activeTransformation,
-                        onTransformationChanged: _handleTransformation,
+                      Expanded(
+                        flex: 2,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            CharacterStats(character: widget.character),
+                            CharacterCurrencies(character: widget.character),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        flex: 3,
+                        child: Align(
+                          alignment: Alignment.centerRight,
+                          child: CharacterCreatures(
+                            creatures: widget.character.creatures,
+                            activeTransformation:
+                                widget.character.activeTransformation,
+                            onTransformationChanged: _handleTransformation,
+                          ),
+                        ),
                       ),
                     ],
                   ),

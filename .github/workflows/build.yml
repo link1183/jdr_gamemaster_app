@@ -55,7 +55,8 @@ jobs:
         env:
           APP_VERSION: ${{ inputs.version || '1.0.0' }}
         run: |
-          iscc.exe /Q /O"." /DAppVersion="%APP_VERSION%" "windows/setup.iss"
+          cd windows
+          iscc.exe /Q setup.iss
 
       # Build Linux
       - name: Build Linux

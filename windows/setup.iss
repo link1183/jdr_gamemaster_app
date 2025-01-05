@@ -1,5 +1,4 @@
 #define AppName "JDR Gamemaster App"
-; Version will be replaced during build
 #define AppVersion GetEnv('APP_VERSION')
 #define AppPublisher "Adrien Gunther"
 #define AppExeName "jdr_gamemaster_app.exe"
@@ -11,13 +10,13 @@ AppVersion={#AppVersion}
 AppPublisher={#AppPublisher}
 DefaultDirName={autopf}\{#AppName}
 DefaultGroupName={#AppName}
-OutputBaseFilename=JDR-Gamemaster-App-{yAppVersion}
+OutputBaseFilename=JDR-Gamemaster-App-{#AppVersion}
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
 
 [Files]
-Source: ".\build\windows\x64\runner\Release\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs
+Source: "..\build\windows\x64\runner\Release\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs
 
 [Icons]
 Name: "{group}\{#AppName}"; Filename: "{app}\{#AppExeName}"

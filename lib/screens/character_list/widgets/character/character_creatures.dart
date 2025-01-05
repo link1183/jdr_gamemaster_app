@@ -50,85 +50,93 @@ class CharacterCreatures extends StatelessWidget {
     final Color color = _getHealthColor(healthPercent);
     final bool isTransformed = activeTransformation?.id == creature.id;
 
-    return Container(
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: isTransformed ? 0.2 : 0.1),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: color.withValues(alpha: 0.3),
-          width: 1,
-        ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Checkbox(
-                value: isTransformed,
-                onChanged: (bool? value) {
-                  onTransformationChanged(value == true ? creature : null);
-                },
-                side: BorderSide(
-                  color: Colors.white.withValues(alpha: 0.5),
-                ),
-                fillColor: WidgetStateProperty.resolveWith<Color>(
-                  (Set<WidgetState> states) {
-                    if (states.contains(WidgetState.selected)) {
-                      return color;
-                    }
-                    return Colors.transparent;
-                  },
-                ),
+    return MouseRegion(
+        cursor: SystemMouseCursors.click,
+        child: GestureDetector(
+          onTap: () {
+            onTransformationChanged(isTransformed ? null : creature);
+          },
+          child: Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: Colors.white.withValues(alpha: isTransformed ? 0.2 : 0.1),
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(
+                color: color.withValues(alpha: 0.3),
+                width: 1,
               ),
-              Icon(
-                _getHealthIcon(healthPercent),
-                color: color,
-                size: 16,
-              ),
-              const SizedBox(width: 8),
-              Text(
-                creature.name,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Checkbox(
+                      value: isTransformed,
+                      onChanged: (bool? value) {
+                        onTransformationChanged(
+                            value == true ? creature : null);
+                      },
+                      side: BorderSide(
+                        color: Colors.white.withValues(alpha: 0.5),
+                      ),
+                      fillColor: WidgetStateProperty.resolveWith<Color>(
+                        (Set<WidgetState> states) {
+                          if (states.contains(WidgetState.selected)) {
+                            return color;
+                          }
+                          return Colors.transparent;
+                        },
+                      ),
+                    ),
+                    Icon(
+                      _getHealthIcon(healthPercent),
+                      color: color,
+                      size: 16,
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      creature.name,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-            ],
+                const SizedBox(height: 8),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    _buildCreatureStat(
+                      'HP',
+                      '${creature.currentHealth}/${creature.averageHitPoints}',
+                      color,
+                    ),
+                    const SizedBox(width: 8),
+                    _buildCreatureStat(
+                      'CA',
+                      creature.armorClass.toString(),
+                      Colors.white70,
+                    ),
+                    const SizedBox(width: 8),
+                    Tooltip(
+                      message: 'Perception passive',
+                      child: _buildCreatureStat(
+                        'PP',
+                        creature.passivePerception.toString(),
+                        Colors.white70,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
-          const SizedBox(height: 8),
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              _buildCreatureStat(
-                'HP',
-                '${creature.currentHealth}/${creature.averageHitPoints}',
-                color,
-              ),
-              const SizedBox(width: 8),
-              _buildCreatureStat(
-                'CA',
-                creature.armorClass.toString(),
-                Colors.white70,
-              ),
-              const SizedBox(width: 8),
-              Tooltip(
-                message: 'Perception passive',
-                child: _buildCreatureStat(
-                  'PP',
-                  creature.passivePerception.toString(),
-                  Colors.white70,
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
+        ));
   }
 
   Widget _buildCreatureStat(String label, String value, Color color) {

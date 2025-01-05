@@ -80,21 +80,16 @@ jobs:
           flutter config --enable-windows-desktop
           flutter config --enable-linux-desktop
 
-      # Build Windows
+      # Build and package Windows
       - name: Build Windows
         if: matrix.os == 'windows-latest'
-        run: |
-          flutter build windows --release
-          cd build/windows/x64/runner/Release
-          7z a -tzip ../../../../../windows-release.zip *
+        run: flutter build windows --release
 
-      # Build Windows Installer
       - name: Install Inno Setup
         if: matrix.os == 'windows-latest'
-        run: |
-          choco install innosetup -y
+        run: choco install innosetup -y
 
-      - name: Build Windows Installer
+      - name: Create Windows Installer
         if: matrix.os == 'windows-latest'
         env:
           APP_VERSION: ${{ inputs.version }}
@@ -102,32 +97,22 @@ jobs:
           cd windows
           iscc.exe /Q setup.iss
 
-      # Build Linux
-      - name: Build Linux
+      - name: Upload Windows Installer
+        if: matrix.os == 'windows-latest'
+        uses: actions/upload-artifact@v3
+        with:
+          name: windows-installer
+          path: windows/Output/JDR-Gamemaster-App-*.exe
+
+      # Build and package Linux
+      - name: Build and Package Linux
         if: matrix.os == 'ubuntu-latest'
         run: |
           flutter build linux --release
           cd build/linux/x64/release/bundle
           zip -r ../../../../../linux-release.zip *
 
-      # Upload Windows portable
-      - name: Upload Windows portable
-        if: matrix.os == 'windows-latest'
-        uses: actions/upload-artifact@v3
-        with:
-          name: windows-portable
-          path: windows-release.zip
-
-      # Upload Windows installer
-      - name: Upload Windows installer
-        if: matrix.os == 'windows-latest'
-        uses: actions/upload-artifact@v3
-        with:
-          name: windows-installer
-          path: JDR-Gamemaster-App-*.exe
-
-      # Upload Linux artifact
-      - name: Upload Linux artifact
+      - name: Upload Linux Build
         if: matrix.os == 'ubuntu-latest'
         uses: actions/upload-artifact@v3
         with:
@@ -155,7 +140,6 @@ jobs:
           draft: false
           prerelease: false
           files: |
-            windows-portable/windows-release.zip
             windows-installer/JDR-Gamemaster-App-*.exe
             linux-build/linux-release.zip
 

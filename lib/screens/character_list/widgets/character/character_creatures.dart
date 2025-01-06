@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jdr_gamemaster_app/screens/shared.dart';
 import '../../../../models/creature.dart';
 
 class CharacterCreatures extends StatelessWidget {
@@ -45,9 +46,8 @@ class CharacterCreatures extends StatelessWidget {
   }
 
   Widget _buildCreatureCard(Creature creature) {
-    final int healthPercent =
-        (creature.currentHealth / creature.averageHitPoints * 100).round();
-    final Color color = _getHealthColor(healthPercent);
+    final Color color = Shared.getHealthColor(
+        creature.currentHealth, creature.averageHitPoints);
     final bool isTransformed = activeTransformation?.id == creature.id;
 
     return MouseRegion(
@@ -92,7 +92,8 @@ class CharacterCreatures extends StatelessWidget {
                       ),
                     ),
                     Icon(
-                      _getHealthIcon(healthPercent),
+                      Shared.getHealthIcon(
+                          creature.currentHealth, creature.averageHitPoints),
                       color: color,
                       size: 16,
                     ),
@@ -161,19 +162,5 @@ class CharacterCreatures extends StatelessWidget {
         ),
       ],
     );
-  }
-
-  Color _getHealthColor(int percent) {
-    if (percent > 75) return const Color(0xFF43A047);
-    if (percent > 50) return const Color(0xFFEF6C00);
-    if (percent > 25) return const Color(0xFFD32F2F);
-    return const Color(0xFF6A1B9A);
-  }
-
-  IconData _getHealthIcon(int percent) {
-    if (percent > 75) return Icons.favorite;
-    if (percent > 50) return Icons.heart_broken;
-    if (percent > 25) return Icons.dangerous;
-    return Icons.emergency;
   }
 }

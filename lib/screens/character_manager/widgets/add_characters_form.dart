@@ -101,8 +101,8 @@ class _AddCharactersFormState extends State<AddCharactersForm> {
       }
 
       if (mounted) {
-        final int successful = results.values.where((v) => v).length;
-        final int failed = results.values.where((v) => !v).length;
+        final int successful = results.values.where((bool v) => v).length;
+        final int failed = results.values.where((bool v) => !v).length;
 
         toastification.show(
           context: context,

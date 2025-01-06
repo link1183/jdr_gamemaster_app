@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jdr_gamemaster_app/screens/shared.dart';
 import '../../../../models/character.dart';
 import '../initiative/initiative_controls.dart';
 
@@ -32,26 +33,10 @@ class CharacterHeader extends StatelessWidget {
     required this.isMovingDown,
   });
 
-  Color _getHealthColor(int current, int max) {
-    final int percent = (current / max * 100).round();
-    if (percent > 75) return const Color(0xFF43A047); // healthy
-    if (percent > 50) return const Color(0xFFEF6C00); // injured
-    if (percent > 25) return const Color(0xFFD32F2F); // bloodied
-    return const Color(0xFF6A1B9A); // critical
-  }
-
-  IconData _getHealthIcon(int current, int max) {
-    final int percent = (current / max * 100).round();
-    if (percent > 75) return Icons.favorite;
-    if (percent > 50) return Icons.heart_broken;
-    if (percent > 25) return Icons.dangerous;
-    return Icons.emergency;
-  }
-
   Widget _buildHealthDisplay() {
     final int current = character.currentHealth;
     final int max = character.maxHealth;
-    final Color color = _getHealthColor(current, max);
+    final Color color = Shared.getHealthColor(current, max);
 
     return Row(
       mainAxisSize: MainAxisSize.min,
@@ -65,7 +50,7 @@ class CharacterHeader extends StatelessWidget {
         ),
         const SizedBox(width: 8),
         Icon(
-          _getHealthIcon(current, max),
+          Shared.getHealthIcon(current, max),
           color: color,
           size: 16,
         ),

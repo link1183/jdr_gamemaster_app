@@ -70,7 +70,7 @@ class InitiativeInput extends StatelessWidget {
               vertical: 0,
             ),
           ),
-          onChanged: (value) {
+          onChanged: (String value) {
             if (value.isEmpty) {
               character.initiative = null;
             } else {

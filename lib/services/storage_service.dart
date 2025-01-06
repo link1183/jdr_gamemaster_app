@@ -58,7 +58,7 @@ class StorageService {
       final String contents = await file.readAsString();
       final List<dynamic> jsonList = json.decode(contents);
 
-      return jsonList.map<int>((item) => item as int).toList();
+      return jsonList.map<int>((dynamic item) => item as int).toList();
     } catch (e) {
       _logger.severe('Error loading character IDs', e);
       return <int>[];

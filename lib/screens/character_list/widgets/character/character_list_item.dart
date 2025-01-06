@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:jdr_gamemaster_app/models/app_state.dart';
 import 'package:jdr_gamemaster_app/models/classes.dart';
 import 'package:jdr_gamemaster_app/screens/character_list/widgets/initiative/initiative_input.dart';
+import 'package:jdr_gamemaster_app/screens/shared.dart';
 import 'package:provider/provider.dart';
 import '../../../../models/character.dart';
 import '../../../../models/creature.dart';
@@ -455,28 +456,12 @@ class _CharacterListItemState extends State<CharacterListItem>
     );
   }
 
-  Color _getHealthColor(int current, int max) {
-    final int percent = (current / max * 100).round();
-    if (percent > 75) return const Color(0xFF43A047); // healthy
-    if (percent > 50) return const Color(0xFFEF6C00); // injured
-    if (percent > 25) return const Color(0xFFD32F2F); // bloodied
-    return const Color(0xFF6A1B9A); // critical
-  }
-
-  IconData _getHealthIcon(int current, int max) {
-    final int percent = (current / max * 100).round();
-    if (percent > 75) return Icons.favorite;
-    if (percent > 50) return Icons.heart_broken;
-    if (percent > 25) return Icons.dangerous;
-    return Icons.emergency;
-  }
-
   Widget _buildInfoRow(String label, String value) {
     if (label == 'HP') {
       final List<String> parts = value.split('/');
       final int current = int.parse(parts[0]);
       final int max = int.parse(parts[1]);
-      final Color color = _getHealthColor(current, max);
+      final Color color = Shared.getHealthColor(current, max);
 
       return Row(
         mainAxisSize: MainAxisSize.min,
@@ -490,7 +475,7 @@ class _CharacterListItemState extends State<CharacterListItem>
           ),
           const SizedBox(width: 8),
           Icon(
-            _getHealthIcon(current, max),
+            Shared.getHealthIcon(current, max),
             color: color,
             size: 16,
           ),

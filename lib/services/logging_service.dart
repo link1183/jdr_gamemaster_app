@@ -60,7 +60,7 @@ class LoggingService {
 
     Logger.root.level = logLevel;
     Logger.root.onRecord.listen((LogRecord record) async {
-      await _lock.synchronized(() async {
+      await _lock.synchronized<Null>(() async {
         final String logMessage =
             '${record.time}: ${record.level.name}: ${record.loggerName}: ${record.message}${record.error != null ? '\nError: ${record.error}' : ''}${record.stackTrace != null ? '\nStack Trace: ${record.stackTrace}' : ''}\n';
 

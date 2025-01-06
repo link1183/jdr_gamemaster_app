@@ -18,21 +18,21 @@ class CharacterItem extends StatelessWidget {
   });
 
   Future<void> _removeSelected(BuildContext context) async {
-    final appState = Provider.of<AppState>(context, listen: false);
+    final AppState appState = Provider.of<AppState>(context, listen: false);
 
-    final confirmed = await showDialog<bool>(
+    final bool? confirmed = await showDialog<bool>(
       context: context,
-      builder: (localContext) => AlertDialog(
+      builder: (BuildContext localContext) => AlertDialog(
         title: const Text('Confirmer la suppression'),
         content:
             const Text('Êtes-vous sûr de vouloir supprimer ce personnage ?'),
-        actions: [
+        actions: <Widget>[
           TextButton(
-            onPressed: () => Navigator.pop(context, false),
+            onPressed: () => Navigator.pop<bool>(context, false),
             child: const Text('Annuler'),
           ),
           TextButton(
-            onPressed: () => Navigator.pop(context, true),
+            onPressed: () => Navigator.pop<bool>(context, true),
             style: TextButton.styleFrom(foregroundColor: Colors.red),
             child: const Text('Supprimer'),
           ),
@@ -42,7 +42,7 @@ class CharacterItem extends StatelessWidget {
 
     if (confirmed == true) {
       if (!context.mounted) return;
-      final success = await appState.removeCharacter(id, context);
+      final bool success = await appState.removeCharacter(id, context);
       if (success && context.mounted) {
         toastification.show(
           context: context,
@@ -94,14 +94,14 @@ class CharacterItem extends StatelessWidget {
       leading: CircleAvatar(child: Text('${index + 1}')),
       title: Text(name),
       subtitle: Row(
-        children: [
+        children: <Widget>[
           Text(id.toString()),
           CharacterIdActions(id: id),
         ],
       ),
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
-        children: [
+        children: <Widget>[
           IconButton(
             icon: const Icon(Icons.open_in_new_rounded),
             onPressed: () => _openLink(context),

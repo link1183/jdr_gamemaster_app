@@ -1,66 +1,72 @@
-# jdr_gamemaster_app
+# JDR Gamemaster App
 
-A Flutter application designed to assist game masters in managing their tabletop role-playing games.
+Welcome to the JDR Gamemaster App! This application is designed to assist gamemasters in managing their tabletop role-playing games.
 
-## Features
+## Table of Contents
 
-- Character management
-- Initiative tracking
-- Health and status monitoring
-- Inventory and currency management
-- Logging and storage services
+- [Installation](#installation)
+- [Usage](#usage)
+- [Project Structure](#project-structure)
+- [Contributing](#contributing)
+- [License](#license)
 
-## Getting Started
+## Installation
 
-This project is a starting point for a Flutter application.
-
-### Prerequisites
-
-- [Flutter SDK](https://flutter.dev/docs/get-started/install)
-- [Dart SDK](https://dart.dev/get-dart)
-- A code editor (e.g., [Visual Studio Code](https://code.visualstudio.com/) or [Android Studio](https://developer.android.com/studio))
-
-### Installation
+To install the JDR Gamemaster App, follow these steps:
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/link1183/jdr_gamemaster_app.git
+   git clone https://github.com/yourusername/jdr-gamemaster-app.git
    ```
 2. Navigate to the project directory:
    ```sh
-   cd jdr_gamemaster_app
+   cd jdr-gamemaster-app/jdr_gamemaster_app
    ```
-3. Install dependencies:
+3. Install the dependencies:
    ```sh
    flutter pub get
    ```
 
-### Running the App
+## Usage
 
-To run the app on an emulator or physical device, use:
+To run the app, use the following command:
 
 ```sh
 flutter run
 ```
 
-### Running Tests
-
-To run the unit tests, use:
-
-```sh
-flutter test
-```
-
 ## Project Structure
+
+The project structure is as follows:
 
 - `lib/`: Contains the main application code.
   - `models/`: Data models used in the app.
-  - `services/`: Services for character management, logging, and storage.
-  - `screens/`: UI screens for character management and list.
+  - `services/`: Services for data handling and business logic.
+  - `screens/`: UI screens of the app.
   - `widgets/`: Reusable UI components.
-- `data/`: JSON files for character data.
-- `test/`: Unit tests for the app.
+- `data/`: JSON files with sample data.
+- `web/`: Web-specific files.
+- `linux/`, `windows/`: Platform-specific files.
+
+## Contributing
+
+We welcome contributions! Please follow these steps to contribute:
+
+1. Fork the repository.
+2. Create a new branch:
+   ```sh
+   git checkout -b feature-branch
+   ```
+3. Make your changes and commit them:
+   ```sh
+   git commit -m "Description of changes"
+   ```
+4. Push to the branch:
+   ```sh
+   git push origin feature-branch
+   ```
+5. Create a pull request.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
+This project is licensed under the MIT License. See the [LICENSE](LICENSE.md) file for details.
